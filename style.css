@@ -1,6 +1,5 @@
-#top_left {
+#profile {
     width: 10%;
     height: 10%;
-    border: 15px solid red;
-    
+    float: left;
 }
