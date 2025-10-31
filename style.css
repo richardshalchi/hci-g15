@@ -1,5 +1,12 @@
-#profile {
-    width: 10%;
+#top_left {
+    width: 15%;
     height: 10%;
-    float: left;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.top_left_option {
+    border: 5px blue solid;
+    padding: 10%;
+    
 }
