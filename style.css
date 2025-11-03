@@ -2,20 +2,18 @@
 /*left col START*/
 #left_col {
     top: 2%;
-    width: 25%;
+    width: 20%;
     left: 2%;
     margin: 0;
     border: 2px black solid;
 }
 
-#top_left {
-    position: fixed;
-}
-
 .top_left_option {
-    width: inherit;
+    width: 100%;
+    padding: 8%;
     border: 5px blue solid;
-    padding: 10%;
+    text-align: left;
+    font-size: 110%;
 }
 
 #calendar_button {
@@ -24,6 +22,10 @@
 
 #profile {
     float: left;
+}
+
+#search_area {
+    height: 80%;
 }
 
 /*left col END*/
