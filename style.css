@@ -54,12 +54,27 @@
     padding: 0.5%;
     border-radius: 25%;
     align-items: right;
+    gap: 0.3 rem;
 }
 
 .org_info {
     display: flex;
     align-items: center;
-    padding: 1%;
+    gap: 0.3rem;
+}
+
+.org_photo img {
+    width: 1.2rem;
+    height: 1.2rem;
+    object-fit: cover;
+    border-radius: 50%;
+    align-items: center;
+}
+
+.event_pic img {
+    width: 12rem;
+    height: 9rem; 
+    padding-right: 2rem;
 }
 
 /*middle col END*/
