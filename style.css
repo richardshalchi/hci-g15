@@ -38,20 +38,34 @@
 }
 
 
-#top_left {
-    position: fixed;
+/*left col*/
+#left_col {
     top: 2%;
-    width: 15%;
+    width: 25%;
     left: 2%;
     margin: 0;
+    border: 2px black solid;
+}
+
+#top_left {
+    position: fixed;
+    
 }
 
 .top_left_option {
     width: inherit;
     border: 5px blue solid;
     padding: 10%;
-    cursor: pointer;
 }
+
+#calendar_button {
+    clear: left;
+}
+
+#profile {
+    float: left;
+}
+
 
 /* Friends pop set up START */
 #friends_button {
@@ -90,14 +104,6 @@
 }
 
 /* Friends pop set up END */
-
-#calendar_button {
-    float: left;
-}
-
-#profile {
-    float: left;
-}
 
 .event_cards {
     position: relative;
