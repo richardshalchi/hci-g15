@@ -39,17 +39,57 @@
 
 
 #top_left {
-    height: 10%;
+    position: fixed;
+    top: 2%;
     width: 15%;
-    margin-left: 2%;
-    margin-top: 2%;
+    left: 2%;
+    margin: 0;
 }
 
 .top_left_option {
     width: inherit;
     border: 5px blue solid;
     padding: 10%;
+    cursor: pointer;
 }
+
+/* Friends pop set up START */
+#friends_button {
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    padding: 10px 16px;
+    border: 5px blue solid;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+#friends_button .emoji{
+    line-height: 1;
+    display: block;
+    transform: translateY(-2px);
+}
+
+.drawer{
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    width: 340px;
+    height: 340px;
+    background: #806246;
+}
+
+.drawer.open{ transform: translateX(0); }
+
+.drawer-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Friends pop set up END */
 
 #calendar_button {
     float: left;
@@ -58,9 +98,6 @@
 #profile {
     float: left;
 }
-
-
-
 
 .event_cards {
     position: relative;

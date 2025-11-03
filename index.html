@@ -1,14 +1,32 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
 <head>
-    <title>woo</title>
+    <title>G15</title>
     <link rel="stylesheet" href="style.css">
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
 </head>
 <body>
     <div id="top_left">
         <button id="profile" class="top_left_option" type="button">profile</button>
         <button id="calendar_button" class="top_left_option" type="button">calendar</button>
     </div>
+
+    <!-- Friends button code START -->
+    <div>
+        <button id="friends_button" type="button">
+            <span class="emoji" aria-hidden="true">👥</span>
+            <span class="label">Friends</span>
+        </button>
+
+        <aside id="friends_panel" class="drawer" aria-hidden="true" aria-labelledby="friends_title">
+            <header class="drawer-header">
+                <h2 id="friends_title">My Friends</h2>
+            </header>
+        </aside>
+            
+    </div>
+    <!-- Friends button code END -->
 
     <div id="search_area"></div>
 
@@ -69,12 +87,11 @@
 
     </div>
 
-    <div id="event_cards" onclick = "popup()">test
+    <div class="event_cards" onclick = "popup()">test
         <span class = "popuptext" id = "eventCard">
             ASE Career Fair
         </span>
     </div>
-
 
     <div id="friend_popup"></div>
 
