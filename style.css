@@ -64,6 +64,7 @@
 }
 
 .org_photo img {
+    display: flex;
     width: 1.2rem;
     height: 1.2rem;
     object-fit: cover;
@@ -72,6 +73,7 @@
 }
 
 .event_pic img {
+    display: flex;
     width: 12rem;
     height: 9rem; 
     padding-right: 2rem;
