@@ -20,11 +20,21 @@
     margin-left: -80px;
 }
 
+.popup .popuptext::after {
+  content: "jshdjakjsdh";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
 
 .event_cards .show {
     visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 10s;
+    animation: fadeIn 10s;
 }
 
 @-webkit-keyframes fadeIn {
@@ -36,7 +46,6 @@
     from {opacity: 0;}
     to {opacity: 1;}
 }
-
 
 #top_left {
     width: 15%;

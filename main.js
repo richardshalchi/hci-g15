@@ -1,5 +1,5 @@
 
 function popup() {
-    var cardPopUp = document.getElementById("event_cards");
+    var cardPopUp = document.getElementById("eventCard");
     cardPopUp.classList.toggle("show");
 }
