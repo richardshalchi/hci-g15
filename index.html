@@ -1,23 +1,114 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
 <head>
-    <title>woo</title>
+    <title>G15</title>
     <link rel="stylesheet" href="style.css">
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
 </head>
 <body>
-    <div id="top_left">
-        <div id="profile" class="top_left_option">profile</div>
-        <div id="calendar_button" class="top_left_option">calendar</div>
+    <!-- left col START-->
+    <div id="left_col">
+        <div id="top_left">
+            <button id="profile" class="top_left_option" type="button">James Young (Logged In)</button>
+            <button id="calendar_button" class="top_left_option" type="button">Go to Calendar</button>
+        </div>
+
+        <div id="search_area">placeholder</div>
+    </div>
+    <!--left col END-->
+
+    <!-- Friends button code START -->
+    <div>
+        <button id="friends_button" type="button">
+            <span class="emoji" aria-hidden="true">👥</span>
+            <span class="label"> Friends</span>
+        </button>
+
+        <aside id="friends_panel" class="drawer" aria-hidden="true" aria-labelledby="friends_title">
+            <header class="drawer-header">
+                <h2 id="friends_title">My Friends</h2>
+            </header>
+        </aside>
+            
+    </div>
+    <!-- Friends button code END -->
+
+    
+
+    <!-- TRENDING LIST -->
+    <div id="trending_list">
+        <div id="trending_heading">
+            <h1 class="section_title">📈 Trending</h1>
+        </div>
+
+        <!-- ASE CAREER FAIR EVENT -->
+        <div class="event_item">
+            <div class="event_pic">
+                <img src="eventpicplaceholder.png" alt="eventicon">
+            </div>
+            <div class="event_info">
+                <h2>ASE Career Fair</h2>
+                <div class="org_info">
+                    <div class ="org_photo">
+                        <img src="organizationplaceholder.png" alt="orgpic">
+                    </div>
+                    <h4 class="organization">Career Services</h4>
+
+                </div>
+                <p class="event_description">The annual Agricultural career fair at the University of Manitoba.</p>
+                <small>October 30th, 2025 @ 5:30 PM -- 115 University Centre </small>
+            </div>
+            <div class="arrow">></div>
+        </div>
+
+        <!-- CSA HALLOWEEN SOCIAL EVENT -->
+        <div class="event_item">
+            <div class="event_pic">
+                <img src="eventpicplaceholder.png" alt="eventicon">
+            </div>
+            <div class="event_info">
+                <h2>CSA Halloween Social</h2>
+                <div class="org_info">
+                    <div class="org_photo">
+                        <img src="organizationplaceholder.png" alt="orgpic">
+                    </div>
+                    <h4 class="organization">Commerce Students' Association</h4>
+                </div>
+                <p class="event_description">Feel the fright at the annual Commerce Students' Association Halloween Social at VWs Social Club on Halloween night!</p>
+                <small>October 31th, 2025 @ 9:00 PM -- VWs Social Club </small>
+
+            </div>
+            <div class="arrow">></div>
+        </div>
+
+        <!-- THE GOOSIES EVENT -->
+        <div class="event_item">
+            <div class="event_pic">
+                <img src="eventpicplaceholder.png" alt="eventicon">
+            </div>
+            <div class="event_info">
+                <h2>The Goosies</h2>
+                    <div class="org_info">
+                        <div class="org_photo">
+                            <img src="organizationplaceholder.png" alt="orgpic">
+                        </div>
+                    <h4 class="organization">Computer Science Students' Association</h4>
+                </div>
+                <p class="event_description">Join us at the annual Goosies, an award show dedicated to hard working faculty members and sessional instructors of the Department of Computer Science.</p>
+                <small>October 30th, 2025 @ 5:30 PM -- EITC E2-265 (Engineering) </small>
+
+            </div>
+            <div class="arrow">></div>
+        </div>
+
     </div>
 
-    <div id="search_area"></div>
-
-    <div id="event_cards" onclick = "popup()">test
+    <div class="event_cards" onclick = "popup()">test
         <span class = "popuptext" id = "eventCard">
             ASE Career Fair
         </span>
     </div>
-
 
     <div id="friend_popup"></div>
 
