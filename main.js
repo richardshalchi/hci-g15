@@ -1,7 +1,25 @@
 
-function popup() {
-    document.getElementById("eventCard").classList.toggle("show");
-}
+const modalTriggers = document.querySelectorAll(".modal-trigger");
+const closeBtns = document.querySelectorAll("[id^='close-event']");
+const modals = document.querySelectorAll(".modal");
+
+// Open modal when trigger button is clicked
+modalTriggers.forEach(button => {
+    button.addEventListener("click", () => {
+        const modalId = button.getAttribute("data-modal");
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.add("open");
+    });
+});
+
+// Close modal when close button is clicked
+closeBtns.forEach(closeBtn => {
+    closeBtn.addEventListener("click", () => {
+        const modal = closeBtn.closest(".modal");
+        if (modal) modal.classList.remove("open");
+    });
+});
+
 
 // friends code START
 

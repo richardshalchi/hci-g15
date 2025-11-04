@@ -59,7 +59,7 @@
                 <p class="event_description">The annual Agricultural career fair at the University of Manitoba.</p>
                 <small>🗓️ October 30th, 2025 @ 5:30 PM -- 115 University Centre </small>
             </div>
-            <div class="arrow">→</div>
+            <button class="arrow modal-trigger" data-modal="career-fair">→</button>
         </div>
 
         <!-- CSA HALLOWEEN SOCIAL EVENT -->
@@ -79,7 +79,7 @@
                 <small>🗓️ October 31th, 2025 @ 9:00 PM -- VWs Social Club </small>
 
             </div>
-            <div class="arrow">→</div>
+            <button class="arrow modal-trigger" data-modal="halloween-modal">→</button>
         </div>
 
         <!-- THE GOOSIES EVENT -->
@@ -99,15 +99,20 @@
                 <small>🗓️ October 30th, 2025 @ 5:30 PM -- EITC E2-265 (Engineering) </small>
 
             </div>
-            <div class="arrow">→</div>
+            <button id = "goosies-button" class="arrow">→</button>
         </div>
 
     </div>
 
-    <div class="event_cards" onclick = "popup()">test
-        <span class = "popuptext" id = "eventCard">
-            ASE Career Fair
-        </span>
+     <!-- EVENT POP UP -->
+    <div class="modal" id = "career-fair">
+        <div class = "modal-inner">
+            <h2> ASE Career Fair </h2> 
+                <p>
+                    pop
+                </p>
+                <button id = "close-event">X</button>
+        </div>
     </div>
 
     <div id="friend_popup"></div>
