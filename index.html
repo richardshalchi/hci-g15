@@ -14,7 +14,26 @@
             <button id="calendar_button" class="top_left_option" type="button" onclick="window.open('calendar.png', '_blank')">Go to Calendar <span id="new_tab_icon">&#x2197</span></button>
         </div>
 
-        <div id="search_area">placeholder</div>
+        <!-- search bar stuff -->
+        <div id="search_area">
+            <div class="search_box">
+            <div class="search_wrapper">
+                <input type="text" id="search_input" placeholder="Search by name/category">
+                <span class="search_icon" aria-hidden="true">🔍</span>
+            </div>
+
+            <ul class="filter_list">
+                <li data-tag="social">Social</li>
+                <li data-tag="science">Science</li>
+                <li data-tag="research">Research</li>
+                <li data-tag="food">Food</li>
+                <li data-tag="culture">Culture</li>
+                <li data-tag="arts">Arts</li>
+            </ul>
+
+            <button id="btn-reset" type="button">Reset</button>
+            </div>
+        </div>
     </div>
     <!--left col END-->
 
