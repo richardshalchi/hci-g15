@@ -1,24 +1,37 @@
 
-const modalTriggers = document.querySelectorAll(".modal-trigger");
-const closeBtns = document.querySelectorAll("[id^='close-event']");
-const modals = document.querySelectorAll(".modal");
+// const openBtns = document.querySelectorAll(".arrow"); // for all buttons
+const asebutton = document.getElementById("ase-button");
+const hallobutton = document.getElementById("halloween-button")
+const goosiesbutton = document.getElementById("goosies-button")
+const closeBtn = document.getElementById("close-event");
+const asemodal = document.getElementById("career-fair");
 
-// Open modal when trigger button is clicked
-modalTriggers.forEach(button => {
-    button.addEventListener("click", () => {
-        const modalId = button.getAttribute("data-modal");
-        const modal = document.getElementById(modalId);
-        if (modal) modal.classList.add("open");
-    });
-});
+// this is for all buttons that has class .arrow pop up
+// not sure how to make it work yet since each button should go to a different pop up 
+// since this is sharing the same pop up for all events
+// openBtns.forEach(btn => { 
+//     btn.addEventListener("click", () => {
+//         modal.classList.add("open");
+//     });
+// });
 
-// Close modal when close button is clicked
-closeBtns.forEach(closeBtn => {
-    closeBtn.addEventListener("click", () => {
-        const modal = closeBtn.closest(".modal");
-        if (modal) modal.classList.remove("open");
-    });
-});
+// not maintainable -> next goal: make it less repetitive in case we have n events
+// hard to create a js function for each event button
+asebutton.addEventListener("click", () => {
+    asemodal.classList.add("open"); // opens ase career fair modal
+})
+
+closeBtn.addEventListener("click", () => {
+    asemodal.classList.remove("open"); // closes ase career fair modal when X is clicked
+})
+
+goosiesbutton.addEventListener("click", () => {
+    modal.classList.add("open");
+})
+
+hallobutton.addEventListener("click", () => {
+    modal.classList.add("open");
+})
 
 
 // friends code START
