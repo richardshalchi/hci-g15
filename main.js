@@ -38,8 +38,10 @@ hallobutton.addEventListener("click", () => {
 
 const btn = document.getElementById('friends_button');
 const panel = document.getElementById('friends_panel');
+const close = document.getElementById('friends_close')
 
 btn.addEventListener('click', () => panel.classList.toggle('open'));
+close.addEventListener('click', () => panel.classList.remove('open'));
 
 document.addEventListener('click', (e) => {
     const clickedInsidePanel = panel.contains(e.target);
@@ -49,6 +51,11 @@ document.addEventListener('click', (e) => {
     {
         panel.classList.remove('open');
     }
+
+    // Pressing Esc also closes the pop-up
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') panel.classList.remove('open');
+    });
 })
 
 // friends code END
