@@ -340,16 +340,3 @@ html, body { margin: 0; } /* Fixes the margins *'/
 .modal-inner {
     position: relative;
 }
-
-
-#top_left {
-    width: 15%;
-    height: 10%;
-    margin-left: 2%;
-    margin-top: 2%;
-}
-
-.top_left_option {
-    border: 5px blue solid;
-    padding: 10%;
-}
