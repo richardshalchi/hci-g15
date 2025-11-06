@@ -338,9 +338,58 @@ html, body { margin: 0; } /* Fixes the margins *'/
     justify-content: center;
 }
 
+.modal-divider{
+    border:none;
+    height: 1px;
+    background: #e6e6e6;
+    margin: 1px 0;
+    width: 100%;
+}
+
 .modal.open {
     opacity: 1;
     z-index: 999;
+}
+
+.modal-content {
+    display: flex;
+    gap: 2px; 
+    margin-top: 20px;
+    align-items: flex-start;
+}
+
+.modal-left {
+    flex: 1;
+    margin-right: 0px; 
+}
+
+
+.modal-right {
+    width:235px;
+    border-left: 0px;
+    padding-left: 0px;
+    display: flex;
+    flex-direction: column; 
+    gap: 8px;
+}
+
+.modal-right h3 {
+    margin: 0 0 0 0;
+    font-size: 18px
+}
+
+.modal-right p {
+    margin: 10px 0;
+    color: #666;
+}
+
+.modal-right a {
+    color: #0078FF;
+    text-decoration: none;
+    font-weight: 600;
+}
+.modal-right a:hover {
+    text-decoration: underline;
 }
 
 .modal-inner {
@@ -348,16 +397,12 @@ html, body { margin: 0; } /* Fixes the margins *'/
     border-radius: 5px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     padding: 25px;
-    width: 800px;
+    width: 700px;
     height: 600px;
     position: relative;
-}
 
-.modal-content {
-    display: flex-direction;
-    gap: 25px;
-    margin-top: 20px;
-    align-items: flex-start; 
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
 .modal-inner h2 {
@@ -407,6 +452,7 @@ html, body { margin: 0; } /* Fixes the margins *'/
     margin: 10px 0;
 }
 
+/*to do: pin the x button*/
 #close-event {
     position: absolute;
     top: 10px;
@@ -417,6 +463,7 @@ html, body { margin: 0; } /* Fixes the margins *'/
     cursor: pointer;
     padding: 5px 10px;
     color: #666;
+    z-index:2000;
 }
 
 #close-event:hover {
