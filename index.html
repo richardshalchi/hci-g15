@@ -51,18 +51,66 @@
             </header>
 
             <div class="drawer-body">
-            <!-- your feed items go here -->
+            <!-- Feed items go here -->
+                <div class="friends-feed">
+                    <!-- First card -->
+                    <article class="friend-card">
+                        <div class="friend-meta">
+                            <span class="date">Oct 30</span>
+                            <span class="user">
+                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                Jim Young
+                            </span>
+                        </div>
 
-            <section class="add-friends">
-            <h2 class="drawer-title">+ Add Friends</h2>
-            <ul class="add-friends-list">
-                <li><button>+ Andrea Bunt</button></li>
-                <li><button>+ Celine Catulipe</button></li>
-                <li><button>+ Jennifer Vaughn</button></li>
-            </ul>
-            </section>
-        </div>
+                        <div class="friend-event">
+                            <span class="event-title">ASE Career Fair</span>
+                            <button class="arrow" data-target="#career-fair">→</button>
+                        </div>
+                    </article>
 
+                    <!-- Second card -->
+                    <article class="friend-card">
+                        <div class="friend-meta">
+                            <span class="date">Oct 31</span>
+                            <span class="user">
+                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                Bob
+                            </span>
+                        </div>
+
+                        <div class="friend-event">
+                            <span class="event-title">CSA Halloween Social</span>
+                            <button class="arrow" data-target="#halloween">→</button>
+                        </div>
+                    </article>
+
+                    <!-- Second card -->
+                    <article class="friend-card">
+                        <div class="friend-meta">
+                            <span class="date">Oct 30</span>
+                            <span class="user">
+                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                Robert G
+                            </span>
+                        </div>
+
+                        <div class="friend-event">
+                            <span class="event-title">The Goosies</span>
+                            <button class="arrow" data-target="#goosies">→</button>
+                        </div>
+                    </article>
+                </div>
+
+                <section class="add-friends">
+                <h2 class="drawer-title">+ Add Friends</h2>
+                <ul class="add-friends-list">
+                    <li><button>+ Andrea Bunt</button></li>
+                    <li><button>+ Celine Catulipe</button></li>
+                    <li><button>+ Jennifer Vaughn</button></li>
+                </ul>
+                </section>
+            </div>
             
         </aside>
             
@@ -94,7 +142,7 @@
                 <p class="event_description">The annual Agricultural career fair at the University of Manitoba.</p>
                 <small>🗓️ October 30th, 2025 @ 5:30 PM -- 115 University Centre </small>
             </div>
-            <button class="arrow" id = "ase-button">→</button>
+            <button class="arrow" id = "ase-button" data-target="#career-fair">→</button>
         </div>
 
         <!-- CSA HALLOWEEN SOCIAL EVENT -->
@@ -114,7 +162,7 @@
                 <small>🗓️ October 31th, 2025 @ 9:00 PM -- VWs Social Club </small>
 
             </div>
-            <button class="arrow" id = "halloween-button" >→</button>
+            <button class="arrow" id = "halloween-button" data-target="#halloween" >→</button>
         </div>
 
         <!-- THE GOOSIES EVENT -->
@@ -134,27 +182,105 @@
                 <small>🗓️ October 30th, 2025 @ 5:30 PM -- EITC E2-265 (Engineering) </small>
 
             </div>
-            <button id = "goosies-button" class="arrow">→</button>
+            <button id = "goosies-button" class="arrow" data-target="#goosies">→</button>
         </div>
 
     </div>
 
      <!-- EVENT POP UP -->
-    <div class="modal" id = "career-fair">
-        <div class = "modal-inner">
-            <h2> ASE Career Fair </h2> 
-                <div class = "modal-content">
-                    <div class = "modal-pic">
-                        <img src="eventpicplaceholder.png">
-                    </div>
-                    <p class = "modal-description">
-                        The annual ASE Career Fair at the University of Manitoba is coordinated by the Career, 
-                        Community and Experiential Learning Centre (CCELC), the Faculty of Agriculture Student 
-                        Organization (FASO) and the University of Manitoba Engineering Society (UMES). 
-                        More than 85 exhibitors participated and over 1000 students entered the career fair in 2024.
-                    </p>
-                    <button id = "close-event">X</button>
+    <div class="modal" id="career-fair">
+        <div class="modal-inner">
+            <h2>ASE Career Fair</h2>
+            <div class="modal-tags">
+                <span class="tag" data-tag="social">Social</span>
+                <span class="tag" data-tag="trending">Trending</span>
+            </div>
+            <div class="modal-content">
+                <div class = "modal-left">
+                    <div class="modal-pic">
+                    <img src="eventpicplaceholder.png">
                 </div>
+                <p class="modal-description">
+                    The annual ASE Career Fair at the University of Manitoba is coordinated by the Career, 
+                    Community and Experiential Learning Centre (CCELC), the Faculty of Agriculture Student 
+                    Organization (FASO) and the University of Manitoba Engineering Society (UMES). 
+                    More than 85 exhibitors participated and over 1000 students entered the career fair in 2024.
+                </p>
+                </div>
+                <div class="modal-right">
+                    <h3>Event Details</h3>
+                    <hr class="modal-divider">
+                    <p>🗓️ Date: October 30th, 2025</p>
+                    <p>⏰ Time: 5:30 PM</p>
+                    <p>📍 Location: EITC E2-265</p>
+                    <p>👥 <a href="#" id="participants-link">105 participants</a>, <a href="#" id="friends-link">10 friends</a></p>
+                    <h3>Share this event</h3>
+                    <hr class = "modal-divider">
+
+                    <button id = "Register">Register Here!</button>
+                    <button id = "invite-friends">Invite a Friend</button>
+                    <button id = "interests">Add Event to Interests</button>
+                </div>
+            </div>
+            <button id="close-event">X</button>
+        </div>
+    </div>
+
+   <div class="modal" id="halloween">
+        <div class="modal-inner">
+            <h2>CSA Halloween Social</h2>
+            <div class="modal-tags">
+                <span class="tag" data-tag="social">Social</span>
+                <span class="tag" data-tag="culture">Culture</span>
+            </div>
+            <div class="modal-content">
+                <div class = "modal-left">
+                    <div class="modal-pic">
+                    <img src="eventpicplaceholder.png">
+                </div>
+                <p class="modal-description">
+                 Feel the fright at the annual Commerce Students' Association Halloween Social at VWs Social Club on Halloween night!
+                </p>
+                </div>
+                <div class="modal-right">
+                    <h3>Event Details</h3>
+                    <hr class="modal-divider">
+                    <p>🗓️ Date: October 31th, 2025</p>
+                    <p>⏰ Time: 9:00 PM</p>
+                    <p>📍 Location: VW Social Club/p>
+                    <p>👥 <a href="#" id="participants-link">78 participants</a>, <a href="#" id="friends-link">3 friends</a></p>
+                </div>
+            </div>
+            <button id="close-event">X</button>
+        </div>
+    </div>
+
+   <div class="modal" id="goosies">
+        <div class="modal-inner">
+            <h2>The Goosies</h2>
+            <div class="modal-tags">
+                <span class="tag" data-tag="social">Social</span>
+                <span class="tag" data-tag="trending">Trending</span>
+            </div>
+            <div class="modal-content">
+                <div class = "modal-left">
+                    <div class="modal-pic">
+                    <img src="eventpicplaceholder.png">
+                </div>
+                <p class="modal-description">
+                  Join us at the annual Goosies, an award show dedicated to hard working faculty members and sessional instructors of the Department of Computer Science.
+                </p>
+                </div>
+                <div class="modal-right">
+                    <h3>Event Details</h3>
+                    <hr class="modal-divider">
+                    <p>🗓️ Date: October 30th, 2025</p>
+                    <p>⏰ Time: 5:30 PM</p>
+                    <p>📍 Location: EITC E2-265</p>
+                    <p>👥 <a href="#" id="participants-link">20 participants</a>, <a href="#" id="friends-link">4 friends</a></p>
+                </div>
+            </div>
+            <button id="close-event">X</button>
         </div>
     </div>
 
