@@ -11,7 +11,7 @@
     <div id="left_col">
         <div id="top_left">
             <button id="profile" class="top_left_option" type="button">James Young (Logged In)</button>
-            <button id="calendar_button" class="top_left_option" type="button" onclick="window.open('calendar.png', '_blank')">Go to Calendar <span id="new_tab_icon">&#x2197</span></button>
+            <button id="calendar_button" class="top_left_option" type="button" onclick="window.open('calendar.png', '_blank')">Go to Calendar <span id="new_tab_icon">↗️</span></button>
         </div>
 
         <!-- search bar stuff -->
@@ -46,8 +46,72 @@
 
         <aside id="friends_panel" class="drawer" aria-hidden="true" aria-labelledby="friends_title">
             <header class="drawer-header">
-                <h2 id="friends_title">My Friends</h2>
+                <h2 id="friends_title" class="drawer-title">My Friends</h2>
+                <button id="friends_close" class="drawer-close" title="Close">X</button>
             </header>
+
+            <div class="drawer-body">
+            <!-- Feed items go here -->
+                <div class="friends-feed">
+                    <!-- First card -->
+                    <article class="friend-card">
+                        <div class="friend-meta">
+                            <span class="date">Oct 30</span>
+                            <span class="user">
+                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                Jim Young
+                            </span>
+                        </div>
+
+                        <div class="friend-event">
+                            <span class="event-title">ASE Career Fair</span>
+                            <button class="arrow" data-target="#career-fair">→</button>
+                        </div>
+                    </article>
+
+                    <!-- Second card -->
+                    <article class="friend-card">
+                        <div class="friend-meta">
+                            <span class="date">Oct 31</span>
+                            <span class="user">
+                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                Bob
+                            </span>
+                        </div>
+
+                        <div class="friend-event">
+                            <span class="event-title">CSA Halloween Social</span>
+                            <button class="arrow" data-target="#halloween">→</button>
+                        </div>
+                    </article>
+
+                    <!-- Second card -->
+                    <article class="friend-card">
+                        <div class="friend-meta">
+                            <span class="date">Oct 30</span>
+                            <span class="user">
+                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                Robert G
+                            </span>
+                        </div>
+
+                        <div class="friend-event">
+                            <span class="event-title">The Goosies</span>
+                            <button class="arrow" data-target="#goosies">→</button>
+                        </div>
+                    </article>
+                </div>
+
+                <section class="add-friends">
+                <h2 class="drawer-title">+ Add Friends</h2>
+                <ul class="add-friends-list">
+                    <li><button>+ Andrea Bunt</button></li>
+                    <li><button>+ Celine Catulipe</button></li>
+                    <li><button>+ Jennifer Vaughn</button></li>
+                </ul>
+                </section>
+            </div>
+            
         </aside>
             
     </div>
@@ -78,7 +142,7 @@
                 <p class="event_description">The annual Agricultural career fair at the University of Manitoba.</p>
                 <small>🗓️ October 30th, 2025 @ 5:30 PM -- 115 University Centre </small>
             </div>
-            <button class="arrow" id = "ase-button">→</button>
+            <button class="arrow" id = "ase-button" data-target="#career-fair">→</button>
         </div>
 
         <!-- CSA HALLOWEEN SOCIAL EVENT -->
@@ -98,7 +162,7 @@
                 <small>🗓️ October 31th, 2025 @ 9:00 PM -- VWs Social Club </small>
 
             </div>
-            <button class="arrow" id = "halloween-button" >→</button>
+            <button class="arrow" id = "halloween-button" data-target="#halloween" >→</button>
         </div>
 
         <!-- THE GOOSIES EVENT -->
@@ -118,7 +182,7 @@
                 <small>🗓️ October 30th, 2025 @ 5:30 PM -- EITC E2-265 (Engineering) </small>
 
             </div>
-            <button id = "goosies-button" class="arrow">→</button>
+            <button id = "goosies-button" class="arrow" data-target="#goosies">→</button>
         </div>
 
     </div>
