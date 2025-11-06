@@ -362,9 +362,32 @@ html, body { margin: 0; } /* Fixes the margins *'/
 
 .modal-inner h2 {
     margin: 0;
-    margin-bottom: 15px;
+    font-size: 35px;
+    margin-bottom: 10px;
     text-align: left;
 }
+
+.modal-tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tag {
+    padding: 4px 12px;
+    border-radius: 0; 
+    font-size: 14px;
+    background-color: #f2f3f5;
+    color: #444;
+}
+
+.tag[data-tag="social"] { background-color: #FFE4E1; color: #D84242; }
+.tag[data-tag="trending"] { background-color: #ffe1fb; color: #d667b3; }
+.tag[data-tag="science"] { background-color: #E0F4FF; color: #0078FF; }
+.tag[data-tag="research"] { background-color: #E8F5E9; color: #2E7D32; }
+.tag[data-tag="food"] { background-color: #FFF3E0; color: #E65100; }
+.tag[data-tag="culture"] { background-color: #F3E5F5; color: #7B1FA2; }
+.tag[data-tag="arts"] { background-color: #E1F5FE; color: #0277BD; }
 
 .modal-pic img{
     width: 25rem;

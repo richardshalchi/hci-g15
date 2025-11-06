@@ -33,6 +33,19 @@ const asemodal = document.getElementById("career-fair");
 //     modal.classList.add("open");
 // })
 
+document.addEventListener('click', (e) => {
+    const closeButton = e.target.closest('#close-event'); // check if the clicked event is a close button
+    if (!closeButton) return; // if not get out
+
+    e.stopPropagation(); // prevent affecting parent elements (bubble)
+    e.preventDefault(); 
+
+    const modal = closeButton.closest('.modal');
+    if (modal) {
+        modal.classList.remove('open');
+    }
+});
+
 // Both arrows under Trending page and in friends pop-up will open the same event description card START
 document.addEventListener('click', (e) => {
   const btn = e.target.closest('.arrow[data-target]');
