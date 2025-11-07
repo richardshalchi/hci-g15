@@ -158,6 +158,20 @@ resetBtn.addEventListener('click',
 //     modal.classList.add("open");
 // })
 
+document.querySelectorAll(".Register").forEach(button => {
+  button.addEventListener("click", function() {
+    this.classList.add("disabled");
+    this.textContent = "Registered";
+  });
+});
+
+document.querySelectorAll(".interests").forEach(button => {
+  button.addEventListener("click", function() {
+    this.classList.add("disabled");
+    this.textContent = "Added to Interests";
+  });
+});
+
 document.addEventListener('click', (e) => {
     const closeButton = e.target.closest('#close-event'); // check if the clicked event is a close button
     if (!closeButton) return; // if not get out
