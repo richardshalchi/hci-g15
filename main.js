@@ -1,10 +1,10 @@
 
 // const openBtns = document.querySelectorAll(".arrow"); // for all buttons
-const asebutton = document.getElementById("ase-button");
-const hallobutton = document.getElementById("halloween-button")
-const goosiesbutton = document.getElementById("goosies-button")
-const closeBtn = document.getElementById("close-event");
-const asemodal = document.getElementById("career-fair");
+// const asebutton = document.getElementById("ase-button");
+// const hallobutton = document.getElementById("halloween-button")
+// const goosiesbutton = document.getElementById("goosies-button")
+// const closeBtn = document.getElementById("close-event");
+// const asemodal = document.getElementById("career-fair");
 
 // this is for all buttons that has class .arrow pop up
 // not sure how to make it work yet since each button should go to a different pop up 
