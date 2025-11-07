@@ -538,7 +538,7 @@ html, body { margin: 0; } /* Fixes the margins *'/
 .disabled { /* if a button is clicked no matter what this should take over other styles to prevent user to reclick the button*/
     background-color: gray !important;
     border-color: gray !important;
-    color: #ccc !important;
+    color: #dfdfdf !important;
     cursor: not-allowed !important;
     pointer-events: none !important;
     opacity: 0.7;
