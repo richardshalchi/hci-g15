@@ -21,6 +21,12 @@ html, body { margin: 0; } /* Fixes the margins *'/
     font-size: 110%;
 }
 
+#logo {
+    max-width: 50%;
+    float: left;
+    height: auto;
+}
+
 #calendar_button {
     clear: left;
 }
@@ -32,6 +38,7 @@ html, body { margin: 0; } /* Fixes the margins *'/
 
 #profile {
     float: left;
+    text-align: right;
 }
 
 /* search stuff */
