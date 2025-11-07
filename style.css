@@ -155,6 +155,16 @@ html, body { margin: 0; } /* Fixes the margins *'/
     padding: 1%;
     border-bottom: 1px solid #ddd;
     margin-left: calc(23% + 2px);;
+    margin-bottom: 1.5rem;
+}
+
+.event_info .org_info {
+    margin-bottom: 0.1rem;
+}
+
+.event_info h2 {
+    margin: 0;
+    line-height: 1.1;
 }
 
 .arrow {
