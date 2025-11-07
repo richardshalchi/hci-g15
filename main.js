@@ -197,11 +197,11 @@ document.addEventListener('click', (e) => {
 
 // Changed so that if event card is already opened, closing
 // it wont close the friends drawer
-closeBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    e.currentTarget.closest('.modal')?.classList.remove('open');
-});
+// closeBtn.addEventListener('click', (e) => {
+//     e.stopPropagation();
+//     e.preventDefault();
+//     e.currentTarget.closest('.modal')?.classList.remove('open');
+// });
 // END
 
 // friends code START
