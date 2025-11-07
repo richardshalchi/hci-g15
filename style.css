@@ -103,7 +103,7 @@ html, body { margin: 0; } /* Fixes the margins *'/
   border: 1px solid #ddd;
   border-radius: 20px;            
   background: #fff;
-  font-size: 2rem;           
+  font-size: 1rem;           
   font-weight: 500;
   transition: background 0.15s ease,transform .05s ease, box-shadow .15s ease;
 }
