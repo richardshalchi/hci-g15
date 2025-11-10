@@ -166,11 +166,20 @@ const btn = document.getElementById('friends_button');
 const panel = document.getElementById('friends_panel');
 const close = document.getElementById('friends_close')
 
-btn.addEventListener('click', () => panel.classList.toggle('open'));
-close.addEventListener('click', () => panel.classList.remove('open'));
+// open/close via button
+btn.addEventListener('click', () => {
+  panel.classList.toggle('open');
+  document.body.classList.toggle('drawer-open', panel.classList.contains('open'));
+});
 
+// close via X
+close.addEventListener('click', () => {
+  panel.classList.remove('open');
+  document.body.classList.remove('drawer-open');
+});
+
+// click outside to close (but not if an event modal is open)
 document.addEventListener('click', (e) => {
-    // if any event card is open, don't auto-close the friends panel
     if (e.target.closest(`.modal`)) return;
 
     const clickedInsidePanel = panel.contains(e.target);
@@ -179,8 +188,9 @@ document.addEventListener('click', (e) => {
     if (panel.classList.contains('open') && !clickedInsidePanel && !clickedButton)
     {
         panel.classList.remove('open');
+        document.body.classList.remove('drawer-open');
     }
-})
+});
 
 document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
@@ -188,6 +198,11 @@ document.addEventListener('keydown', (e) => {
     
     if (openModal)
         openModal.classList.remove('open');
+
+    if (panel.classList.contains('open')) {
+      panel.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
 })
 
 // friends code END
