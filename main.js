@@ -155,7 +155,8 @@ document.addEventListener('click', (e) => {
   const btn = e.target.closest('.arrow[data-target]');
   if (!btn) return;
 
-  const sel = btn.dataset.target;
+  const sel = (btn.dataset.target || '').trim();
+  if (!sel) return;
   const modal = document.querySelector(sel);
   if (modal) modal.classList.add('open');
 });

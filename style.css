@@ -396,6 +396,11 @@ body .drawer-open #friends_button {
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
 }
 
+.friend-card.no-event .date::before {
+    content: "";
+    display: none;
+}
+
 .friend-meta {
     grid-column: 1/-1;
     font-size: .95rem;
