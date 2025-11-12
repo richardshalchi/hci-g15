@@ -206,4 +206,57 @@ document.addEventListener('keydown', (e) => {
     }
 })
 
+// friends search START
+const friendsSearch = document.getElementById('friend_search');
+const friendsCards = document.querySelectorAll('.friends-feed .friend-card');
+
+const eventToOrg = {
+  'ASE Career Fair': 'Career Services',
+  'CSA Halloween Social': "Commerce Students' Association",
+  'The Goosies': "Computer Science Students' Association",
+  'OPUS Study Night': 'Organization of Physics Undergraduate Students'
+};
+
+function norm(s) {
+  return (s || '').toLowerCase().trim();
+}
+
+function getCardSearchText(card) {
+  const date = card.querySelector('.friend-meta .date')?.textContent || '';
+  const friend = card.querySelector('.friend-meta .user')?.textContent || '';
+  const eventTitle = card.querySelector('.friend-event .event-title')?.textContent || '';
+  const org = eventToOrg[eventTitle.trim()] || '';
+
+  return `${date} ${friend} ${eventTitle} ${org}`.toLocaleLowerCase();
+}
+
+function filterFriends(q) {
+  const query = norm(q);
+  friendsCards.forEach(card => {
+    const haystack = getCardSearchText(card);
+    card.style.display = (!query || haystack.includes(query)) ? '' : 'none';
+  });
+}
+
+// live filter
+if (friendsSearch) {
+  friendsSearch.addEventListener('input', (e) => filterFriends(e.target.value));
+}
+
+// This is make the scroll bar fix within the My Friends window
+(function setScrollbarVar(){
+  function calc() {
+    const t = document.createElement('div');
+    t.style.cssText = 'width:100px;height:100px;overflow:scroll;position:absolute;top:-9999px;';
+    document.body.appendChild(t);
+    const sbw = t.offsetWidth - t.clientWidth;     // scrollbar width in px
+    document.documentElement.style.setProperty('--sbw', sbw + 'px');
+    document.body.removeChild(t);
+  }
+  calc();
+  window.addEventListener('resize', calc);
+})();
+
+// friends search END
+
 // friends code END
