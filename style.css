@@ -26,10 +26,9 @@ body {
     font-size: 110%;
 }
 
-#logo {
-    max-width: 50%;
-    float: left;
-    height: auto;
+#home_button {
+    border-style: hidden;
+    text-align: center;
 }
 
 #calendar_button {
@@ -43,7 +42,6 @@ body {
 
 #profile {
     float: left;
-    text-align: right;
 }
 
 /* search stuff */
