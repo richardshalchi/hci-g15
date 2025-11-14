@@ -213,6 +213,7 @@ body {
 }
 
 .arrow {
+    margin-left: auto;
     padding: 0.5%;
     border-radius: 25%;
     background: none;
