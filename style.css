@@ -194,13 +194,12 @@ body {
 
 .event_item {
     display: flex;
-    align-items: center;
     background: white;
     padding: 1%;
     border-bottom: 1px solid #ddd;
     margin-left: calc(23% + 2px);
-    ;
-    margin-bottom: 1.5rem;
+    margin-top: 0.7rem;
+    align-items: center;
 }
 
 .event_info .org_info {
@@ -210,6 +209,27 @@ body {
 .event_info h2 {
     margin: 0;
     line-height: 1.1;
+}
+
+
+.event_ai {
+    margin: 0;
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;;
+
+}
+
+.event_ai .pos_ai {
+    color:green;
+}
+
+.event_ai .mid_ai {
+    color:gold;
+}
+
+.event_ai .neg_ai {
+    color: red;
 }
 
 .arrow {
