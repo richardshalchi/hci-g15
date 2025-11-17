@@ -238,6 +238,15 @@ body {
     color: #666;
 }
 
+.event_description {
+    font-size: 1.1rem;
+}
+
+.event_time {
+    font-size: 1rem;
+    color:darkslategrey;
+}
+
 .org_info {
     display: flex;
     align-items: center;
@@ -824,3 +833,4 @@ body .drawer-open #friends_button {
 }
 
 /* END OF EVENT MODAL*/
+
