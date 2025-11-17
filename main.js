@@ -69,7 +69,7 @@ function filter(search= ""){
 //updates the title, for now just adds if multiple are selected
 function updateTrendingTitle(tag) {
   if (activeTags.size===0) {
-    pageTitle.textContent= "📈 Trending";
+    pageTitle.textContent= "📈 Popular";
     return;
   }
   
