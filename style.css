@@ -219,6 +219,12 @@ body {
 
 }
 
+.event_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 .event_ai .pos_ai {
     color:green;
 }
