@@ -206,23 +206,23 @@ body {
 }
 
 .event_info h2 {
-    margin: 0;
-    line-height: 1.1;
+    line-height: 1;
 }
 
 
 .event_ai {
     margin: 0;
-    gap: 0.5rem;
+    gap: 0.4rem;
     display: flex;
     align-items: center;
-
 }
 
 .event_info {
+    margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    position: relative;
 }
 
 .event_ai .pos_ai {
@@ -264,7 +264,6 @@ body {
     height: 1.2rem;
     object-fit: cover;
     border-radius: 50%;
-    align-items: center;
 }
 
 .event_pic img {
@@ -272,6 +271,7 @@ body {
     width: 16rem;
     height: 12rem;
     padding-right: 2rem;
+    padding-top: 1.4rem;
 }
 
 /*middle col END*/
@@ -838,4 +838,5 @@ body .drawer-open #friends_button {
 }
 
 /* END OF EVENT MODAL*/
+
 
