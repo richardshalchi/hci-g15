@@ -224,14 +224,6 @@ body {
     color:green;
 }
 
-.event_ai .mid_ai {
-    color:gold;
-}
-
-.event_ai .neg_ai {
-    color: red;
-}
-
 .arrow {
     margin-left: auto;
     padding: 0.5%;
