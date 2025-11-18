@@ -293,26 +293,60 @@ body.drawer-open #trending_list {
 }
 
 #friends_button {
+    align-items: center;
     position: fixed;
-    top: 2%;
-    right: 0;
-    padding: 10px 16px;
-    border: 5px blue solid;
+    top: 16px;
+    right: 24px;
+    padding: 8px 14px;
+    border: 1px solid rgba(104, 72, 240, 0.25);;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #f7f2ff, #ffffff);
+    color: #3b256b;
+    font-size: 0.92rem;
+    font-weight: 500;
     cursor: pointer;
     display: inline-flex;
-    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     line-height: 1;
-    transition: right .75s ease;
+    z-index: 10;
+    transition: right 0.75s ease, opacity 0.25s ease, background 0.18s ease, box-shadow 0.18s ease, transform 0.08s ease, border-color 0.18s ease;
 }
 
-body .drawer-open #friends_button {
-    right: 20%;
+body.drawer-open #friends_button {
+    opacity: 1;
+    pointer-events: none;
+    right: calc(20% + 24px);
+    background: #4b2bb3;
+    border-color: #4b2bb3;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(75, 43, 179, 0.35);
 }
 
 #friends_button .emoji {
-    line-height: 1;
-    display: block;
-    transform: translateY(-2px);
+    width: 24px;
+    height: 24px;;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.22);
+    font-size: 1.05rem;
+}
+
+#friends_button .label {
+    letter-spacing: 0.04rem;
+}
+
+#friends_button:hover {
+    background: linear-gradient(135deg, #f1e7ff, #ffffff);
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
+    transform: translateY(-1px);
+}
+
+#friends_button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(15, 23, 42, 0.14);
 }
 
 .drawer {
