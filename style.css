@@ -17,6 +17,12 @@ body {
     background: #fff;
 }
 
+#logo {
+    max-width: 100%;
+    float: left;
+    height: auto;
+}
+
 .top_left_option {
     width: 100%;
     padding: 8%;
@@ -25,15 +31,17 @@ body {
     border-radius: 20px;
     text-align: left;
     font-size: 110%;
+    background-color: white;
 }
 
-#home_button {
-    border-style: hidden;
-    text-align: center;
+.top_left_option:hover {
+    background-color: #eef3ff;
 }
+
 
 #calendar_button {
     clear: left;
+    text-decoration-line: underline;
 }
 
 #new_tab_icon {
