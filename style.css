@@ -1,6 +1,7 @@
 html,
 body {
     margin: 0;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* Fixes the margins *'/
@@ -397,6 +398,31 @@ body .drawer-open #friends_button {
     overscroll-behavior: contain;
     min-height: 0;
     margin-top: 0;
+}
+
+.add-friend-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid #ddd;
+    background: #f7f8fa;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+}
+
+.add-friend-btn:hover {
+    background: #eef3ff;
+}
+
+.add-friend-avatar {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .friend-search {
