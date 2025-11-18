@@ -289,7 +289,7 @@ body {
 }
 
 body.drawer-open #trending_list {
-    margin-right: 340px;
+    margin-right: 20%;
 }
 
 #friends_button {
@@ -306,7 +306,7 @@ body.drawer-open #trending_list {
 }
 
 body .drawer-open #friends_button {
-    right: 340px;
+    right: 20%;
 }
 
 #friends_button .emoji {
@@ -320,7 +320,7 @@ body .drawer-open #friends_button {
     top: 0;
     right: 0;
     transform: translateX(100%);
-    width: 340px;
+    width: 20%;
     height: 100vh;
     background: #fff;
     transition: transform .75s ease;
@@ -499,6 +499,7 @@ body .drawer-open #friends_button {
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    white-space: nowrap;
 }
 
 .friend-meta .date::before {

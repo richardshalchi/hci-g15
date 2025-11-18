@@ -1,11 +1,11 @@
 //event stuff
 
 //elements
-const search= document.getElementById("search_input");
-const filterBtn= document.querySelectorAll(".filter_list li");
-const resetBtn=document.getElementById("btn-reset");
-const pageTitle= document.querySelector(".section_title");
-const eventItems=document.querySelectorAll(".event_item");
+const search = document.getElementById("search_input");
+const filterBtn = document.querySelectorAll(".filter_list li");
+const resetBtn = document.getElementById("btn-reset");
+const pageTitle = document.querySelector(".section_title");
+const eventItems = document.querySelectorAll(".event_item");
 
 //FOR NOW PLEASE PUT THE NAMES AND TAGS OF EVENTS HERE
 const eventTags = {
@@ -15,139 +15,139 @@ const eventTags = {
 };
 
 //ADD NEW TAGS AND EMOJIS HERE (CAN CHANGE IT TO ACTUAL PHOTOS LATER)
-const catTags= ["social","science","research","food","culture","arts"];
+const catTags = ["social", "science", "research", "food", "culture", "arts"];
 const emojiMap = {
-    social:"🎉",
-    science:"🔬",
-    research:"📚",
-    food:"🍔",
-    culture:"🏛️",
-    arts:"🎭"
+  social: "🎉",
+  science: "🔬",
+  research: "📚",
+  food: "🍔",
+  culture: "🏛️",
+  arts: "🎭"
 };
 
 //for multie select of tags
-let activeTags= new Set();
+let activeTags = new Set();
 
 //actaul filter logic for tags still need to work on search
-function filter(search= ""){
-    eventItems.forEach(item => {
-        const title= item.querySelector('h2').textContent.trim();
-        const tags= eventTags[title] || []
+function filter(search = "") {
+  eventItems.forEach(item => {
+    const title = item.querySelector('h2').textContent.trim();
+    const tags = eventTags[title] || []
 
-        let matchT = false;
+    let matchT = false;
 
-        if(activeTags.size==0){
-          matchT=true;
+    if (activeTags.size == 0) {
+      matchT = true;
+    }
+    else {
+      for (const i of activeTags) {
+        if (tags.includes(i)) {
+          matchT = true;
+          break;
         }
-        else{
-          for(const i of activeTags){
-            if(tags.includes(i)){
-              matchT=true;
-              break;
-            }
-          }
-        }   
-        let matchS= false;
+      }
+    }
+    let matchS = false;
 
-        if(!search){
-          matchS=true;
-        }
-        else if(title.toLowerCase().includes(search)) {
-          matchS= true;
-        }
+    if (!search) {
+      matchS = true;
+    }
+    else if (title.toLowerCase().includes(search)) {
+      matchS = true;
+    }
 
-        if (matchS && matchT) {
-          item.style.display = "flex";
-        } else {
-          item.style.display = "none";
-        }
+    if (matchS && matchT) {
+      item.style.display = "flex";
+    } else {
+      item.style.display = "none";
+    }
 
 
-    });
+  });
 }
 
 //updates the title, for now just adds if multiple are selected
 function updateTrendingTitle(tag) {
-  if (activeTags.size===0) {
-    pageTitle.textContent= "📈 Popular";
+  if (activeTags.size === 0) {
+    pageTitle.textContent = "📈 Popular";
     return;
   }
-  
+
 
   const titles = [];
 
-  for(const tag of activeTags){
-    const emoji =emojiMap[tag] || "";
-    const captialized= tag.charAt(0).toUpperCase() + tag.slice(1);
-    const title =`${emoji} ${captialized}`;
+  for (const tag of activeTags) {
+    const emoji = emojiMap[tag] || "";
+    const captialized = tag.charAt(0).toUpperCase() + tag.slice(1);
+    const title = `${emoji} ${captialized}`;
     titles.push(title);
   }
 
-  pageTitle.textContent= titles.join(" ");
+  pageTitle.textContent = titles.join(" ");
 }
 
 //logic for pressing the filter buttons
-function filterClick(btn){
-    const tag= btn.dataset.tag;
+function filterClick(btn) {
+  const tag = btn.dataset.tag;
 
-    if(activeTags.has(tag)){
-        activeTags.delete(tag);
-        btn.classList.remove("active-filter")
-    }else{
-        activeTags.add(tag);
-        btn.classList.add("active-filter");
-    }
+  if (activeTags.has(tag)) {
+    activeTags.delete(tag);
+    btn.classList.remove("active-filter")
+  } else {
+    activeTags.add(tag);
+    btn.classList.add("active-filter");
+  }
 
 
-    updateTrendingTitle();
-    const query= search.value.trim().toLowerCase();
-    filter(query);
+  updateTrendingTitle();
+  const query = search.value.trim().toLowerCase();
+  filter(query);
 }
 
 //btn press 
 filterBtn.forEach(btn => {
-    btn.addEventListener("click", ()=> filterClick(btn));
+  btn.addEventListener("click", () => filterClick(btn));
 });
 //search bar
-search.addEventListener('input', function() {
-    const query= search.value.trim().toLowerCase();
-    filter(query);
+search.addEventListener('input', function () {
+  const query = search.value.trim().toLowerCase();
+  filter(query);
 })
 //wipe on reset
-resetBtn.addEventListener('click', 
-  function() {
+resetBtn.addEventListener('click',
+  function () {
     search.value = "";
     activeTags.clear();
     updateTrendingTitle(null);
     filter("");
     filterBtn.forEach(b => b.classList.remove("active-filter"));
-});
+  });
 
 document.querySelectorAll(".Register").forEach(button => {
-  button.addEventListener("click", function() {
+  button.addEventListener("click", function () {
     this.classList.add("disabled");
     this.textContent = "Registered";
   });
 });
 
 document.querySelectorAll(".interests").forEach(button => {
-  button.addEventListener("click", function() {
+  button.addEventListener("click", function () {
     this.classList.add("disabled");
     this.textContent = "Added to Interests";
   });
 });
 
 document.addEventListener('click', (e) => {
-    const closeButton = e.target.closest('#close-event'); // check if the clicked event is a close button
-    if (!closeButton) return; // if not get out
+  const closeButton = e.target.closest('#close-event'); // check if the clicked event is a close button
+  if (!closeButton) return; // if not get out
 
-    e.stopPropagation(); // prevent affecting parent elements (bubble)
-    e.preventDefault(); 
+  e.stopPropagation(); // prevent affecting parent elements (bubble)
+  e.preventDefault();
 
-    const modal = closeButton.closest('.modal');
-    if (modal) {
-        modal.classList.remove('open');
-    }
+  const modal = closeButton.closest('.modal');
+  if (modal) {
+    modal.classList.remove('open');
+  }
 });
 
 // Both arrows under Trending page and in friends pop-up will open the same event description card START
@@ -181,60 +181,277 @@ close.addEventListener('click', () => {
 
 // click outside to close (but not if an event modal is open)
 document.addEventListener('click', (e) => {
-    if (e.target.closest(`.modal`)) return;
+  if (e.target.closest(`.modal`)) return;
 
-    const clickedInsidePanel = panel.contains(e.target);
-    const clickedButton = btn.contains(e.target);
+  const clickedInsidePanel = panel.contains(e.target);
+  const clickedButton = btn.contains(e.target);
 
-    if (panel.classList.contains('open') && !clickedInsidePanel && !clickedButton)
-    {
-        panel.classList.remove('open');
-        document.body.classList.remove('drawer-open');
-    }
+  if (panel.classList.contains('open') && !clickedInsidePanel && !clickedButton) {
+    panel.classList.remove('open');
+    document.body.classList.remove('drawer-open');
+  }
 });
 
 document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    const openModal = document.querySelector('.modal.open');
-    
-    if (openModal)
-        openModal.classList.remove('open');
+  if (e.key !== 'Escape') return;
+  const openModal = document.querySelector('.modal.open');
 
-    if (panel.classList.contains('open')) {
-      panel.classList.remove('open');
-      document.body.classList.remove('drawer-open');
-    }
+  if (openModal)
+    openModal.classList.remove('open');
+
+  if (panel.classList.contains('open')) {
+    panel.classList.remove('open');
+    document.body.classList.remove('drawer-open');
+  }
 })
 
 // friends search START
 const friendsSearch = document.getElementById('friend_search');
 const friendsCards = document.querySelectorAll('.friends-feed .friend-card');
 
-const eventToOrg = {
-  'ASE Career Fair': 'Career Services',
-  'CSA Halloween Social': "Commerce Students' Association",
-  'The Goosies': "Computer Science Students' Association",
-  'OPUS Study Night': 'Organization of Physics Undergraduate Students'
+// map short month → long month
+const monthMap = {
+  jan: 'january',
+  feb: 'february',
+  mar: 'march',
+  apr: 'april',
+  may: 'may',
+  jun: 'june',
+  jul: 'july',
+  aug: 'august',
+  sep: 'september',
+  oct: 'october',
+  nov: 'november',
+  dec: 'december',
+};
+
+const eventKeywords = {
+  "ASE Career Fair": [
+    "ase",
+    "ase career fair",
+    "career fair",
+    "career",
+    "jobs",
+    "job fair",
+    "recruiters",
+    "networking",
+    "fair",
+    "science",
+    "career services",
+    "university of manitoba",
+    "u of m",
+    "um",
+    "115 university centre",
+    "university centre",
+    "university center",
+    "fort garry campus"
+  ],
+
+  "CSA Halloween Social": [
+    "csa",
+    "csa halloween social",
+    "halloween social",
+    "halloween",
+    "social",
+    "party",
+    "costume",
+    "nightlife",
+    "commerce students association",
+    "commerce students' association",
+    "csa commerce",
+    "business",
+    "vws social club",
+    "vws",
+    "vw social club"
+  ],
+
+  "The Goosies": [
+    "the goosies",
+    "goosies",
+    "goose awards",
+    "award show",
+    "awards",
+    "teaching awards",
+    "faculty awards",
+    "computer science students association",
+    "computer science students' association",
+    "cssa",
+    "computer science",
+    "cs",
+    "department of computer science",
+    "eitc",
+    "eitc e2",
+    "eitc e2-265",
+    "e2-265",
+    "e2 265"
+  ],
+
+  "OPUS Study Night": [
+    "opus",
+    "opus study night",
+    "study night",
+    "physics",
+    "astronomy",
+    "phys",
+    "astr",
+    "organization of physics undergraduate students",
+    "opus um",
+    "211 allen",
+    "allen",
+    "allen building"
+  ],
+
+  "Welcome Day": [
+    "welcome day",
+    "welcome",
+    "orientation",
+    "frosh",
+    "new student orientation",
+    "first year",
+    "winter intake",
+    "winter 2026 intake",
+    "bisons",
+    "horns up",
+    "university of manitoba",
+    "u of m",
+    "um",
+    "fort garry",
+    "fort garry campus"
+  ],
+
+  "Aurora Walk": [
+    "aurora walk",
+    "aurora",
+    "northern lights",
+    "night walk",
+    "outdoor event",
+    "earth sciences",
+    "environmental",
+    "environment",
+    "geology",
+    "riddell faculty",
+    "clayton h riddell",
+    "clayton h. riddell faculty",
+    "society of earth sciences and environmental students",
+    "sees",
+    "212 wallace",
+    "wallace",
+    "wallace building"
+  ],
+
+  "UM Sustainability Annual Nature Walk": [
+    "um sustainability annual nature walk",
+    "annual nature walk",
+    "nature walk",
+    "campus walk",
+    "guided walk",
+    "outdoor event",
+    "sustainability",
+    "um sustainability",
+    "office of sustainability",
+    "environment",
+    "climate",
+    "green",
+    "flora",
+    "fauna",
+    "wildlife",
+    "university of manitoba office of sustainability",
+    "university of manitoba",
+    "u of m",
+    "um",
+    "100 st. paul's college",
+    "100 st pauls college",
+    "st. paul's college",
+    "st pauls college"
+  ],
+
+  "UM Budget Meeting": [
+    "um budget meeting",
+    "budget meeting",
+    "budget town hall",
+    "town hall",
+    "budget",
+    "finance",
+    "financial",
+    "university budget",
+    "planning",
+    "university of manitoba",
+    "u of m",
+    "um",
+    "100 st. paul's college",
+    "100 st pauls college",
+    "st. paul's college",
+    "st pauls college"
+  ],
+
+  "SSA Winter General Meeting": [
+    "ssa winter general meeting",
+    "winter general meeting",
+    "general meeting",
+    "annual general meeting",
+    "science",
+    "science students",
+    "free food",
+    "science students association",
+    "science students' association",
+    "ssa",
+    "science lounge in armes",
+    "science lounge",
+    "armes",
+    "armes building"
+  ]
 };
 
 function norm(s) {
   return (s || '').toLowerCase().trim();
 }
 
+// build the searchable text for ONE card
 function getCardSearchText(card) {
-  const date = card.querySelector('.friend-meta .date')?.textContent || '';
+  const dateRaw = card.querySelector('.friend-meta .date')?.textContent || '';
   const friend = card.querySelector('.friend-meta .user')?.textContent || '';
-  const eventTitle = card.querySelector('.friend-event .event-title')?.textContent || '';
-  const org = eventToOrg[eventTitle.trim()] || '';
 
-  return `${date} ${friend} ${eventTitle} ${org}`.toLocaleLowerCase();
+  // get all events
+  const eventNodes = card.querySelectorAll('.friend-event .event-title');
+  const events = Array.from(eventNodes).map(n => n.textContent.trim());
+  const eventsText = events.join(' ');
+
+  // Expland dates eg. "Oct 30" -> "October 30"
+  let dateExpanded = dateRaw;
+  const monthAbbr = dateRaw.split(/\s+/)[0]?.toLowerCase();
+  const monthFull = monthMap[monthAbbr];
+  if (monthFull) {
+    dateExpanded += ' ' + monthFull;
+  }
+
+  // Add keyword aliases for each event
+  const keywordBag = [];
+  events.forEach(title => {
+    const extras = eventKeywords[title] || [];
+    keywordBag.push(...extras);
+  });
+
+  return norm(
+    `${dateExpanded} ${friend} ${eventsText} ${keywordBag.join(' ')}`
+  );
 }
 
 function filterFriends(q) {
   const query = norm(q);
+
+  // Empty search shows everything
+  if (!query) {
+    friendsCards.forEach(card => (card.style.display = ''));
+    return;
+  }
+
+  const terms = query.split(/\s+/).filter(Boolean);
+
   friendsCards.forEach(card => {
     const haystack = getCardSearchText(card);
-    card.style.display = (!query || haystack.includes(query)) ? '' : 'none';
+
+    const matches = terms.every(t => haystack.includes(t));
+    card.style.display = matches ? '' : 'none';
   });
 }
 
@@ -244,7 +461,7 @@ if (friendsSearch) {
 }
 
 // This is make the scroll bar fix within the My Friends window
-(function setScrollbarVar(){
+(function setScrollbarVar() {
   function calc() {
     const t = document.createElement('div');
     t.style.cssText = 'width:100px;height:100px;overflow:scroll;position:absolute;top:-9999px;';
