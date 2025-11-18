@@ -298,7 +298,7 @@ body.drawer-open #trending_list {
     top: 16px;
     right: 24px;
     padding: 8px 14px;
-    border: 1px solid rgba(104, 72, 240, 0.25);;
+    border: 1px solid rgba(104, 72, 240, 0.25);
     border-radius: 999px;
     background: linear-gradient(135deg, #f7f2ff, #ffffff);
     color: #3b256b;
@@ -310,11 +310,21 @@ body.drawer-open #trending_list {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     line-height: 1;
     z-index: 10;
-    transition: right 0.75s ease, opacity 0.25s ease, background 0.18s ease, box-shadow 0.18s ease, transform 0.08s ease, border-color 0.18s ease;
+
+    /* add opacity & make it a bit slower */
+    opacity: 1;
+    transition:
+        right 0.75s ease,
+        opacity 1s ease-in-out 0.1s,
+        background 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease,
+        border-color 0.18s ease;
 }
 
 body.drawer-open #friends_button {
-    opacity: 1;
+    opacity: 0;
+    transform: scale(0.95);
     pointer-events: none;
     right: calc(20% + 24px);
     background: #4b2bb3;
@@ -384,11 +394,31 @@ body.drawer-open #friends_button {
 }
 
 .drawer-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin: 0;
     font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: .3px;
+    letter-spacing: .03rem;
     font-size: clamp(1.5rem, 1.1vw + 1.1rem, 1.9rem);
+    line-height: 1.1;
+}
+
+.section-title-icon {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: 1.8rem;
+}
+
+.section-title-icon--friends {
+    transform: translateY(-2.5px);  
+}
+
+.section-title-icon--add {
+    transform: translateY(0);
 }
 
 .add-friends {
@@ -427,31 +457,30 @@ body.drawer-open #friends_button {
 
 .friend-card.friend-suggestion {
     grid-template-columns: 1fr auto;
+    background: #fafafa;
     row-gap: 0;
 }
 
+.friend-card.friend-suggestion:hover {
+    background: #eef3ff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
 .add-friend-icon {
-    grid-column: 2 / 3;
-    justify-self: end;
-    align-self: center;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 999px;
     border: 1px solid #ddd;
     background: #f7f8fa;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
+    color: #333;
 }
 
 .add-friend-icon:hover {
     background: #eef3ff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-color: #cdd7ff;
 }
 
 .add-friend-icon:active {
@@ -492,9 +521,9 @@ body.drawer-open #friends_button {
     position: sticky;
     top: 0;
     z-index: 2;
-    padding: 12px 16px 12px;
+    padding: 10px 16px 12px;
     padding-right: calc(16px + var(--sbw, 0px));
-    background: #fff;
+    background: transparent;
 }
 
 .friend-search.add-friend-search {
@@ -506,6 +535,8 @@ body.drawer-open #friends_button {
 .friend-search_wrap {
     position: relative;
     width: 100%;
+    background: #f2f3f5;
+    border-radius: 24px;
 }
 
 #friend_search,
@@ -544,11 +575,19 @@ body.drawer-open #friends_button {
     grid-template-columns: 1fr auto;
     row-gap: 6px;
     align-items: center;
-    padding: 12px;
+    padding: 12px 14px;
     border: 1px solid #e5e5e5;
-    border-radius: 12px;
+    border-radius: 20px;
     background: #fff;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+    transition: background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+}
+
+.friend-card:hover {
+    background: #eef3ff;
+    border-color: #cdd7ff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transform: translateY(1px);
 }
 
 .friend-card.no-event .date::before {
@@ -567,6 +606,7 @@ body.drawer-open #friends_button {
     align-items: center;
     gap: 6px;
     white-space: nowrap;
+    color: #555;
 }
 
 .friend-meta .date::before {
@@ -579,6 +619,8 @@ body.drawer-open #friends_button {
     padding-left: 24px;
     line-height: 1.2;
     min-height: 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
 }
 
 .friend-meta::after {
@@ -589,18 +631,17 @@ body.drawer-open #friends_button {
     font-size: 0.95rem;
     font-weight: 600;
     line-height: 1;
-    background: #E8F5E9;
-    color: #2E7D32;
-    content: "";
 }
 
 .friend-card[data-status="confirmed"] .friend-meta::after {
     content: "Registered";
+    background: #E8F5E9;
+    color: #2e7d32;
 }
 
 .friend-card[data-status="none"] .friend-meta::after {
     content: "Not Registered";
-    background: #FFECE6;
+    background: #e8f5e9;
     color: #C0392B;
 }
 
