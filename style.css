@@ -347,57 +347,86 @@ body .drawer-open #friends_button {
     flex-direction: column;
     overflow: hidden;
     scrollbar-gutter: stable;
-    padding: 0;
 }
 
 .drawer-title {
     margin: 0;
-    font-size: 1.5rem;
     font-weight: 800;
     line-height: 1.2;
-    color: inherit;
     letter-spacing: .3px;
     font-size: clamp(1.5rem, 1.1vw + 1.1rem, 1.9rem);
 }
 
 .add-friends {
-    padding: 0 16px 12px;
+    border-top: 1px solid #eee;
     background: #fff;
     display: flex;
     margin-top: auto;
     position: sticky;
     bottom: 0;
-    z-index: 1;
     flex-direction: column;
     gap: 0;
-    border-top: 1px solid #eee;
 }
 
 .add-friends .drawer-title {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: clamp(1.35rem, 1vw + 1rem, 1.7rem);
     font-weight: 700;
     line-height: 1.2;
-    color: inherit;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
-    font-size: clamp(1.35rem, 1vw + 1rem, 1.7rem);
+    padding: 12px 16px;
     letter-spacing: .3px;
+    border-bottom: 1px solid #eee;
 }
 
 .add-friends-list {
+    padding: 0 16px 12px;
     max-height: 20vh;
     overflow: auto;
-    list-style: none;
-    margin: 8px 0 0;
-    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
     text-align: left;
     overscroll-behavior: contain;
-    min-height: 0;
-    margin-top: 0;
+    list-style: none;
+}
+
+.friend-card.friend-suggestion {
+    grid-template-columns: 1fr auto;
+    row-gap: 0;
+}
+
+.add-friend-icon {
+    grid-column: 2 / 3;
+    justify-self: end;
+    align-self: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid #ddd;
+    background: #f7f8fa;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
+}
+
+.add-friend-icon:hover {
+    background: #eef3ff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.add-friend-icon:active {
+    transform: scale(0.96);
+}
+
+.friend-card.friend-suggestion.added {
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 1px rgba(46,125,50,0.2);
 }
 
 .add-friend-btn {
@@ -434,13 +463,19 @@ body .drawer-open #friends_button {
     background: #fff;
 }
 
+.friend-search.add-friend-search {
+    position: static;
+    top: auto;
+    padding-bottom: 12px;
+}
+
 .friend-search_wrap {
     position: relative;
-    display: block;
     width: 100%;
 }
 
-#friend_search {
+#friend_search,
+#add_friend_search {
     width: 100%;
     padding: .8rem 2.4rem .8rem .9rem;
     font-size: .89rem;
@@ -471,7 +506,6 @@ body .drawer-open #friends_button {
 
 .friend-card {
     position: relative;
-    --pad: 12px;
     display: grid;
     grid-template-columns: 1fr auto;
     row-gap: 6px;
@@ -484,7 +518,6 @@ body .drawer-open #friends_button {
 }
 
 .friend-card.no-event .date::before {
-    content: "";
     display: none;
 }
 
@@ -510,9 +543,6 @@ body .drawer-open #friends_button {
 .friend-meta .user {
     position: relative;
     padding-left: 24px;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
     line-height: 1.2;
     min-height: 18px;
 }
@@ -843,5 +873,3 @@ body .drawer-open #friends_button {
 }
 
 /* END OF EVENT MODAL*/
-
-

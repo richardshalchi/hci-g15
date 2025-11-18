@@ -476,4 +476,16 @@ if (friendsSearch) {
 
 // friends search END
 
+// add friends START
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.add-friend-icon');
+  if (!btn) return;
+
+  const card = btn.closest('.friend-card');
+  const name = card
+})
+
+// add friends END
+
 // friends code END
