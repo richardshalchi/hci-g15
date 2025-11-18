@@ -503,32 +503,12 @@ body .drawer-open #friends_button {
     content: "";
 }
 
-.friend-card[data-status="going"] .friend-meta::after {
-    content: "going";
-}
-
-.friend-card[data-status="attending"] .friend-meta::after {
-    content: "attending";
-}
-
-.friend-card[data-status="joining"] .friend-meta::after {
-    content: "joining";
-}
-
 .friend-card[data-status="confirmed"] .friend-meta::after {
-    content: "registered";
-}
-
-.friend-card[data-status="will-attend"] .friend-meta::after {
-    content: "confirmed";
-}
-
-.friend-card[data-status="on-list"] .friend-meta::after {
-    content: "enrolled";
+    content: "Registered";
 }
 
 .friend-card[data-status="none"] .friend-meta::after {
-    content: "not registered";
+    content: "Not Registered";
     background: #FFECE6;
     color: #C0392B;
 }
