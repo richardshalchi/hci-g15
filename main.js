@@ -200,6 +200,26 @@ document.addEventListener('click', (e) => {
   document.body.style.overflow = 'hidden';
 });
 
+// Make entire event cards open the same modal as their arrow
+document.querySelectorAll('.event_item').forEach(item => {
+  item.addEventListener('click', (e) => {
+    // if they actually clicked the arrow, let the arrow handler deal with it
+    if (e.target.closest('.arrow')) return;
+
+    const arrow = item.querySelector('.arrow[data-target]');
+    if (!arrow) return;
+
+    const sel = (arrow.dataset.target || '').trim();
+    if (!sel) return;
+
+    const modal = document.querySelector(sel);
+    if (modal) {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+});
+
 // friends code START
 
 const btn = document.getElementById('friends_button');
@@ -252,6 +272,26 @@ document.addEventListener('keydown', (e) => {
 // friends search START
 const friendsSearch = document.getElementById('friend_search');
 const friendsCards = document.querySelectorAll('.friends-feed .friend-card');
+
+// Make each friend-event row open its event modal when clicked
+document.querySelectorAll('.friend-event').forEach(row => {
+  row.addEventListener('click', (e) => {
+    // don't double-handle the arrow itself
+    if (e.target.closest('.arrow')) return;
+
+    const arrow = row.querySelector('.arrow[data-target]');
+    if (!arrow) return;
+
+    const sel = (arrow.dataset.target || '').trim();
+    if (!sel) return;
+
+    const modal = document.querySelector(sel);
+    if (modal) {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+});
 
 // map short month → long month
 const monthMap = {
