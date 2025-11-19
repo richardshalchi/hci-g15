@@ -308,6 +308,7 @@ body {
     gap: 1rem;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .event_info {
@@ -366,6 +367,23 @@ body {
     height: 12rem;
     padding-right: 2rem;
     padding-top: 1.4rem;
+}
+
+.ai_hide {
+    display: none;
+    position: absolute;
+    background: slategray;
+    border: 0.1rem solid black;
+    padding: 0.5rem;
+    width: 15rem;
+    z-index: 10;
+    font-size: 0.8rem;
+    border-radius: 0.2rem;
+}
+
+.pos_ai:hover + .ai_hide {
+    display: block;
+    color: white;
 }
 
 /*middle col END*/
