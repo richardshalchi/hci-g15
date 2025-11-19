@@ -809,6 +809,8 @@ body.drawer-open #friends_button {
     text-decoration: none;
     transition: 0.3 ease all;
     z-index: 1;
+    margin-bottom: 10px;
+
 }
 
 .Register:hover {
@@ -886,6 +888,21 @@ body.drawer-open #friends_button {
 .tag[data-tag="arts"] {
     background-color: #E1F5FE;
     color: #0277BD;
+}
+
+.tag[data-tag="nature"] {
+    background-color: #e4f7c0;
+    color: #91bd02;
+}
+
+.tag[data-tag="finance"] {
+    background-color: #f7d0c0;
+    color: #bd5602;
+}
+
+.tag[data-tag="career"] {
+    background-color: #c0e7f7;
+    color: #02a4bd;
 }
 
 .modal-pic img {

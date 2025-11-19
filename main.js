@@ -10,8 +10,15 @@ const eventItems = document.querySelectorAll(".event_item");
 //FOR NOW PLEASE PUT THE NAMES AND TAGS OF EVENTS HERE
 const eventTags = {
   "ASE Career Fair": ["career", "networking", "science"],
-  "CSA Halloween Social": ["social", "culture"],
-  "The Goosies": ["social", "science", "culture"]
+  "CSA Halloween Social": ["social", "culture", "food"],
+  "The Goosies": ["social", "science", "culture"],
+  "OPUS Study Night": ["science", "food"],
+  "Welcome Day": ["social", "trending", "food"],
+  "Aurora Walk": ["nature", "trending"],
+  "UM Sustainability Annual Nature Walk": ["nature"],
+  "UM Budget Meeting": ["finance"],
+  "SSA Winter General Meeting": ["science", "social", "food"]
+
 };
 
 //ADD NEW TAGS AND EMOJIS HERE (CAN CHANGE IT TO ACTUAL PHOTOS LATER)
@@ -123,11 +130,23 @@ resetBtn.addEventListener('click',
     filterBtn.forEach(b => b.classList.remove("active-filter"));
   });
 
+
+// event modals
 document.querySelectorAll(".Register").forEach(button => {
   button.addEventListener("click", function () {
     this.classList.add("disabled");
     this.textContent = "Registered";
   });
+});
+
+document.querySelectorAll(".modal").forEach(modal => { // participant count + 1 if register is pressed
+    const btn = modal.querySelector(".Register");
+    const countSpan = modal.querySelector("span[id$='count']");
+
+    btn.addEventListener("click", () => {
+        let current = parseInt(countSpan.textContent);
+        countSpan.textContent = current + 1;
+    });
 });
 
 document.querySelectorAll(".interests").forEach(button => {
@@ -147,6 +166,7 @@ document.addEventListener('click', (e) => {
   const modal = closeButton.closest('.modal');
   if (modal) {
     modal.classList.remove('open');
+    document.body.style.overflow = 'auto';
   }
 });
 
@@ -159,6 +179,7 @@ document.addEventListener('click', (e) => {
   if (!sel) return;
   const modal = document.querySelector(sel);
   if (modal) modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
 });
 
 // friends code START
