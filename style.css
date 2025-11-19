@@ -15,6 +15,8 @@ body {
     border-right: 1px solid #ddd;
     padding: 12px;
     background: #fff;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 #logo {
@@ -201,6 +203,36 @@ body {
 
 }
 
+.help-icon {
+    margin-left: auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: #f7f8fa;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.help-icon:hover {
+    background: #eef3ff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.help-panel {
+    margin: 0.5rem 0 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+    background: #f7f8fa;
+    font-size: 0.9rem;
+    color: #444;
+}
+
 .event_item {
     display: flex;
     background: white;
@@ -316,6 +348,20 @@ body {
 
 body.drawer-open #trending_list {
     margin-right: clamp(300px, 25vw, 400px);
+}
+
+.help-text {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #555;
+    font-style: italic;
+}
+
+/* override JUST for the My Friends drawer */
+.friend-search .help-text {
+    margin-top: 4px;      /* a bit tighter under the box */
+    padding-left: 8px;   /* scootch right so it aligns with friend cards */
 }
 
 #friends_button {

@@ -35,39 +35,53 @@ const emojiMap = {
 //for multie select of tags
 let activeTags = new Set();
 
+// Build a searchable string for an event card (title + desc + org + time + keyword aliases)
+function getEventSearchText(item) {
+  const title = item.querySelector('h2')?.textContent.trim() || '';
+  const description = item.querySelector('.event_description')?.textContent || '';
+  const org = item.querySelector('.organization')?.textContent || '';
+  const time = item.querySelector('.event_time')?.textContent || '';
+
+  // category tags like ["science", "food", ...]
+  const catTagsForEvent = eventTags[title] || [];
+
+  // extra keyword aliases from the same eventKeywords object used by My Friends
+  const extraKeywords = eventKeywords[title] || [];
+
+  // norm() is the same helper you already use in the friends search
+  return norm(
+    `${title} ${description} ${org} ${time} ${catTagsForEvent.join(' ')} ${extraKeywords.join(' ')}`
+  );
+}
+
 //actaul filter logic for tags still need to work on search
-function filter(search = "") {
+function filter(searchText = "") {
   let visibleCount = 0;
 
   eventItems.forEach(item => {
     const title = item.querySelector('h2').textContent.trim();
-    const tags = eventTags[title] || []
+    const tags = eventTags[title] || [];
 
+    // --- TAG FILTER (unchanged) ---
     let matchT = false;
-
-    if (activeTags.size == 0) {
+    if (activeTags.size === 0) {
       matchT = true;
-    }
-    else {
-      for (const i of activeTags) {
-        if (tags.includes(i)) {
+    } else {
+      for (const t of activeTags) {
+        if (tags.includes(t)) {
           matchT = true;
           break;
         }
       }
     }
-    let matchS = false;
 
-    if (!search) {
-      matchS = true;
-    }
-    else if (title.toLowerCase().includes(search)) {
-      matchS = true;
-    }
+    // --- SEARCH FILTER (shared logic) ---
+    const haystack = getEventSearchText(item);
+    const matchS = matchesAllTerms(haystack, searchText);
 
     if (matchS && matchT) {
       item.style.display = "flex";
-      visibleCount++;  
+      visibleCount++;
     } else {
       item.style.display = "none";
     }
@@ -135,8 +149,7 @@ filterBtn.forEach(btn => {
 });
 //search bar
 search.addEventListener('input', function () {
-  const query = search.value.trim().toLowerCase();
-  filter(query);
+  filter(this.value);
 })
 //wipe on reset
 resetBtn.addEventListener('click',
@@ -268,6 +281,24 @@ document.addEventListener('keydown', (e) => {
     document.body.classList.remove('drawer-open');
   }
 })
+
+// help button on Popular page
+const helpBtn = document.getElementById('help_button');
+const helpPanel = document.getElementById('help_panel');
+
+if (helpBtn && helpPanel) {
+  helpBtn.addEventListener('click', () => {
+    const isHidden = helpPanel.hasAttribute('hidden');
+
+    if (isHidden) {
+      helpPanel.removeAttribute('hidden');
+    } else {
+      helpPanel.setAttribute('hidden', '');
+    }
+
+    helpBtn.setAttribute('aria-expanded', String(isHidden));
+  });
+}
 
 // friends search START
 const friendsSearch = document.getElementById('friend_search');
@@ -490,6 +521,16 @@ function norm(s) {
   return (s || '').toLowerCase().trim();
 }
 
+function matchesAllTerms(haystack, query) {
+  const q = norm(query);
+  if (!q) return true; // empty query = match everything
+
+  const terms = q.split(/\s+/).filter(Boolean);
+  if (!terms.length) return true;
+
+  return terms.every(t => haystack.includes(t));
+}
+
 // build the searchable text for ONE card
 function getCardSearchText(card) {
   const dateRaw = card.querySelector('.friend-meta .date')?.textContent || '';
@@ -521,29 +562,15 @@ function getCardSearchText(card) {
 }
 
 function filterFriends(q) {
-  const query = norm(q);
   const emptyState = document.getElementById('friends_empty');
-
-  // Empty search shows everything
-  if (!query) {
-    friendsCards.forEach(card => (card.style.display = ''));
-    if (emptyState) emptyState.hidden = true;
-      return;
-  }
-
-  const terms = query.split(/\s+/).filter(Boolean);
   let visibleCount = 0;
 
   friendsCards.forEach(card => {
     const haystack = getCardSearchText(card);
-    const matches = terms.every(t => haystack.includes(t));
+    const matches = matchesAllTerms(haystack, q);
 
-    if (matches) {
-      card.style.display = '';
-      visibleCount++;
-    } else {
-      card.style.display = 'none';
-    }
+    card.style.display = matches ? '' : 'none';
+    if (matches) visibleCount++;
   });
 
   if (emptyState) {

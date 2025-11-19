@@ -43,6 +43,11 @@
                 </ul>
 
                 <button id="btn-reset" type="button">Reset</button>
+                <p class="help-text" id="events_help">
+                    Tip: Search by event name, club, or location 
+                    (e.g. “career fair”, “OPUS”, “Armes”). 
+                    Use the tags below to filter by type.
+                </p>
             </div>
         </div>
     </div>
@@ -69,9 +74,15 @@
                 <div class="friend-search">
                     <div class="friend-search_wrap">
                         <input id="friend_search" type="text" placeholder="Search"
-                            aria-label="Search friends" />
+                            aria-describedby="friends_help" />
                         <span class="friend-search_icon" aria-hidden="true">🔍</span>
                     </div>
+
+                    <p class="help-text" id="friends_help">
+                        Tip: Search by friend name, date (e.g. “Oct 30” or “October 30”),
+                        or event name (e.g. “Goosies”, “career fair”).
+                    </p>
+                    
                 </div>
 
                 <div id="friends_empty" class="empty-state friends-empty" aria-live="polite" hidden>
@@ -428,6 +439,17 @@
     <div id="trending_list">
         <div id="trending_heading">
             <h1 class="section_title">📈 Popular</h1>
+            <button id="help_button" class="help-icon" type="button"
+                aria-expanded="false" aria-controls="help_panel"
+                title="How this page works">?
+            </button>
+        </div>
+
+        <div id="help_panel" class="help-panel" hidden>
+            <p>• Use the search bar and tags on the left to filter events.</p>
+            <p>• Click an event card (or the arrow) to see full details and register.</p>
+            <p>• Use “My Friends” to see what events your friends are attending.</p>
+            <p>• Use Reset to clear all filters if you get stuck.</p>
         </div>
 
         <p id="events_count" class="results-meta" aria-live="polite"></p>
