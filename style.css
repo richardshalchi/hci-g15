@@ -293,6 +293,7 @@ body {
     border-bottom: 1px solid #ddd;
     margin-left: calc(23% + 2px);
     cursor: pointer;
+    position: relative;
 }
 
 .event_info .org_info {
@@ -384,6 +385,32 @@ body {
 .pos_ai:hover + .ai_hide {
     display: block;
     color: white;
+}
+
+.friends_preview {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.friends_preview .friend-avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 2px solid white;
+    object-fit: cover;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+.friends_preview .more-friends {
+    font-size: 0.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0.4rem;
 }
 
 /*middle col END*/
