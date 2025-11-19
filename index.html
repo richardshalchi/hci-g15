@@ -74,6 +74,9 @@
                     </div>
                 </div>
 
+                <div id="friends_empty" class="empty-state friends-empty" aria-live="polite" hidden>
+                    No friends match your search.
+                </div>
 
                 <!-- Feed items go here -->
                 <div class="friends-feed">
@@ -314,6 +317,10 @@
                         </div>
                     </div>
 
+                    <div id="add_friends_empty" class="empty-state friends-empty" aria-live="polite" hidden>
+                        No people found to add.
+                    </div>
+
                     <ul class="add-friends-list">
                         <li>
                             <article class="friend-card friend-suggestion">
@@ -415,6 +422,12 @@
     <div id="trending_list">
         <div id="trending_heading">
             <h1 class="section_title">📈 Popular</h1>
+        </div>
+
+        <p id="events_count" class="results-meta" aria-live="polite"></p>
+
+        <div id="events_empty" class="empty-state" aria-live="polite" hidden>
+            No events match your search and filters.
         </div>
 
         <!-- ASE CAREER FAIR EVENT -->

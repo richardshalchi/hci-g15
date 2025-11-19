@@ -283,6 +283,23 @@ body {
 
 /*middle col END*/
 
+/* No events match the current search/filters */
+.empty-state {
+    margin-left: 0;              
+    padding: 1rem 0;
+    font-size: 1rem;
+    color: #555;
+    font-style: italic;
+}
+
+/* Shows no of events */
+.results-meta {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+    color: #555;
+    font-style: italic;
+}
+
 
 /* Friends pop set up START */
 #trending_list {
@@ -680,6 +697,12 @@ body.drawer-open #friends_button {
     cursor: pointer;
     padding: 5px 10px;
     color: #666;
+}
+
+.friends-empty {
+    margin: 0;
+    padding: 0.5rem 16px 0.75rem;
+    font-size: 0.95rem;
 }
 
 /* Friends pop set up END */

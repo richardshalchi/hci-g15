@@ -37,6 +37,8 @@ let activeTags = new Set();
 
 //actaul filter logic for tags still need to work on search
 function filter(search = "") {
+  let visibleCount = 0;
+
   eventItems.forEach(item => {
     const title = item.querySelector('h2').textContent.trim();
     const tags = eventTags[title] || []
@@ -65,12 +67,28 @@ function filter(search = "") {
 
     if (matchS && matchT) {
       item.style.display = "flex";
+      visibleCount++;  
     } else {
       item.style.display = "none";
     }
-
-
   });
+
+  // show/hide the "no events" message
+  const emptyState = document.getElementById('events_empty');
+  if (emptyState) {
+    emptyState.hidden = visibleCount !== 0;
+  }
+
+  const countEl = document.getElementById('events_count');
+  if (countEl) {
+    if (visibleCount === 0) {
+      countEl.textContent = "";
+    } else if (visibleCount === 1) {
+      countEl.textContent = "Showing 1 event";
+    } else {
+      countEl.textContent = `Showing ${visibleCount} events`;
+    }
+  }
 }
 
 //updates the title, for now just adds if multiple are selected
@@ -192,6 +210,11 @@ const close = document.getElementById('friends_close')
 btn.addEventListener('click', () => {
   panel.classList.toggle('open');
   document.body.classList.toggle('drawer-open', panel.classList.contains('open'));
+
+  if (panel.classList.contains('open')) {
+    const searchField = document.getElementById('friend_search');
+    if (searchField) searchField.focus();
+  }
 });
 
 // close via X
@@ -459,21 +482,33 @@ function getCardSearchText(card) {
 
 function filterFriends(q) {
   const query = norm(q);
+  const emptyState = document.getElementById('friends_empty');
 
   // Empty search shows everything
   if (!query) {
     friendsCards.forEach(card => (card.style.display = ''));
-    return;
+    if (emptyState) emptyState.hidden = true;
+      return;
   }
 
   const terms = query.split(/\s+/).filter(Boolean);
+  let visibleCount = 0;
 
   friendsCards.forEach(card => {
     const haystack = getCardSearchText(card);
-
     const matches = terms.every(t => haystack.includes(t));
-    card.style.display = matches ? '' : 'none';
+
+    if (matches) {
+      card.style.display = '';
+      visibleCount++;
+    } else {
+      card.style.display = 'none';
+    }
   });
+
+  if (emptyState) {
+    emptyState.hidden = visibleCount !== 0;
+  }
 }
 
 // live filter
@@ -499,13 +534,34 @@ if (friendsSearch) {
 
 // add friends START
 
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.add-friend-icon');
-  if (!btn) return;
+document.addEventListener("DOMContentLoaded", () => {
+  const addFriendSearchInput = document.getElementById("add_friend_search");
+  const suggestionItems = document.querySelectorAll(".add-friends-list li");
+  const emptyState = document.getElementById("add_friends_empty");
 
-  const card = btn.closest('.friend-card');
-  const name = card
-})
+  if (!addFriendSearchInput) return;
+
+  addFriendSearchInput.addEventListener("input", () => {
+    const query = addFriendSearchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    suggestionItems.forEach((li) => {
+      // Grab the visible name text inside the suggestion card
+      const name = li
+        .querySelector(".friend-meta .user")
+        .textContent.toLowerCase();
+
+      const match = !query || name.includes(query);
+      li.style.display = match ? "" : "none";
+      if (match) visibleCount++;
+    });
+
+    if (emptyState) {
+      // Show only when user typed something AND no suggestions match
+      emptyState.hidden = !(query && visibleCount === 0);
+    }
+  });
+});
 
 // add friends END
 
