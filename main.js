@@ -35,42 +35,74 @@ const emojiMap = {
 //for multie select of tags
 let activeTags = new Set();
 
+// Build a searchable string for an event card (title + desc + org + time + keyword aliases)
+function getEventSearchText(item) {
+  const title = item.querySelector('h2')?.textContent.trim() || '';
+  const description = item.querySelector('.event_description')?.textContent || '';
+  const org = item.querySelector('.organization')?.textContent || '';
+  const time = item.querySelector('.event_time')?.textContent || '';
+
+  // category tags like ["science", "food", ...]
+  const catTagsForEvent = eventTags[title] || [];
+
+  // extra keyword aliases from the same eventKeywords object used by My Friends
+  const extraKeywords = eventKeywords[title] || [];
+
+  // norm() is the same helper you already use in the friends search
+  return norm(
+    `${title} ${description} ${org} ${time} ${catTagsForEvent.join(' ')} ${extraKeywords.join(' ')}`
+  );
+}
+
 //actaul filter logic for tags still need to work on search
-function filter(search = "") {
+function filter(searchText = "") {
+  let visibleCount = 0;
+
   eventItems.forEach(item => {
     const title = item.querySelector('h2').textContent.trim();
-    const tags = eventTags[title] || []
+    const tags = eventTags[title] || [];
 
+    // --- TAG FILTER (unchanged) ---
     let matchT = false;
-
-    if (activeTags.size == 0) {
+    if (activeTags.size === 0) {
       matchT = true;
-    }
-    else {
-      for (const i of activeTags) {
-        if (tags.includes(i)) {
+    } else {
+      for (const t of activeTags) {
+        if (tags.includes(t)) {
           matchT = true;
           break;
         }
       }
     }
-    let matchS = false;
 
-    if (!search) {
-      matchS = true;
-    }
-    else if (title.toLowerCase().includes(search)) {
-      matchS = true;
-    }
+    // --- SEARCH FILTER (shared logic) ---
+    const haystack = getEventSearchText(item);
+    const matchS = matchesAllTerms(haystack, searchText);
 
     if (matchS && matchT) {
       item.style.display = "flex";
+      visibleCount++;
     } else {
       item.style.display = "none";
     }
-
-
   });
+
+  // show/hide the "no events" message
+  const emptyState = document.getElementById('events_empty');
+  if (emptyState) {
+    emptyState.hidden = visibleCount !== 0;
+  }
+
+  const countEl = document.getElementById('events_count');
+  if (countEl) {
+    if (visibleCount === 0) {
+      countEl.textContent = "";
+    } else if (visibleCount === 1) {
+      countEl.textContent = "Showing 1 event";
+    } else {
+      countEl.textContent = `Showing ${visibleCount} events`;
+    }
+  }
 }
 
 //updates the title, for now just adds if multiple are selected
@@ -117,8 +149,7 @@ filterBtn.forEach(btn => {
 });
 //search bar
 search.addEventListener('input', function () {
-  const query = search.value.trim().toLowerCase();
-  filter(query);
+  filter(this.value);
 })
 //wipe on reset
 resetBtn.addEventListener('click',
@@ -182,6 +213,26 @@ document.addEventListener('click', (e) => {
   document.body.style.overflow = 'hidden';
 });
 
+// Make entire event cards open the same modal as their arrow
+document.querySelectorAll('.event_item').forEach(item => {
+  item.addEventListener('click', (e) => {
+    // if they actually clicked the arrow, let the arrow handler deal with it
+    if (e.target.closest('.arrow')) return;
+
+    const arrow = item.querySelector('.arrow[data-target]');
+    if (!arrow) return;
+
+    const sel = (arrow.dataset.target || '').trim();
+    if (!sel) return;
+
+    const modal = document.querySelector(sel);
+    if (modal) {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+});
+
 // friends code START
 
 const btn = document.getElementById('friends_button');
@@ -192,6 +243,11 @@ const close = document.getElementById('friends_close')
 btn.addEventListener('click', () => {
   panel.classList.toggle('open');
   document.body.classList.toggle('drawer-open', panel.classList.contains('open'));
+
+  if (panel.classList.contains('open')) {
+    const searchField = document.getElementById('friend_search');
+    if (searchField) searchField.focus();
+  }
 });
 
 // close via X
@@ -226,9 +282,47 @@ document.addEventListener('keydown', (e) => {
   }
 })
 
+// help button on Popular page
+const helpBtn = document.getElementById('help_button');
+const helpPanel = document.getElementById('help_panel');
+
+if (helpBtn && helpPanel) {
+  helpBtn.addEventListener('click', () => {
+    const isHidden = helpPanel.hasAttribute('hidden');
+
+    if (isHidden) {
+      helpPanel.removeAttribute('hidden');
+    } else {
+      helpPanel.setAttribute('hidden', '');
+    }
+
+    helpBtn.setAttribute('aria-expanded', String(isHidden));
+  });
+}
+
 // friends search START
 const friendsSearch = document.getElementById('friend_search');
 const friendsCards = document.querySelectorAll('.friends-feed .friend-card');
+
+// Make each friend-event row open its event modal when clicked
+document.querySelectorAll('.friend-event').forEach(row => {
+  row.addEventListener('click', (e) => {
+    // don't double-handle the arrow itself
+    if (e.target.closest('.arrow')) return;
+
+    const arrow = row.querySelector('.arrow[data-target]');
+    if (!arrow) return;
+
+    const sel = (arrow.dataset.target || '').trim();
+    if (!sel) return;
+
+    const modal = document.querySelector(sel);
+    if (modal) {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+});
 
 // map short month → long month
 const monthMap = {
@@ -427,6 +521,16 @@ function norm(s) {
   return (s || '').toLowerCase().trim();
 }
 
+function matchesAllTerms(haystack, query) {
+  const q = norm(query);
+  if (!q) return true; // empty query = match everything
+
+  const terms = q.split(/\s+/).filter(Boolean);
+  if (!terms.length) return true;
+
+  return terms.every(t => haystack.includes(t));
+}
+
 // build the searchable text for ONE card
 function getCardSearchText(card) {
   const dateRaw = card.querySelector('.friend-meta .date')?.textContent || '';
@@ -458,22 +562,20 @@ function getCardSearchText(card) {
 }
 
 function filterFriends(q) {
-  const query = norm(q);
-
-  // Empty search shows everything
-  if (!query) {
-    friendsCards.forEach(card => (card.style.display = ''));
-    return;
-  }
-
-  const terms = query.split(/\s+/).filter(Boolean);
+  const emptyState = document.getElementById('friends_empty');
+  let visibleCount = 0;
 
   friendsCards.forEach(card => {
     const haystack = getCardSearchText(card);
+    const matches = matchesAllTerms(haystack, q);
 
-    const matches = terms.every(t => haystack.includes(t));
     card.style.display = matches ? '' : 'none';
+    if (matches) visibleCount++;
   });
+
+  if (emptyState) {
+    emptyState.hidden = visibleCount !== 0;
+  }
 }
 
 // live filter
@@ -499,13 +601,34 @@ if (friendsSearch) {
 
 // add friends START
 
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.add-friend-icon');
-  if (!btn) return;
+document.addEventListener("DOMContentLoaded", () => {
+  const addFriendSearchInput = document.getElementById("add_friend_search");
+  const suggestionItems = document.querySelectorAll(".add-friends-list li");
+  const emptyState = document.getElementById("add_friends_empty");
 
-  const card = btn.closest('.friend-card');
-  const name = card
-})
+  if (!addFriendSearchInput) return;
+
+  addFriendSearchInput.addEventListener("input", () => {
+    const query = addFriendSearchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    suggestionItems.forEach((li) => {
+      // Grab the visible name text inside the suggestion card
+      const name = li
+        .querySelector(".friend-meta .user")
+        .textContent.toLowerCase();
+
+      const match = !query || name.includes(query);
+      li.style.display = match ? "" : "none";
+      if (match) visibleCount++;
+    });
+
+    if (emptyState) {
+      // Show only when user typed something AND no suggestions match
+      emptyState.hidden = !(query && visibleCount === 0);
+    }
+  });
+});
 
 // add friends END
 

@@ -15,11 +15,38 @@ body {
     border-right: 1px solid #ddd;
     padding: 12px;
     background: #fff;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+#top_left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.top_left_brand {
+    display: flex;
+    align-items: center;        
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    position: sticky;
+    top: 0;                 
+    z-index: 20;
+    background: #fff;       
+    padding: 8px 0 12px;  
 }
 
 #logo {
+    display: block;
     max-width: 100%;
-    float: left;
     height: auto;
 }
 
@@ -193,12 +220,70 @@ body {
 
 #trending_heading {
     display: flex;
-    align-items: center;
-    gap: 3%;
-    margin-left: calc(23% + 2px);
-    ;
+    align-items: flex-end;
+    gap: 0.35rem;
     border-bottom: 1px solid #ddd;
+    padding: 1.5rem 0 0.5rem;
+    position: sticky;
+    top: 0;              
+    z-index: 10;
+    background: #fff;    
+}
 
+.section_title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.help-icon {
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid rgba(75, 43, 179, 0.4);
+    background: radial-gradient(circle at 30% 30%, #ffffff 0, #f1e7ff 45%, #e0d4ff 100%);
+    color: #3b256b;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 0 2px rgba(75, 43, 179, 0.10),
+        0 4px 10px rgba(15, 23, 42, 0.18);
+    padding: 0;
+    transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        background 0.12s ease;
+}
+
+.help-icon:hover {
+    background: radial-gradient(circle at 30% 30%, #ffffff 0, #e4d5ff 40%, #ccb7ff 100%);
+    box-shadow:
+        0 0 0 2px rgba(75, 43, 179, 0.18),
+        0 6px 16px rgba(15, 23, 42, 0.22);
+    transform: translateY(-1px);
+}
+
+.help-icon:active {
+    transform: translateY(0);
+    box-shadow:
+        0 0 0 2px rgba(75, 43, 179, 0.25),
+        0 3px 8px rgba(15, 23, 42, 0.18);
+}
+
+.help-panel {
+    margin: 0.5rem 0 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+    background: #f7f8fa;
+    font-size: 0.9rem;
+    color: #444;
 }
 
 .event_item {
@@ -207,6 +292,7 @@ body {
     padding: 1%;
     border-bottom: 1px solid #ddd;
     margin-left: calc(23% + 2px);
+    cursor: pointer;
 }
 
 .event_info .org_info {
@@ -222,6 +308,7 @@ body {
     gap: 1rem;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .event_info {
@@ -262,6 +349,7 @@ body {
 .org_info {
     display: flex;
     align-items: center;
+    margin-top: -2rem;
     gap: 0.3rem;
 }
 
@@ -281,7 +369,41 @@ body {
     padding-top: 1.4rem;
 }
 
+.ai_hide {
+    display: none;
+    position: absolute;
+    background: slategray;
+    border: 0.1rem solid black;
+    padding: 0.5rem;
+    width: 15rem;
+    z-index: 10;
+    font-size: 0.8rem;
+    border-radius: 0.2rem;
+}
+
+.pos_ai:hover + .ai_hide {
+    display: block;
+    color: white;
+}
+
 /*middle col END*/
+
+/* No events match the current search/filters */
+.empty-state {
+    margin-left: 0;              
+    padding: 1rem 0;
+    font-size: 1rem;
+    color: #555;
+    font-style: italic;
+}
+
+/* Shows no of events */
+.results-meta {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+    color: #555;
+    font-style: italic;
+}
 
 
 /* Friends pop set up START */
@@ -297,7 +419,21 @@ body {
 }
 
 body.drawer-open #trending_list {
-    margin-right: 20%;
+    margin-right: clamp(300px, 25vw, 400px);
+}
+
+.help-text {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #555;
+    font-style: italic;
+}
+
+/* override JUST for the My Friends drawer */
+.friend-search .help-text {
+    margin-top: 4px;      /* a bit tighter under the box */
+    padding-left: 8px;   /* scootch right so it aligns with friend cards */
 }
 
 #friends_button {
@@ -317,7 +453,7 @@ body.drawer-open #trending_list {
     gap: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     line-height: 1;
-    z-index: 10;
+    z-index: 999;
 
     /* add opacity & make it a bit slower */
     opacity: 1;
@@ -334,7 +470,7 @@ body.drawer-open #friends_button {
     opacity: 0;
     transform: scale(0.95);
     pointer-events: none;
-    right: calc(20% + 24px);
+    right: calc(clamp(300px, 25vw, 400px) + 24px);
     background: #4b2bb3;
     border-color: #4b2bb3;
     color: #fff;
@@ -372,7 +508,7 @@ body.drawer-open #friends_button {
     top: 0;
     right: 0;
     transform: translateX(100%);
-    width: 20%;
+    width: clamp(300px, 25vw, 400px);
     height: 100vh;
     background: #fff;
     transition: transform .75s ease;
@@ -669,6 +805,7 @@ body.drawer-open #friends_button {
     justify-content: space-between;
     color: #222;
     font-weight: 600;
+    cursor: pointer;
 }
 
 
@@ -680,6 +817,12 @@ body.drawer-open #friends_button {
     cursor: pointer;
     padding: 5px 10px;
     color: #666;
+}
+
+.friends-empty {
+    margin: 0;
+    padding: 0.5rem 16px 0.75rem;
+    font-size: 0.95rem;
 }
 
 /* Friends pop set up END */
@@ -809,8 +952,6 @@ body.drawer-open #friends_button {
     text-decoration: none;
     transition: 0.3 ease all;
     z-index: 1;
-    margin-bottom: 10px;
-
 }
 
 .Register:hover {
@@ -888,21 +1029,6 @@ body.drawer-open #friends_button {
 .tag[data-tag="arts"] {
     background-color: #E1F5FE;
     color: #0277BD;
-}
-
-.tag[data-tag="nature"] {
-    background-color: #e4f7c0;
-    color: #91bd02;
-}
-
-.tag[data-tag="finance"] {
-    background-color: #f7d0c0;
-    color: #bd5602;
-}
-
-.tag[data-tag="career"] {
-    background-color: #c0e7f7;
-    color: #02a4bd;
 }
 
 .modal-pic img {
