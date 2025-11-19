@@ -649,7 +649,7 @@ body.drawer-open #friends_button {
 
 .friend-card[data-status="none"] .friend-meta::after {
     content: "Not Registered";
-    background: #e8f5e9;
+    background: #FFECE6;
     color: #C0392B;
 }
 
