@@ -293,6 +293,7 @@ body {
     border-bottom: 1px solid #ddd;
     margin-left: calc(23% + 2px);
     cursor: pointer;
+    position: relative;
 }
 
 .event_info .org_info {
