@@ -19,9 +19,34 @@ body {
     overflow-y: auto;
 }
 
+#top_left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.top_left_brand {
+    display: flex;
+    align-items: center;        
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    position: sticky;
+    top: 0;                 
+    z-index: 20;
+    background: #fff;       
+    padding: 8px 0 12px;  
+}
+
 #logo {
+    display: block;
     max-width: 100%;
-    float: left;
     height: auto;
 }
 
@@ -195,32 +220,60 @@ body {
 
 #trending_heading {
     display: flex;
-    align-items: center;
-    gap: 3%;
-    margin-left: calc(23% + 2px);
-    ;
+    align-items: flex-end;
+    gap: 0.35rem;
     border-bottom: 1px solid #ddd;
+    padding: 0 0 0.5rem;
+    position: sticky;
+    top: 0;              
+    z-index: 10;
+    background: #fff;    
+}
 
+.section_title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
 }
 
 .help-icon {
-    margin-left: auto;
+    flex: 0 0 auto;
     width: 28px;
     height: 28px;
-    border-radius: 50%;
-    border: 1px solid #ddd;
-    background: #f7f8fa;
+    border-radius: 999px;
+    border: 1px solid rgba(75, 43, 179, 0.4);
+    background: radial-gradient(circle at 30% 30%, #ffffff 0, #f1e7ff 45%, #e0d4ff 100%);
+    color: #3b256b;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    box-shadow:
+        0 0 0 2px rgba(75, 43, 179, 0.10),
+        0 4px 10px rgba(15, 23, 42, 0.18);
+    padding: 0;
+    transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        background 0.12s ease;
 }
 
 .help-icon:hover {
-    background: #eef3ff;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    background: radial-gradient(circle at 30% 30%, #ffffff 0, #e4d5ff 40%, #ccb7ff 100%);
+    box-shadow:
+        0 0 0 2px rgba(75, 43, 179, 0.18),
+        0 6px 16px rgba(15, 23, 42, 0.22);
+    transform: translateY(-1px);
+}
+
+.help-icon:active {
+    transform: translateY(0);
+    box-shadow:
+        0 0 0 2px rgba(75, 43, 179, 0.25),
+        0 3px 8px rgba(15, 23, 42, 0.18);
 }
 
 .help-panel {
@@ -381,7 +434,7 @@ body.drawer-open #trending_list {
     gap: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     line-height: 1;
-    z-index: 10;
+    z-index: 999;
 
     /* add opacity & make it a bit slower */
     opacity: 1;

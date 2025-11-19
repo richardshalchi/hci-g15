@@ -14,10 +14,22 @@
 
 
 <body>
-    <!-- left col START-->
-    <div id="left_col">
-        <div id="top_left">
-            <h3><a href="index.html"><img id="logo" src="logo.png"></a></h3>
+        <!-- left col START-->
+        <div id="left_col">
+            <div id="top_left">
+        <div class="logo-row">
+        <h3 class="site-title">
+            <a href="index.html">
+            <img id="logo" src="logo.png" alt="UMEvents logo">
+            </a>
+        </h3>
+
+            <button id="help_button" class="help-icon" type="button"
+                    aria-expanded="false" aria-controls="help_panel"
+                    title="How this page works">
+                ?
+            </button>
+            </div>
             <button id="profile" class="top_left_option" type="button">Sweet Long Nametime
                 (Logged In)</button>
             <button id="calendar_button" class="top_left_option" type="button"
@@ -439,10 +451,6 @@
     <div id="trending_list">
         <div id="trending_heading">
             <h1 class="section_title">📈 Popular</h1>
-            <button id="help_button" class="help-icon" type="button"
-                aria-expanded="false" aria-controls="help_panel"
-                title="How this page works">?
-            </button>
         </div>
 
         <div id="help_panel" class="help-panel" hidden>
