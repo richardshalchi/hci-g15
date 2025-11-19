@@ -297,7 +297,7 @@ body {
 }
 
 body.drawer-open #trending_list {
-    margin-right: 20%;
+    margin-right: clamp(300px, 25vw, 400px);
 }
 
 #friends_button {
@@ -334,7 +334,7 @@ body.drawer-open #friends_button {
     opacity: 0;
     transform: scale(0.95);
     pointer-events: none;
-    right: calc(20% + 24px);
+    right: calc(clamp(300px, 25vw, 400px) + 24px);
     background: #4b2bb3;
     border-color: #4b2bb3;
     color: #fff;
@@ -372,7 +372,7 @@ body.drawer-open #friends_button {
     top: 0;
     right: 0;
     transform: translateX(100%);
-    width: 20%;
+    width: clamp(300px, 25vw, 400px);
     height: 100vh;
     background: #fff;
     transition: transform .75s ease;
@@ -809,8 +809,6 @@ body.drawer-open #friends_button {
     text-decoration: none;
     transition: 0.3 ease all;
     z-index: 1;
-    margin-bottom: 10px;
-
 }
 
 .Register:hover {
@@ -888,21 +886,6 @@ body.drawer-open #friends_button {
 .tag[data-tag="arts"] {
     background-color: #E1F5FE;
     color: #0277BD;
-}
-
-.tag[data-tag="nature"] {
-    background-color: #e4f7c0;
-    color: #91bd02;
-}
-
-.tag[data-tag="finance"] {
-    background-color: #f7d0c0;
-    color: #bd5602;
-}
-
-.tag[data-tag="career"] {
-    background-color: #c0e7f7;
-    color: #02a4bd;
 }
 
 .modal-pic img {
