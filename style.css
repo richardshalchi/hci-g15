@@ -440,6 +440,8 @@ body {
   /* move the “+3 more friends” cluster under the text instead of bottom-right */
   .friends_preview {
       position: static;
+      bottom: auto;
+      right: auto;
       margin-top: 0.5rem;
       align-self: flex-start;
   }
@@ -475,11 +477,36 @@ body {
 }
 
 .friends_preview {
-    position: static;          
-    display: inline-flex;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
     align-items: center;
     gap: 0.25rem;
-    margin-left: 0.5rem;       
+}
+
+@media (max-width: 900px) {
+
+  .event_item {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .event_pic img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      padding-right: 0;
+      padding-top: 0.75rem;
+  }
+
+  .friends_preview {
+      position: static;
+      bottom: auto;
+      right: auto;
+      margin-top: 0.5rem;
+      align-self: flex-start;
+  }
 }
 
 .friends_preview .friend-avatar {
@@ -1073,7 +1100,6 @@ body.drawer-open #friends_button {
     align-items: flex-start;
 
     overflow-y: auto;
-    max-height: calc(600px - 150px);
 }
 
 .modal-left {
