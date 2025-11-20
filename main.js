@@ -5,12 +5,12 @@ const eventTags = {
   "OPUS Study Night": ["science"],
   "Welcome Day": ["social", "culture"],
   "Aurora Walk": ["science", "culture"],
-  "UM Sustainability Annual Nature Walk": ["science", "culture"],
-  "UM Budget Meeting": ["culture"],
-  "SSA Winter General Meeting": ["science", "social"]
+  "UM Sustainability Annual Nature Walk": ["Nature", "culture"],
+  "UM Budget Meeting": ["culture", "finance"],
+  "SSA Winter General Meeting": ["science", "social", "food"]
 };
 
-const catTags = ["social", "science", "research", "food", "culture", "arts"];
+const catTags = ["social", "science", "research", "food", "culture", "arts" ,"finance"];
 
 
 const tagIcons = {

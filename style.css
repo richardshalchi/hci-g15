@@ -103,8 +103,8 @@ body {
     border-radius: 20px;
     padding: 10px 16px;
 
-    overflow: hidden;         /* 🔥 ensures nothing spills outside */
-    white-space: nowrap;       /* prevents placeholder wrapping */
+    overflow: hidden;         
+    white-space: nowrap;       
     box-sizing: border-box;   
 }
 
