@@ -164,21 +164,52 @@ resetBtn.addEventListener('click',
 
 // event modals
 document.querySelectorAll(".Register").forEach(button => {
-  button.addEventListener("click", function () {
-    this.classList.add("disabled");
-    this.textContent = "Registered";
+  button.addEventListener("click", function(e) {
+    const modal = button.closest(".modal");
+    const countSpan = modal.querySelector(".participants");
+    let text = countSpan.textContent.trim();
+
+    if(this.classList.contains("unregister")){ //if unregister button
+      this.classList.remove("unregister");
+      this.textContent = "Register"; // change it back to register if clicked
+      e.preventDefault(); // dont go to the ics file linked
+      if (!text.includes("No participants yet")) { // if there are no participants
+        let current = parseInt(text);
+        current = Math.max(0, current - 1); // subtract 1 from current number. dont allow negative num
+        countSpan.textContent = current === 0  // if 0 participants
+          ? "No participants yet"  // change text to no participants
+          : current === 1 
+            ? "1 participant" // if only 1 participant left
+            : `${current} participants`; // multiple participants left
+      }
+    } else { // if register button
+      this.classList.add("unregister");
+      this.textContent = "Unregister"; // make it an unregister button
+      if (text.includes("No participants yet")) {
+        countSpan.textContent = "1 participant"; // if there were no participants and u registered change it to 1
+        return;
+      }
+      let current = parseInt(text);
+      let updated = current + 1; // if there are participants increment
+      countSpan.textContent = updated === 1 
+        ? "1 participant"  // if only 1 participant
+        : `${updated} participants`; // if multiple
+    }
   });
 });
 
-document.querySelectorAll(".modal").forEach(modal => { // participant count + 1 if register is pressed
-    const btn = modal.querySelector(".Register");
-    const countSpan = modal.querySelector("span[id$='count']");
+// exit out of modal if outside is clicked
+document.addEventListener('click', (e) => {
+  const modal = e.target.closest('.modal');
+  if (!modal) return;
 
-    btn.addEventListener("click", () => {
-        let current = parseInt(countSpan.textContent);
-        countSpan.textContent = current + 1;
-    });
+  const inside = e.target.closest('.modal-inner');
+  if (inside) return;
+
+  modal.classList.remove('open');
+  document.body.style.overflow = 'auto';
 });
+
 
 document.querySelectorAll(".interests").forEach(button => {
   button.addEventListener("click", function () {
