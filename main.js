@@ -264,6 +264,12 @@ document.querySelectorAll('.event_item').forEach(item => {
   });
 });
 
+// Fresh reload will show no of friends as well
+document.addEventListener("DOMContentLoaded", () => {
+  filter("");
+  updateTrendingTitle();
+});
+
 // friends code START
 
 const btn = document.getElementById('friends_button');
