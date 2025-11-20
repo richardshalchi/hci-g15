@@ -11,43 +11,35 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 20%;
-    border-right: 1px solid #ddd;
-    padding: 12px;
-    background: #fff;
+    background: linear-gradient(to bottom, #fafafa, #f5f5f7);
+    border-right: 1px solid #e5e7eb;
+    padding: 20px;
+    padding-bottom:40px;
+    width: 15%;
     height: 100vh;
-    overflow-y: auto;
-}
-
-#top_left {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.top_left_brand {
-    display: flex;
-    align-items: center;        
-    justify-content: space-between;
-    gap: 8px;
-}
-
-.logo-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    position: sticky;
-    top: 0;                 
-    z-index: 20;
-    background: #fff;       
-    padding: 8px 0 12px;  
+    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
 }
 
 #logo {
-    display: block;
     max-width: 100%;
+    float: left;
     height: auto;
+}
+
+.logo-row{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom:12px 
+}
+
+.top_left{    
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    margin-bottom: 18px;
 }
 
 .top_left_option {
@@ -57,14 +49,25 @@ body {
     border: 1px solid #ddd;
     border-radius: 20px;
     text-align: left;
-    font-size: 110%;
+    font-size: .95rem;
+    font-weight: 500;
+    color: #333;
     background-color: white;
+
+    transition: background .15s ease,
+                border-color .15s ease,
+                box-shadow .15s ease,
+                transform .1s ease;
 }
 
 .top_left_option:hover {
-    background-color: #eef3ff;
+    background: #f3f4f6;
+    border-color: #d4d4d8;
 }
 
+.top_left_option:active {
+    transform: scale(0.98);
+}
 
 #calendar_button {
     clear: left;
@@ -81,9 +84,9 @@ body {
 }
 
 /* search stuff */
-#search_area {
-    padding: 5%;
-}
+/* #search_area {
+    
+} */
 
 * {
     box-sizing: border-box;
@@ -93,19 +96,33 @@ body {
     position: relative;
     width: 100%;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #eaefff;
+    border-radius: 20px;
+    padding: 10px 16px;
+
+    overflow: hidden;         /* 🔥 ensures nothing spills outside */
+    white-space: nowrap;       /* prevents placeholder wrapping */
+    box-sizing: border-box;   
 }
 
 #search_input {
+    flex: 1;
+    min-width: 0;
     width: 100%;
     padding: 1rem 3rem 1rem 1rem;
     font-size: 1.1rem;
     border: none;
     border-radius: 24px;
-    background: #f2f3f5;
+    background: #eaefff;
     outline: none;
 }
 
 .search_icon {
+    margin-left: 10px;
+    flex-shrink: 0;
     position: absolute;
     right: .75rem;
     top: 50%;
@@ -113,95 +130,120 @@ body {
     font-size: 2rem;
     color: #0078ff;
 }
-
-#btn-reset {
-    display: block;
-    width: 85%;
-    margin: 1rem auto 0;
-    padding: .8rem 0;
-    border: none;
-    border-radius: 20px;
-    background: #e74c3c;
-    color: #ffffff;
-    font-size: 2rem;
-    font-weight: 300;
-    transition: background 0.2s ease, transform 0.1s ease;
+.filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    margin-bottom: 6px;
 }
 
-/* bolds the reset button and adds button frame */
-#btn-reset:hover {
-    background: #c0392b;
-    transform: scale(1.02);
+.side-section-title {
+    margin: 8px 0 6px 4px;
+    font-size: .75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: #6b7280;
 }
 
-#btn-reset:active {
-    transform: scale(0.99);
+.filters-reset-btn {
+    padding: 3px 20px;
+    border-radius: 10px;
+    font-size: .9rem;
+    font-weight: 500;
+
+    border: 1px solid #f5bcbc;
+    background: #ffe8e8;
+    color: #b91c1c;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: background 0.15s ease, border 0.15s ease, transform 0.1s ease;
+}
+
+.filters-reset-btn:hover {
+    background: #ffdada;
+}
+
+.filters-reset-btn:active {
+    transform: scale(0.96);
 }
 
 .filter_list {
     list-style: none;
     padding: 0;
-    margin-top: 1.2rem;
+    margin-top: 6px;
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: .2rem;
-
+    gap: 3px;
 }
 
+
+
+/* Base chip style */
 .filter_list li {
     display: flex;
     align-items: center;
-    gap: .7rem;
-    padding: 1rem 1rem;
-    border: 1px solid #ddd;
+    gap: 10px;
+    padding: 10px 14px;
+
     border-radius: 20px;
-    background: #fff;
-    font-size: 1rem;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+
+    font-size: 1.1rem;
     font-weight: 500;
-    transition: background 0.15s ease, transform .05s ease, box-shadow .15s ease;
+    color: #333;
+
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.15s ease;
 }
 
-/* make each filter get slightly darker when hovering */
+.filter_list li::before {
+    width: 1.4em;       
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+/* Hover — soft, subtle gray */
 .filter_list li:hover {
-    background: #eef3ff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    background: #f4f4f5;
+    border-color: #d4d4d8;
+    background: #eef0f1;
 }
 
-/* move down when clicked  */
-.filter_list li:active {
-    transform: translateY(1px);
+/* Pressed / active — just like ChatGPT's selected chat filter */
+.filter_list li.active-filter {
+    background: #e5faf4;              /* soft mint green */
+    border-color: #10a37f;            /* ChatGPT green */
+    color: #0b7456;
+    box-shadow: 0 0 0 2px rgba(16,163,127,0.15);
 }
 
+.filter_list .icon {
 
-/* Emojis */
-.filter_list li[data-tag="social"]::before {
-    content: "\1F389";
+    display: flex;
+  
+    align-items: center;
+    flex-shrink: 0;
 }
 
-/* confetti */
-.filter_list li[data-tag="science"]::before {
-    content: "\1F52C";
-}
-
-/* microscope */
-.filter_list li[data-tag="research"]::before {
-    content: "\1F4DA";
-}
-
-/* books */
-.filter_list li[data-tag="food"]::before {
-    content: "\1F354";
-}
-
-/* borger */
-.filter_list li[data-tag="culture"]::before {
-    content: "\1F3DB";
-}
-
-/* fancy building */
-.filter_list li[data-tag="arts"]::before {
-    content: "\1F3AD";
+.filter_list .icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: #4b5563;       /* grey like ChatGPT sidebar */
+    stroke-width: 2;
 }
 
 /* :) , :( */
@@ -211,7 +253,6 @@ body {
     box-shadow: 0 0 6px rgba(40, 167, 69, 0.4);
     background: #f6fff7;
 }
-
 /* search stuff fin */
 /*left col END*/
 
@@ -221,7 +262,7 @@ body {
 #trending_heading {
     display: flex;
     align-items: flex-end;
-    gap: 0.35rem;
+    gap: 3%S;
     border-bottom: 1px solid #ddd;
     padding: 1.5rem 0 0.5rem;
     position: sticky;
@@ -443,7 +484,7 @@ body {
 
 /* Friends pop set up START */
 #trending_list {
-    margin-left: calc(20% + 24px);
+    margin-left: calc(15% + 10px);
     padding-right: 24px;
     transition: margin-right .75s ease;
 }
@@ -463,6 +504,19 @@ body.drawer-open #trending_list {
     line-height: 1.4;
     color: #555;
     font-style: italic;
+}
+
+.page_tagline {
+    margin: 0.25rem 0 0.75rem;
+    font-size: 0.95rem;
+    color: #4b5563;          /* soft gray */
+    max-width: 60rem;        /* keeps it from stretching super wide */
+}
+
+@media (max-width: 900px) {
+    .page_tagline {
+        font-size: 0.9rem;
+    }
 }
 
 /* override JUST for the My Friends drawer */

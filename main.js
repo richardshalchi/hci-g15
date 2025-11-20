@@ -1,361 +1,105 @@
-//event stuff
-
-//elements
-const search = document.getElementById("search_input");
-const filterBtn = document.querySelectorAll(".filter_list li");
-const resetBtn = document.getElementById("btn-reset");
-const pageTitle = document.querySelector(".section_title");
-const eventItems = document.querySelectorAll(".event_item");
-
-//FOR NOW PLEASE PUT THE NAMES AND TAGS OF EVENTS HERE
 const eventTags = {
   "ASE Career Fair": ["career", "networking", "science"],
-  "CSA Halloween Social": ["social", "culture", "food"],
+  "CSA Halloween Social": ["social", "culture"],
   "The Goosies": ["social", "science", "culture"],
-  "OPUS Study Night": ["science", "food"],
-  "Welcome Day": ["social", "trending", "food"],
-  "Aurora Walk": ["nature", "trending"],
-  "UM Sustainability Annual Nature Walk": ["nature"],
-  "UM Budget Meeting": ["finance"],
-  "SSA Winter General Meeting": ["science", "social", "food"]
-
+  "OPUS Study Night": ["science"],
+  "Welcome Day": ["social", "culture"],
+  "Aurora Walk": ["science", "culture"],
+  "UM Sustainability Annual Nature Walk": ["science", "culture"],
+  "UM Budget Meeting": ["culture"],
+  "SSA Winter General Meeting": ["science", "social"]
 };
 
-//ADD NEW TAGS AND EMOJIS HERE (CAN CHANGE IT TO ACTUAL PHOTOS LATER)
 const catTags = ["social", "science", "research", "food", "culture", "arts"];
-const emojiMap = {
-  social: "🎉",
-  science: "🔬",
-  research: "📚",
-  food: "🍔",
-  culture: "🏛️",
-  arts: "🎭"
+
+
+const tagIcons = {
+  social: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round" class="lucide">
+      <path d="M5.8 11.3 2 22l10.7-3.79"/>
+      <path d="M4 3h.01"/><path d="M22 8h.01"/>
+      <path d="M15 2h.01"/><path d="M22 20h.01"/>
+      <path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/>
+      <path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"/>
+      <path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/>
+      <path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/>
+    </svg>
+  `,
+  science: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round" class="lucide">
+      <path d="M6 18h8"/><path d="M3 22h18"/>
+      <path d="M14 22a7 7 0 1 0 0-14h-1"/>
+      <path d="M9 14h2"/>
+      <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/>
+      <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>
+    </svg>
+  `,
+  research: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round" class="lucide">
+      <path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/>
+      <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>
+      <path d="M6 12h2"/><path d="M6 8h2"/>
+    </svg>
+  `,
+  food: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round" class="lucide">
+      <path d="M12 16H4a2 2 0 1 1 0-4h16a2 2 0 1 1 0 4h-4.25"/>
+      <path d="M5 12a2 2 0 0 1-2-2 9 7 0 0 1 18 0 2 2 0 0 1-2 2"/>
+      <path d="M5 16a2 2 0 0 0-2 2 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 2 2 0 0 0-2-2q0 0 0 0"/>
+      <path d="m6.67 12 6.13 4.6a2 2 0 0 0 2.8-.4l3.15-4.2"/>
+    </svg>
+  `,
+  culture: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round" class="lucide">
+      <path d="M10 18v-7"/>
+      <path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z"/>
+      <path d="M14 18v-7"/>
+      <path d="M18 18v-7"/>
+      <path d="M3 22h18"/>
+      <path d="M6 18v-7"/>
+    </svg>
+  `,
+  arts: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round" class="lucide">
+      <path d="M10 11h.01"/><path d="M14 6h.01"/>
+      <path d="M18 6h.01"/><path d="M6.5 13.1h.01"/>
+      <path d="M22 5c0 9-4 12-6 12s-6-3-6-12c0-2 2-3 6-3s6 1 6 3"/>
+      <path d="M17.4 9.9c-.8.8-2 .8-2.8 0"/>
+      <path d="M10.1 7.1C9 7.2 7.7 7.7 6 8.6c-3.5 2-4.7 3.9-3.7 5.6 4.5 7.8 9.5 8.4 11.2 7.4.9-.5 1.9-2.1 1.9-4.7"/>
+      <path d="M9.1 16.5c.3-1.1 1.4-1.7 2.4-1.4"/>
+    </svg>
+  `,
+  popular:`
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+  stroke-linecap="round" stroke-linejoin="round" class="lucide">
+  <path d="M12 16v5"/><path d="M16 14v7"/><path d="M20 10v11"/>
+  <path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/>
+  <path d="M4 18v3"/><path d="M8 14v7"/>
+  </svg>
+  `,
+  new:`
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-newspaper-icon lucide-newspaper">
+  <path d="M15 18h-5"/>
+  <path d="M18 14h-8"/>
+  <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/>
+  <rect width="8" height="4" x="10" y="6" rx="1"/></svg>  `
+    
 };
 
-//for multie select of tags
-let activeTags = new Set();
 
-// Build a searchable string for an event card (title + desc + org + time + keyword aliases)
-function getEventSearchText(item) {
-  const title = item.querySelector('h2')?.textContent.trim() || '';
-  const description = item.querySelector('.event_description')?.textContent || '';
-  const org = item.querySelector('.organization')?.textContent || '';
-  const time = item.querySelector('.event_time')?.textContent || '';
-
-  // category tags like ["science", "food", ...]
-  const catTagsForEvent = eventTags[title] || [];
-
-  // extra keyword aliases from the same eventKeywords object used by My Friends
-  const extraKeywords = eventKeywords[title] || [];
-
-  // norm() is the same helper you already use in the friends search
-  return norm(
-    `${title} ${description} ${org} ${time} ${catTagsForEvent.join(' ')} ${extraKeywords.join(' ')}`
-  );
-}
-
-//actaul filter logic for tags still need to work on search
-function filter(searchText = "") {
-  let visibleCount = 0;
-
-  eventItems.forEach(item => {
-    const title = item.querySelector('h2').textContent.trim();
-    const tags = eventTags[title] || [];
-
-    // --- TAG FILTER (unchanged) ---
-    let matchT = false;
-    if (activeTags.size === 0) {
-      matchT = true;
-    } else {
-      for (const t of activeTags) {
-        if (tags.includes(t)) {
-          matchT = true;
-          break;
-        }
-      }
-    }
-
-    // --- SEARCH FILTER (shared logic) ---
-    const haystack = getEventSearchText(item);
-    const matchS = matchesAllTerms(haystack, searchText);
-
-    if (matchS && matchT) {
-      item.style.display = "flex";
-      visibleCount++;
-    } else {
-      item.style.display = "none";
-    }
-  });
-
-  // show/hide the "no events" message
-  const emptyState = document.getElementById('events_empty');
-  if (emptyState) {
-    emptyState.hidden = visibleCount !== 0;
-  }
-
-  const countEl = document.getElementById('events_count');
-  if (countEl) {
-    if (visibleCount === 0) {
-      countEl.textContent = "";
-    } else if (visibleCount === 1) {
-      countEl.textContent = "Showing 1 event";
-    } else {
-      countEl.textContent = `Showing ${visibleCount} events`;
-    }
-  }
-}
-
-//updates the title, for now just adds if multiple are selected
-function updateTrendingTitle(tag) {
-  if (activeTags.size === 0) {
-    pageTitle.textContent = "📈 Popular";
-    return;
-  }
-
-
-  const titles = [];
-
-  for (const tag of activeTags) {
-    const emoji = emojiMap[tag] || "";
-    const captialized = tag.charAt(0).toUpperCase() + tag.slice(1);
-    const title = `${emoji} ${captialized}`;
-    titles.push(title);
-  }
-
-  pageTitle.textContent = titles.join(" ");
-}
-
-//logic for pressing the filter buttons
-function filterClick(btn) {
-  const tag = btn.dataset.tag;
-
-  if (activeTags.has(tag)) {
-    activeTags.delete(tag);
-    btn.classList.remove("active-filter")
-  } else {
-    activeTags.add(tag);
-    btn.classList.add("active-filter");
-  }
-
-
-  updateTrendingTitle();
-  const query = search.value.trim().toLowerCase();
-  filter(query);
-}
-
-//btn press 
-filterBtn.forEach(btn => {
-  btn.addEventListener("click", () => filterClick(btn));
-});
-//search bar
-search.addEventListener('input', function () {
-  filter(this.value);
-})
-//wipe on reset
-resetBtn.addEventListener('click',
-  function () {
-    search.value = "";
-    activeTags.clear();
-    updateTrendingTitle(null);
-    filter("");
-    filterBtn.forEach(b => b.classList.remove("active-filter"));
-  });
-
-
-// event modals
-document.querySelectorAll(".Register").forEach(button => {
-  button.addEventListener("click", function(e) {
-    const modal = button.closest(".modal");
-    const countSpan = modal.querySelector(".participants");
-    let text = countSpan.textContent.trim();
-
-    if(this.classList.contains("unregister")){ //if unregister button
-      this.classList.remove("unregister");
-      this.textContent = "Register"; // change it back to register if clicked
-      e.preventDefault(); // dont go to the ics file linked
-      if (!text.includes("No participants yet")) { // if there are no participants
-        let current = parseInt(text);
-        current = Math.max(0, current - 1); // subtract 1 from current number. dont allow negative num
-        countSpan.textContent = current === 0  // if 0 participants
-          ? "No participants yet"  // change text to no participants
-          : current === 1 
-            ? "1 participant" // if only 1 participant left
-            : `${current} participants`; // multiple participants left
-      }
-    } else { // if register button
-      this.classList.add("unregister");
-      this.textContent = "Unregister"; // make it an unregister button
-      if (text.includes("No participants yet")) {
-        countSpan.textContent = "1 participant"; // if there were no participants and u registered change it to 1
-        return;
-      }
-      let current = parseInt(text);
-      let updated = current + 1; // if there are participants increment
-      countSpan.textContent = updated === 1 
-        ? "1 participant"  // if only 1 participant
-        : `${updated} participants`; // if multiple
-    }
-  });
-});
-
-// exit out of modal if outside is clicked
-document.addEventListener('click', (e) => {
-  const modal = e.target.closest('.modal');
-  if (!modal) return;
-
-  const inside = e.target.closest('.modal-inner');
-  if (inside) return;
-
-  modal.classList.remove('open');
-  document.body.style.overflow = 'auto';
-});
-
-
-document.querySelectorAll(".interests").forEach(button => {
-  button.addEventListener("click", function () {
-    this.classList.add("disabled");
-    this.textContent = "Added to Interests";
-  });
-});
-
-document.addEventListener('click', (e) => {
-  const closeButton = e.target.closest('#close-event'); // check if the clicked event is a close button
-  if (!closeButton) return; // if not get out
-
-  e.stopPropagation(); // prevent affecting parent elements (bubble)
-  e.preventDefault();
-
-  const modal = closeButton.closest('.modal');
-  if (modal) {
-    modal.classList.remove('open');
-    document.body.style.overflow = 'auto';
-  }
-});
-
-// Both arrows under Trending page and in friends pop-up will open the same event description card START
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.arrow[data-target]');
-  if (!btn) return;
-
-  const sel = (btn.dataset.target || '').trim();
-  if (!sel) return;
-  const modal = document.querySelector(sel);
-  if (modal) modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-});
-
-// Make entire event cards open the same modal as their arrow
-document.querySelectorAll('.event_item').forEach(item => {
-  item.addEventListener('click', (e) => {
-    // if they actually clicked the arrow, let the arrow handler deal with it
-    if (e.target.closest('.arrow')) return;
-
-    const arrow = item.querySelector('.arrow[data-target]');
-    if (!arrow) return;
-
-    const sel = (arrow.dataset.target || '').trim();
-    if (!sel) return;
-
-    const modal = document.querySelector(sel);
-    if (modal) {
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-  });
-});
-
-// friends code START
-
-const btn = document.getElementById('friends_button');
-const panel = document.getElementById('friends_panel');
-const close = document.getElementById('friends_close')
-
-// open/close via button
-btn.addEventListener('click', () => {
-  panel.classList.toggle('open');
-  document.body.classList.toggle('drawer-open', panel.classList.contains('open'));
-
-  if (panel.classList.contains('open')) {
-    const searchField = document.getElementById('friend_search');
-    if (searchField) searchField.focus();
-  }
-});
-
-// close via X
-close.addEventListener('click', () => {
-  panel.classList.remove('open');
-  document.body.classList.remove('drawer-open');
-});
-
-// click outside to close (but not if an event modal is open)
-document.addEventListener('click', (e) => {
-  if (e.target.closest(`.modal`)) return;
-
-  const clickedInsidePanel = panel.contains(e.target);
-  const clickedButton = btn.contains(e.target);
-
-  if (panel.classList.contains('open') && !clickedInsidePanel && !clickedButton) {
-    panel.classList.remove('open');
-    document.body.classList.remove('drawer-open');
-  }
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.key !== 'Escape') return;
-  const openModal = document.querySelector('.modal.open');
-
-  if (openModal)
-    openModal.classList.remove('open');
-
-  if (panel.classList.contains('open')) {
-    panel.classList.remove('open');
-    document.body.classList.remove('drawer-open');
-  }
-})
-
-// help button on Popular page
-const helpBtn = document.getElementById('help_button');
-const helpPanel = document.getElementById('help_panel');
-
-if (helpBtn && helpPanel) {
-  helpBtn.addEventListener('click', () => {
-    const isHidden = helpPanel.hasAttribute('hidden');
-
-    if (isHidden) {
-      helpPanel.removeAttribute('hidden');
-    } else {
-      helpPanel.setAttribute('hidden', '');
-    }
-
-    helpBtn.setAttribute('aria-expanded', String(isHidden));
-  });
-}
-
-// friends search START
-const friendsSearch = document.getElementById('friend_search');
-const friendsCards = document.querySelectorAll('.friends-feed .friend-card');
-
-// Make each friend-event row open its event modal when clicked
-document.querySelectorAll('.friend-event').forEach(row => {
-  row.addEventListener('click', (e) => {
-    // don't double-handle the arrow itself
-    if (e.target.closest('.arrow')) return;
-
-    const arrow = row.querySelector('.arrow[data-target]');
-    if (!arrow) return;
-
-    const sel = (arrow.dataset.target || '').trim();
-    if (!sel) return;
-
-    const modal = document.querySelector(sel);
-    if (modal) {
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-  });
-});
-
-// map short month → long month
 const monthMap = {
   jan: 'january',
   feb: 'february',
@@ -548,6 +292,321 @@ const eventKeywords = {
   ]
 };
 
+
+//elements
+const search = document.getElementById("search_input");
+const filterBtn = document.querySelectorAll(".filter_list li");
+const resetBtn = document.getElementById("btn-reset");
+const pageTitle = document.querySelector(".section_title");
+const eventItems = document.querySelectorAll(".event_item");
+
+//active tag
+let activeTags = new Set();
+
+function matchesSearch(item, searchText) {
+  const q = searchText.trim().toLowerCase();
+  if (!q)  
+    return true;
+
+  const title= item.querySelector("h2")?.textContent.toLowerCase() || "";
+  const description= item.querySelector(".event_description")?.textContent.toLowerCase() || "";
+  const org= item.querySelector(".organization")?.textContent.toLowerCase() || "";
+  const time=item.querySelector(".event_time")?.textContent.toLowerCase() || "";
+
+  const possible = `${title} ${description} ${org} ${time}`;
+  return possible.includes(q);
+}
+
+
+function matchesTags(item) {
+  if (activeTags.size===0) 
+    return true;
+
+  const title= item.querySelector("h2").textContent.trim();
+  const tagsForEvent= eventTags[title] || [];
+
+  for (const t of activeTags) {
+    if (tagsForEvent.includes(t)) return true;
+  }
+  return false;
+}
+
+
+function filterEvents(searchText = "") {
+  eventItems.forEach(item => {
+    const okSearch = matchesSearch(item, searchText);
+    const okTags = matchesTags(item);
+
+    if (okSearch && okTags) {
+      item.style.display = "flex";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
+
+
+function updateTrendingTitle() {
+if (activeTags.size === 0) {
+    pageTitle.innerHTML = `
+        <span class="tag-title-icon">${tagIcons.popular}</span>
+        Popular
+    `;
+    return;
+}
+    const htmlChunks= [...activeTags].map(tag => {
+    const icon= tagIcons[tag] || "";
+    const capialLetter= tag.charAt(0).toUpperCase();
+    const label= capialLetter + tag.slice(1);
+    return `<span class="tag-title-icon">${icon}</span> ${label}`;
+  });
+
+  pageTitle.innerHTML = htmlChunks.join(" "); 
+}
+
+
+function filterClick(btn) {
+  const tag = btn.dataset.tag;
+  if (!tag) return;
+
+  if (activeTags.has(tag)) {
+    activeTags.delete(tag);
+    btn.classList.remove("active-filter");
+  } else {
+    activeTags.add(tag);
+    btn.classList.add("active-filter");
+  }
+
+  updateTrendingTitle();
+  const query = search.value.trim().toLowerCase();
+  filterEvents(query);
+}
+
+
+
+// filter chip clicks
+filterBtn.forEach(btn => {
+  btn.addEventListener("click", () => filterClick(btn));
+});
+
+// search bar input
+search.addEventListener("input", () => {
+  const query = search.value.trim().toLowerCase();
+  filterEvents(query);
+});
+
+// reset button
+resetBtn.addEventListener("click", () => {
+  search.value = "";
+  activeTags.clear();
+  updateTrendingTitle();
+  filterEvents("");
+
+  filterBtn.forEach(b => b.classList.remove("active-filter"));
+});
+
+
+
+// event modals
+document.querySelectorAll(".Register").forEach(button => {
+  button.addEventListener("click", function(e) {
+    const modal = button.closest(".modal");
+    const countSpan = modal.querySelector(".participants");
+    let text = countSpan.textContent.trim();
+
+    if(this.classList.contains("unregister")){ //if unregister button
+      this.classList.remove("unregister");
+      this.textContent = "Register"; // change it back to register if clicked
+      e.preventDefault(); // dont go to the ics file linked
+      if (!text.includes("No participants yet")) { // if there are no participants
+        let current = parseInt(text);
+        current = Math.max(0, current - 1); // subtract 1 from current number. dont allow negative num
+        countSpan.textContent = current === 0  // if 0 participants
+          ? "No participants yet"  // change text to no participants
+          : current === 1 
+            ? "1 participant" // if only 1 participant left
+            : `${current} participants`; // multiple participants left
+      }
+    } else { // if register button
+      this.classList.add("unregister");
+      this.textContent = "Unregister"; // make it an unregister button
+      if (text.includes("No participants yet")) {
+        countSpan.textContent = "1 participant"; // if there were no participants and u registered change it to 1
+        return;
+      }
+      let current = parseInt(text);
+      let updated = current + 1; // if there are participants increment
+      countSpan.textContent = updated === 1 
+        ? "1 participant"  // if only 1 participant
+        : `${updated} participants`; // if multiple
+    }
+  });
+});
+
+// exit out of modal if outside is clicked
+document.addEventListener('click', (e) => {
+  const modal = e.target.closest('.modal');
+  if (!modal) return;
+
+  const inside = e.target.closest('.modal-inner');
+  if (inside) return;
+
+  modal.classList.remove('open');
+  document.body.style.overflow = 'auto';
+});
+
+
+document.querySelectorAll(".interests").forEach(button => {
+  button.addEventListener("click", function () {
+    this.classList.add("disabled");
+    this.textContent = "Added to Interests";
+  });
+});
+
+document.addEventListener('click', (e) => {
+  const closeButton = e.target.closest('#close-event'); // check if the clicked event is a close button
+  if (!closeButton) return; // if not get out
+
+  e.stopPropagation(); // prevent affecting parent elements (bubble)
+  e.preventDefault();
+
+  const modal = closeButton.closest('.modal');
+  if (modal) {
+    modal.classList.remove('open');
+    document.body.style.overflow = 'auto';
+  }
+});
+
+// Both arrows under Trending page and in friends pop-up will open the same event description card START
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.arrow[data-target]');
+  if (!btn) return;
+
+  const sel = (btn.dataset.target || '').trim();
+  if (!sel) return;
+  const modal = document.querySelector(sel);
+  if (modal) modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+
+// Make entire event cards open the same modal as their arrow
+document.querySelectorAll('.event_item').forEach(item => {
+  item.addEventListener('click', (e) => {
+    // if they actually clicked the arrow, let the arrow handler deal with it
+    if (e.target.closest('.arrow')) return;
+
+    const arrow = item.querySelector('.arrow[data-target]');
+    if (!arrow) return;
+
+    const sel = (arrow.dataset.target || '').trim();
+    if (!sel) return;
+
+    const modal = document.querySelector(sel);
+    if (modal) {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+});
+
+// Fresh reload will show no of friends as well
+document.addEventListener("DOMContentLoaded", () => {
+  filter("");
+  updateTrendingTitle();
+});
+
+// friends code START
+
+const btn = document.getElementById('friends_button');
+const panel = document.getElementById('friends_panel');
+const close = document.getElementById('friends_close')
+
+// open/close via button
+btn.addEventListener('click', () => {
+  panel.classList.toggle('open');
+  document.body.classList.toggle('drawer-open', panel.classList.contains('open'));
+
+  if (panel.classList.contains('open')) {
+    const searchField = document.getElementById('friend_search');
+    if (searchField) searchField.focus();
+  }
+});
+
+// close via X
+close.addEventListener('click', () => {
+  panel.classList.remove('open');
+  document.body.classList.remove('drawer-open');
+});
+
+// click outside to close (but not if an event modal is open)
+document.addEventListener('click', (e) => {
+  if (e.target.closest(`.modal`)) return;
+
+  const clickedInsidePanel = panel.contains(e.target);
+  const clickedButton = btn.contains(e.target);
+
+  if (panel.classList.contains('open') && !clickedInsidePanel && !clickedButton) {
+    panel.classList.remove('open');
+    document.body.classList.remove('drawer-open');
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  const openModal = document.querySelector('.modal.open');
+
+  if (openModal)
+    openModal.classList.remove('open');
+
+  if (panel.classList.contains('open')) {
+    panel.classList.remove('open');
+    document.body.classList.remove('drawer-open');
+  }
+})
+
+// help button on Popular page
+const helpBtn = document.getElementById('help_button');
+const helpPanel = document.getElementById('help_panel');
+
+if (helpBtn && helpPanel) {
+  helpBtn.addEventListener('click', () => {
+    const isHidden = helpPanel.hasAttribute('hidden');
+
+    if (isHidden) {
+      helpPanel.removeAttribute('hidden');
+    } else {
+      helpPanel.setAttribute('hidden', '');
+    }
+
+    helpBtn.setAttribute('aria-expanded', String(isHidden));
+  });
+}
+
+// friends search START
+const friendsSearch = document.getElementById('friend_search');
+const friendsCards = document.querySelectorAll('.friends-feed .friend-card');
+
+// Make each friend-event row open its event modal when clicked
+document.querySelectorAll('.friend-event').forEach(row => {
+  row.addEventListener('click', (e) => {
+    // don't double-handle the arrow itself
+    if (e.target.closest('.arrow')) return;
+
+    const arrow = row.querySelector('.arrow[data-target]');
+    if (!arrow) return;
+
+    const sel = (arrow.dataset.target || '').trim();
+    if (!sel) return;
+
+    const modal = document.querySelector(sel);
+    if (modal) {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+});
+
+
 function norm(s) {
   return (s || '').toLowerCase().trim();
 }
@@ -664,3 +723,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // add friends END
 
 // friends code END
+
+window.addEventListener("DOMContentLoaded", () => {
+    updateTrendingTitle();
+});
