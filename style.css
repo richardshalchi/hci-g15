@@ -486,14 +486,21 @@ body {
     padding-top: 0.75rem;
   }
 
-  /* move the “+3 more friends” cluster under the text instead of bottom-right */
-  .friends_preview {
-    position: static;
-    bottom: auto;
-    right: auto;
-    margin-top: 0.5rem;
-    align-self: flex-start;
-  }
+    @media (max-width: 900px) {
+        /* stack card vertically: picture, then text */
+        .event_item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .event_pic img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            padding-right: 0;
+            padding-top: 0.75rem;
+        }
+    }
 }
 
 .ai_hide {
@@ -532,6 +539,17 @@ body {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
+
+/* narrow screens – move avatars into normal flow so they don't cover the arrow */
+@media (max-width: 900px) {
+  .friends_preview {
+    position: static;
+    bottom: auto;
+    right: auto;
+    margin-top: 0.5rem;
+    align-self: flex-start;
+  }
 }
 
 .friends_preview .friend-avatar {
