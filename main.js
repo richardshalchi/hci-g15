@@ -1,12 +1,12 @@
 // Config data for tags, keywords & icons
 const eventTags = {
-  "ASE Career Fair": ["career", "networking", "science"],
-  "CSA Halloween Social": ["social", "culture"],
+  "ASE Career Fair": ["social","career", "trending", "science"],
+  "CSA Halloween Social": ["social", "culture", "Food"],
   "The Goosies": ["social", "science", "culture"],
-  "OPUS Study Night": ["science"],
-  "Welcome Day": ["social", "food"],
-  "Aurora Walk": ["science", "culture"],
-  "UM Sustainability Annual Nature Walk": ["Nature", "culture"],
+  "OPUS Study Night": ["science", "trending", "food"],
+  "Welcome Day": ["social", "trending","food"],
+  "Aurora Walk": ["nature", "trending"],
+  "UM Sustainability Annual Nature Walk": ["nature"],
   "UM Budget Meeting": ["finance"],
   "SSA Winter General Meeting": ["science", "social", "food"],
 };
@@ -80,20 +80,31 @@ const tagIcons = {
     </svg>
   `,
   popular: `
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
-  stroke-linecap="round" stroke-linejoin="round" class="lucide">
-  <path d="M12 16v5"/><path d="M16 14v7"/><path d="M20 10v11"/>
-  <path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/>
-  <path d="M4 18v3"/><path d="M8 14v7"/>
-  </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+    stroke-linecap="round" stroke-linejoin="round" class="lucide">
+    <path d="M12 16v5"/><path d="M16 14v7"/><path d="M20 10v11"/>
+    <path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/>
+    <path d="M4 18v3"/><path d="M8 14v7"/>
+    </svg>
   `,
   new: `
-  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-newspaper-icon lucide-newspaper">
-  <path d="M15 18h-5"/>
-  <path d="M18 14h-8"/>
-  <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/>
-  <rect width="8" height="4" x="10" y="6" rx="1"/></svg>  `,
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-newspaper-icon lucide-newspaper">
+    <path d="M15 18h-5"/>
+    <path d="M18 14h-8"/>
+    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/>
+    <rect width="8" height="4" x="10" y="6" rx="1"/></svg>  `,
+  nature:`
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-leaf-icon lucide-leaf">
+    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>`,
+  trending:`
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up-icon lucide-trending-up">
+    <path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/>
+    </svg>
+  `
+
+
 };
 
 const monthMap = {
@@ -311,12 +322,9 @@ function matchesSearch(item, searchText) {
   if (!q) return true;
 
   const title = item.querySelector("h2")?.textContent.toLowerCase() || "";
-  const description =
-    item.querySelector(".event_description")?.textContent.toLowerCase() || "";
-  const org =
-    item.querySelector(".organization")?.textContent.toLowerCase() || "";
-  const time =
-    item.querySelector(".event_time")?.textContent.toLowerCase() || "";
+  const description =item.querySelector(".event_description")?.textContent.toLowerCase() || "";
+  const org =item.querySelector(".organization")?.textContent.toLowerCase() || "";
+  const time =item.querySelector(".event_time")?.textContent.toLowerCase() || "";
 
   const possible = `${title} ${description} ${org} ${time}`;
   return possible.includes(q);
@@ -412,6 +420,42 @@ function filterEvents(searchText = "") {
   updateEmptyState(visibleCount, hasSearch, hasTags);
 }
 
+function newEvents(){
+  const now= new Date();
+  const currentMonth= now.toLocaleString("defualt", {month: "long"}).toLowerCase();
+
+  eventItems.forEach(item =>{
+      const timeText = item.querySelector(".event_time")?.textContent.toLowerCase() || "";
+      const title = item.querySelector("h2")?.textContent.trim();
+
+      if(!title)
+        return;
+
+      if(!eventTags[title])
+        eventTags[title]= [];
+
+      const shortMonth= Object.keys(monthMap).find(short =>
+        timeText.includes(short)
+      );
+
+      if(!shortMonth)
+        return;
+
+      const eventMonth = monthMap[shortMonth];
+
+      if(eventMonth == currentMonth){
+        if(!eventTags[title].includes("new")){
+          eventTags[title].push("new");
+        }
+      }
+
+
+  });
+
+}
+
+
+
 /**
  * Updates the big page heading based on active tags.
  * - No tags selected → "Popular" with a generic icon.
@@ -440,6 +484,7 @@ function updateTrendingTitle() {
 
 // Initial setup on page load
 document.addEventListener("DOMContentLoaded", () => {
+  newEvents();
   updateTrendingTitle(); // sets "Popular" by default
   filterEvents(""); // ensures all events are visible on first load
 });

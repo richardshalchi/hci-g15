@@ -15,27 +15,50 @@
 <body>
         <!-- left col START-->
         <div id="left_col">
-            <div id="top_left">
-        <div class="logo-row">
-        <h3 class="site-title">
-            <a href="index.html">
-            <img id="logo" src="logo.png" alt="UMEvents logo">
-            </a>
-        </h3>
 
-            <button id="help_button" class="help-icon" type="button"
-                    aria-expanded="false" aria-controls="help_panel"
-                    title="How this page works">
-                ?
-            </button>
-            </div>
-            <button id="profile" class="top_left_option" type="button" 
-            onclick="window.open('https://myaccount.microsoft.com/', '_blank')">Sweet Long Nametime
-                (Logged In)</button>
-            <button id="calendar_button" class="top_left_option" type="button"
-                onclick="window.open('https://outlook.office.com/calendar/view/month', '_blank')">My Calendar <span
-                    id="new_tab_icon">↗️</span></button>
-        </div>
+            <div id="top_left">
+                <div class="logo-row">
+                    <h3 class="site-title">
+                        <a href="index.html">
+                        <img id="logo" src="logo.png" alt="UMEvents logo">
+                        </a>
+                    </h3>
+
+                    <button id="help_button" class="help-icon" type="button"
+                            aria-expanded="false" aria-controls="help_panel"
+                            title="How this page works">?
+                    </button>
+                </div>
+                <div class="user-row">
+
+                    <button id="calendar_button" class="calendar-button"
+                            onclick="window.open('https://outlook.office.com/calendar/view/month', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 2v4"/>
+                            <path d="M16 2v4"/>
+                            <rect width="18" height="18" x="3" y="4" rx="2"/>
+                            <path d="M3 10h18"/>
+                            <path d="M8 14h.01"/>
+                            <path d="M12 14h.01"/>
+                            <path d="M16 14h.01"/>
+                            <path d="M8 18h.01"/>
+                            <path d="M12 18h.01"/>
+                            <path d="M16 18h.01"/>
+                        </svg>
+                    </button>
+
+                    <button id="profile" class="profile-button"
+                            onclick="window.open('https://myaccount.microsoft.com/', '_blank')">
+                        <img src="Sage.png" alt="Profile">
+                    </button>
+
+                    <p class="user-label-inline">Sweet L</p>
+
+                </div>
+
+             </div>
 
         <!-- search bar stuff -->
         <div id="search_area">
@@ -53,6 +76,24 @@
         
                 <!-- All icons sourced from lucide: https://lucide.dev/icons/party-popper  -->
                 <ul class="filter_list">
+                    <li data-tag="trending">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up-icon lucide-trending-up">
+                                <path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/>
+                            </svg>
+                        </span>
+                        Trending
+                    </li>
+                    <li data-tag="new">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-newspaper-icon lucide-newspaper">
+                                <path d="M15 18h-5"/>
+                                <path d="M18 14h-8"/>
+                                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/>
+                                <rect width="8" height="4" x="10" y="6" rx="1"/></svg>
+                        </span>
+                        New
+                    </li>
                     <li data-tag="social">
                         <span class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-party-popper-icon lucide-party-popper">
@@ -130,17 +171,15 @@
                         </span>
                         Arts
                     </li>
-                    <li data-tag="new">
+                        <li data-tag="nature">
                         <span class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-newspaper-icon lucide-newspaper">
-                                <path d="M15 18h-5"/>
-                                <path d="M18 14h-8"/>
-                                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/>
-                                <rect width="8" height="4" x="10" y="6" rx="1"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-leaf-icon lucide-leaf">
+                                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                            </svg>
                         </span>
-                        New
+                        Nature
                     </li>
-
                 </ul>
 
                 

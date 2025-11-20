@@ -43,35 +43,68 @@ body {
   margin-bottom: 18px;
 }
 
-.top_left_option {
-  width: 100%;
-  padding: 8%;
-  margin-bottom: 2%;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  text-align: left;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: #333;
-  background-color: white;
+.user-row{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 10px;
+  margin: 12px 0 20px 0;
 
-  transition: background 0.15s ease, border-color 0.15s ease,
-    box-shadow 0.15s ease, transform 0.1s ease;
 }
 
-.top_left_option:hover {
-  background: #f3f4f6;
-  border-color: #d4d4d8;
+.user-col{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.user-label-inline {
+  font-size: 1.2rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #374151;
+  margin-left: 8px;   
+}
+
+.profile-button, .calendar-button {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  padding:0%;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+  transition: background 0.15s ease, box-shadow 0.12s ease;
 }
 
-.top_left_option:active {
-  transform: scale(0.98);
+.profile-button:hover, 
+.calendar-button:hover{
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.18);
+} 
+
+.profile-button:active, 
+.calendar-button:active{
+  transform: scale(0.97);
+
+} 
+
+.profile-button img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
 }
 
-#calendar_button {
-  clear: left;
-  text-decoration-line: underline;
+.calendar-button svg {
+    width: 45px;
+    height: 45px;
+    stroke: #333;
 }
 
 #new_tab_icon {
@@ -79,9 +112,9 @@ body {
   padding-left: 3%;
 }
 
-#profile {
+/* #profile {
   float: left;
-}
+} */
 
 /* search stuff */
 /* #search_area {
@@ -112,7 +145,7 @@ body {
   flex: 1;
   min-width: 0;
   width: 100%;
-  padding: 1rem 3rem 1rem 1rem;
+  padding: .5rem;
   font-size: 1.1rem;
   border: none;
   border-radius: 24px;
