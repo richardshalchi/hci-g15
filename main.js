@@ -1,4 +1,4 @@
-//event stuff
+import { eventTags, catTags, tagIcons, monthMap, eventKeywords } from "./search_event_details.js";
 
 //elements
 const search = document.getElementById("search_input");
@@ -7,159 +7,111 @@ const resetBtn = document.getElementById("btn-reset");
 const pageTitle = document.querySelector(".section_title");
 const eventItems = document.querySelectorAll(".event_item");
 
-//FOR NOW PLEASE PUT THE NAMES AND TAGS OF EVENTS HERE
-const eventTags = {
-  "ASE Career Fair": ["career", "networking", "science"],
-  "CSA Halloween Social": ["social", "culture", "food"],
-  "The Goosies": ["social", "science", "culture"],
-  "OPUS Study Night": ["science", "food"],
-  "Welcome Day": ["social", "trending", "food"],
-  "Aurora Walk": ["nature", "trending"],
-  "UM Sustainability Annual Nature Walk": ["nature"],
-  "UM Budget Meeting": ["finance"],
-  "SSA Winter General Meeting": ["science", "social", "food"]
-
-};
-
-//ADD NEW TAGS AND EMOJIS HERE (CAN CHANGE IT TO ACTUAL PHOTOS LATER)
-const catTags = ["social", "science", "research", "food", "culture", "arts"];
-const emojiMap = {
-  social: "🎉",
-  science: "🔬",
-  research: "📚",
-  food: "🍔",
-  culture: "🏛️",
-  arts: "🎭"
-};
-
-//for multie select of tags
+//active tag
 let activeTags = new Set();
 
-// Build a searchable string for an event card (title + desc + org + time + keyword aliases)
-function getEventSearchText(item) {
-  const title = item.querySelector('h2')?.textContent.trim() || '';
-  const description = item.querySelector('.event_description')?.textContent || '';
-  const org = item.querySelector('.organization')?.textContent || '';
-  const time = item.querySelector('.event_time')?.textContent || '';
+function matchesSearch(item, searchText) {
+  const q = searchText.trim().toLowerCase();
+  if (!q)  
+    return true;
 
-  // category tags like ["science", "food", ...]
-  const catTagsForEvent = eventTags[title] || [];
+  const title= item.querySelector("h2")?.textContent.toLowerCase() || "";
+  const description= item.querySelector(".event_description")?.textContent.toLowerCase() || "";
+  const org= item.querySelector(".organization")?.textContent.toLowerCase() || "";
+  const time=item.querySelector(".event_time")?.textContent.toLowerCase() || "";
 
-  // extra keyword aliases from the same eventKeywords object used by My Friends
-  const extraKeywords = eventKeywords[title] || [];
-
-  // norm() is the same helper you already use in the friends search
-  return norm(
-    `${title} ${description} ${org} ${time} ${catTagsForEvent.join(' ')} ${extraKeywords.join(' ')}`
-  );
+  const possible = `${title} ${description} ${org} ${time}`;
+  return possible.includes(q);
 }
 
-//actaul filter logic for tags still need to work on search
-function filter(searchText = "") {
-  let visibleCount = 0;
 
+function matchesTags(item) {
+  if (activeTags.size===0) 
+    return true;
+
+  const title= item.querySelector("h2").textContent.trim();
+  const tagsForEvent= eventTags[title] || [];
+
+  for (const t of activeTags) {
+    if (tagsForEvent.includes(t)) return true;
+  }
+  return false;
+}
+
+
+function filterEvents(searchText = "") {
   eventItems.forEach(item => {
-    const title = item.querySelector('h2').textContent.trim();
-    const tags = eventTags[title] || [];
+    const okSearch = matchesSearch(item, searchText);
+    const okTags = matchesTags(item);
 
-    // --- TAG FILTER (unchanged) ---
-    let matchT = false;
-    if (activeTags.size === 0) {
-      matchT = true;
-    } else {
-      for (const t of activeTags) {
-        if (tags.includes(t)) {
-          matchT = true;
-          break;
-        }
-      }
-    }
-
-    // --- SEARCH FILTER (shared logic) ---
-    const haystack = getEventSearchText(item);
-    const matchS = matchesAllTerms(haystack, searchText);
-
-    if (matchS && matchT) {
+    if (okSearch && okTags) {
       item.style.display = "flex";
-      visibleCount++;
     } else {
       item.style.display = "none";
     }
   });
-
-  // show/hide the "no events" message
-  const emptyState = document.getElementById('events_empty');
-  if (emptyState) {
-    emptyState.hidden = visibleCount !== 0;
-  }
-
-  const countEl = document.getElementById('events_count');
-  if (countEl) {
-    if (visibleCount === 0) {
-      countEl.textContent = "";
-    } else if (visibleCount === 1) {
-      countEl.textContent = "Showing 1 event";
-    } else {
-      countEl.textContent = `Showing ${visibleCount} events`;
-    }
-  }
 }
 
-//updates the title, for now just adds if multiple are selected
-function updateTrendingTitle(tag) {
-  if (activeTags.size === 0) {
-    pageTitle.textContent = "📈 Popular";
+
+function updateTrendingTitle() {
+if (activeTags.size === 0) {
+    pageTitle.innerHTML = `
+        <span class="tag-title-icon">${tagIcons.popular}</span>
+        Popular
+    `;
     return;
-  }
+}
+    const htmlChunks= [...activeTags].map(tag => {
+    const icon= tagIcons[tag] || "";
+    const capialLetter= tag.charAt(0).toUpperCase();
+    const label= capialLetter + tag.slice(1);
+    return `<span class="tag-title-icon">${icon}</span> ${label}`;
+  });
 
-
-  const titles = [];
-
-  for (const tag of activeTags) {
-    const emoji = emojiMap[tag] || "";
-    const captialized = tag.charAt(0).toUpperCase() + tag.slice(1);
-    const title = `${emoji} ${captialized}`;
-    titles.push(title);
-  }
-
-  pageTitle.textContent = titles.join(" ");
+  pageTitle.innerHTML = htmlChunks.join(" "); 
 }
 
-//logic for pressing the filter buttons
+
 function filterClick(btn) {
   const tag = btn.dataset.tag;
+  if (!tag) return;
 
   if (activeTags.has(tag)) {
     activeTags.delete(tag);
-    btn.classList.remove("active-filter")
+    btn.classList.remove("active-filter");
   } else {
     activeTags.add(tag);
     btn.classList.add("active-filter");
   }
 
-
   updateTrendingTitle();
   const query = search.value.trim().toLowerCase();
-  filter(query);
+  filterEvents(query);
 }
 
-//btn press 
+
+
+// filter chip clicks
 filterBtn.forEach(btn => {
   btn.addEventListener("click", () => filterClick(btn));
 });
-//search bar
-search.addEventListener('input', function () {
-  filter(this.value);
-})
-//wipe on reset
-resetBtn.addEventListener('click',
-  function () {
-    search.value = "";
-    activeTags.clear();
-    updateTrendingTitle(null);
-    filter("");
-    filterBtn.forEach(b => b.classList.remove("active-filter"));
-  });
+
+// search bar input
+search.addEventListener("input", () => {
+  const query = search.value.trim().toLowerCase();
+  filterEvents(query);
+});
+
+// reset button
+resetBtn.addEventListener("click", () => {
+  search.value = "";
+  activeTags.clear();
+  updateTrendingTitle();
+  filterEvents("");
+
+  filterBtn.forEach(b => b.classList.remove("active-filter"));
+});
+
 
 
 // event modals
@@ -324,198 +276,6 @@ document.querySelectorAll('.friend-event').forEach(row => {
   });
 });
 
-// map short month → long month
-const monthMap = {
-  jan: 'january',
-  feb: 'february',
-  mar: 'march',
-  apr: 'april',
-  may: 'may',
-  jun: 'june',
-  jul: 'july',
-  aug: 'august',
-  sep: 'september',
-  oct: 'october',
-  nov: 'november',
-  dec: 'december',
-};
-
-const eventKeywords = {
-  "ASE Career Fair": [
-    "ase",
-    "ase career fair",
-    "career fair",
-    "career",
-    "jobs",
-    "job fair",
-    "recruiters",
-    "networking",
-    "fair",
-    "science",
-    "career services",
-    "university of manitoba",
-    "u of m",
-    "um",
-    "115 university centre",
-    "university centre",
-    "university center",
-    "fort garry campus"
-  ],
-
-  "CSA Halloween Social": [
-    "csa",
-    "csa halloween social",
-    "halloween social",
-    "halloween",
-    "social",
-    "party",
-    "costume",
-    "nightlife",
-    "commerce students association",
-    "commerce students' association",
-    "csa commerce",
-    "business",
-    "vws social club",
-    "vws",
-    "vw social club"
-  ],
-
-  "The Goosies": [
-    "the goosies",
-    "goosies",
-    "goose awards",
-    "award show",
-    "awards",
-    "teaching awards",
-    "faculty awards",
-    "computer science students association",
-    "computer science students' association",
-    "cssa",
-    "computer science",
-    "cs",
-    "department of computer science",
-    "eitc",
-    "eitc e2",
-    "eitc e2-265",
-    "e2-265",
-    "e2 265"
-  ],
-
-  "OPUS Study Night": [
-    "opus",
-    "opus study night",
-    "study night",
-    "physics",
-    "astronomy",
-    "phys",
-    "astr",
-    "organization of physics undergraduate students",
-    "opus um",
-    "211 allen",
-    "allen",
-    "allen building"
-  ],
-
-  "Welcome Day": [
-    "welcome day",
-    "welcome",
-    "orientation",
-    "frosh",
-    "new student orientation",
-    "first year",
-    "winter intake",
-    "winter 2026 intake",
-    "bisons",
-    "horns up",
-    "university of manitoba",
-    "u of m",
-    "um",
-    "fort garry",
-    "fort garry campus"
-  ],
-
-  "Aurora Walk": [
-    "aurora walk",
-    "aurora",
-    "northern lights",
-    "night walk",
-    "outdoor event",
-    "earth sciences",
-    "environmental",
-    "environment",
-    "geology",
-    "riddell faculty",
-    "clayton h riddell",
-    "clayton h. riddell faculty",
-    "society of earth sciences and environmental students",
-    "sees",
-    "212 wallace",
-    "wallace",
-    "wallace building"
-  ],
-
-  "UM Sustainability Annual Nature Walk": [
-    "um sustainability annual nature walk",
-    "annual nature walk",
-    "nature walk",
-    "campus walk",
-    "guided walk",
-    "outdoor event",
-    "sustainability",
-    "um sustainability",
-    "office of sustainability",
-    "environment",
-    "climate",
-    "green",
-    "flora",
-    "fauna",
-    "wildlife",
-    "university of manitoba office of sustainability",
-    "university of manitoba",
-    "u of m",
-    "um",
-    "100 st. paul's college",
-    "100 st pauls college",
-    "st. paul's college",
-    "st pauls college"
-  ],
-
-  "UM Budget Meeting": [
-    "um budget meeting",
-    "budget meeting",
-    "budget town hall",
-    "town hall",
-    "budget",
-    "finance",
-    "financial",
-    "university budget",
-    "planning",
-    "university of manitoba",
-    "u of m",
-    "um",
-    "100 st. paul's college",
-    "100 st pauls college",
-    "st. paul's college",
-    "st pauls college"
-  ],
-
-  "SSA Winter General Meeting": [
-    "ssa winter general meeting",
-    "winter general meeting",
-    "general meeting",
-    "annual general meeting",
-    "science",
-    "science students",
-    "free food",
-    "science students association",
-    "science students' association",
-    "ssa",
-    "science lounge in armes",
-    "science lounge",
-    "armes",
-    "armes building"
-  ]
-};
 
 function norm(s) {
   return (s || '').toLowerCase().trim();
@@ -633,3 +393,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // add friends END
 
 // friends code END
+
+window.addEventListener("DOMContentLoaded", () => {
+    updateTrendingTitle();
+});
