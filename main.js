@@ -405,8 +405,6 @@ resetBtn.addEventListener("click", () => {
   filterBtn.forEach(b => b.classList.remove("active-filter"));
 });
 
-
-
 // event modals
 document.querySelectorAll(".Register").forEach(button => {
   button.addEventListener("click", function(e) {

@@ -329,6 +329,65 @@ body {
     color: #444;
 }
 
+.help-panel-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.help-title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #4b5563;
+}
+
+.help-tagline {
+    margin: 2px 0 0;
+    font-size: 0.95rem;
+    color: #111827;
+}
+
+.help-panel-body {
+    margin-top: 0.6rem;
+}
+
+.help-section-label {
+    margin: 0 0 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b7280;
+}
+
+.help-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.15rem;
+}
+
+.help-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.help-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #6366f1; /* small splash of colour */
+}
+
 .event_item {
     display: flex;
     align-items: flex-start;
