@@ -504,6 +504,19 @@ body.drawer-open #trending_list {
     font-style: italic;
 }
 
+.page_tagline {
+    margin: 0.25rem 0 0.75rem;
+    font-size: 0.95rem;
+    color: #4b5563;          /* soft gray */
+    max-width: 60rem;        /* keeps it from stretching super wide */
+}
+
+@media (max-width: 900px) {
+    .page_tagline {
+        font-size: 0.9rem;
+    }
+}
+
 /* override JUST for the My Friends drawer */
 .friend-search .help-text {
     margin-top: 4px;      /* a bit tighter under the box */
