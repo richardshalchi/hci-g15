@@ -443,25 +443,28 @@ document.querySelectorAll(".Register").forEach(button => {
   });
 });
 
-const carousel = document.querySelector(".carousel-images");
-const images = carousel.querySelectorAll("img"); // list of images
-let currentIndex = 0; // first image
+const carousels = document.querySelectorAll(".carousel-images");
 
-const showImage = index => {
-  images.forEach((img, i) => {
-    img.classList.toggle("active", i === index); // toggles the ith image to be active 
+carousels.forEach(carousel => {
+  const images = carousel.querySelectorAll("img"); // list of images
+  let currentIndex = 0; // first image
+  
+  const showImage = index => {
+    images.forEach((img, i) => {
+      img.classList.toggle("active", i === index); // toggles the ith image to be active 
+    });
+  };
+  
+  document.querySelector(".prev").addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length; // if previous button is clicked the index subtracts 1 and mod length so it loops back
+    showImage(currentIndex); // make that image active
   });
-};
-
-document.querySelector(".prev").addEventListener("click", () => {
-  currentIndex = (currentIndex - 1 + images.length) % images.length; // if previous button is clicked the index subtracts 1 and mod length so it loops back
-  showImage(currentIndex); // make that image active
-});
-
-document.querySelector(".next").addEventListener("click", () => { // if next buttom is clicked the index adds 1
-  currentIndex = (currentIndex + 1) % images.length;
-  showImage(currentIndex);
-});
+  
+  document.querySelector(".next").addEventListener("click", () => { // if next buttom is clicked the index adds 1
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  });
+})
 
 // exit out of modal if outside is clicked
 document.addEventListener('click', (e) => {
