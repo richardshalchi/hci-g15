@@ -960,6 +960,8 @@ body.drawer-open #friends_button {
     max-height: calc(600px - 150px);
 }
 
+
+
 .modal-left {
     flex: 1;
     margin-right: 0px;
@@ -1152,10 +1154,47 @@ body.drawer-open #friends_button {
     color: #0277BD;
 }
 
-.modal-pic img {
+.modal-pic {
+    overflow: hidden;
+}
+
+.carousel {
+    position: relative;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+
+.carousel img {
     width: 25rem;
     height: 20rem;
-    position: relative;
+    flex-shrink: 0;
+    display: none;
+}
+
+.carousel img.active {
+    display: block;
+}
+
+.carousel button {
+    position:absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.7);
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.carousel .prev {
+    left: 0;
+}
+
+.carousel .next {
+    right: 0;
 }
 
 .social-icons {
