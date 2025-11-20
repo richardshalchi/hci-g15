@@ -444,7 +444,6 @@ document.querySelectorAll(".Register").forEach(button => {
 });
 
 const carousel = document.querySelector(".carousel-images");
-const dots = document.querySelectorAll("dot")
 const images = carousel.querySelectorAll("img"); // list of images
 let currentIndex = 0; // first image
 
