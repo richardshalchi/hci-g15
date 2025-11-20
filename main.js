@@ -1,3 +1,4 @@
+// Config data for tags, keywords & icons
 const eventTags = {
   "ASE Career Fair": ["career", "networking", "science"],
   "CSA Halloween Social": ["social", "culture"],
@@ -7,11 +8,8 @@ const eventTags = {
   "Aurora Walk": ["science", "culture"],
   "UM Sustainability Annual Nature Walk": ["Nature", "culture"],
   "UM Budget Meeting": ["finance"],
-  "SSA Winter General Meeting": ["science", "social", "food"]
+  "SSA Winter General Meeting": ["science", "social", "food"],
 };
-
-const catTags = ["social", "science", "research", "food", "culture", "arts" ,"finance"];
-
 
 const tagIcons = {
   social: `
@@ -81,7 +79,7 @@ const tagIcons = {
       <path d="M9.1 16.5c.3-1.1 1.4-1.7 2.4-1.4"/>
     </svg>
   `,
-  popular:`
+  popular: `
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
   stroke-linecap="round" stroke-linejoin="round" class="lucide">
@@ -90,31 +88,31 @@ const tagIcons = {
   <path d="M4 18v3"/><path d="M8 14v7"/>
   </svg>
   `,
-  new:`
+  new: `
   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-newspaper-icon lucide-newspaper">
   <path d="M15 18h-5"/>
   <path d="M18 14h-8"/>
   <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/>
-  <rect width="8" height="4" x="10" y="6" rx="1"/></svg>  `
-    
+  <rect width="8" height="4" x="10" y="6" rx="1"/></svg>  `,
 };
-
 
 const monthMap = {
-  jan: 'january',
-  feb: 'february',
-  mar: 'march',
-  apr: 'april',
-  may: 'may',
-  jun: 'june',
-  jul: 'july',
-  aug: 'august',
-  sep: 'september',
-  oct: 'october',
-  nov: 'november',
-  dec: 'december',
+  jan: "january",
+  feb: "february",
+  mar: "march",
+  apr: "april",
+  may: "may",
+  jun: "june",
+  jul: "july",
+  aug: "august",
+  sep: "september",
+  oct: "october",
+  nov: "november",
+  dec: "december",
 };
 
+// Keywords used ONLY for friend search → they expand
+// event names into lots of aliases like “Goosies”, “CSSA”, etc.
 const eventKeywords = {
   "ASE Career Fair": [
     "ase",
@@ -134,7 +132,7 @@ const eventKeywords = {
     "115 university centre",
     "university centre",
     "university center",
-    "fort garry campus"
+    "fort garry campus",
   ],
 
   "CSA Halloween Social": [
@@ -152,7 +150,7 @@ const eventKeywords = {
     "business",
     "vws social club",
     "vws",
-    "vw social club"
+    "vw social club",
   ],
 
   "The Goosies": [
@@ -173,7 +171,7 @@ const eventKeywords = {
     "eitc e2",
     "eitc e2-265",
     "e2-265",
-    "e2 265"
+    "e2 265",
   ],
 
   "OPUS Study Night": [
@@ -188,7 +186,7 @@ const eventKeywords = {
     "opus um",
     "211 allen",
     "allen",
-    "allen building"
+    "allen building",
   ],
 
   "Welcome Day": [
@@ -206,7 +204,7 @@ const eventKeywords = {
     "u of m",
     "um",
     "fort garry",
-    "fort garry campus"
+    "fort garry campus",
   ],
 
   "Aurora Walk": [
@@ -226,7 +224,7 @@ const eventKeywords = {
     "sees",
     "212 wallace",
     "wallace",
-    "wallace building"
+    "wallace building",
   ],
 
   "UM Sustainability Annual Nature Walk": [
@@ -252,7 +250,7 @@ const eventKeywords = {
     "100 st. paul's college",
     "100 st pauls college",
     "st. paul's college",
-    "st pauls college"
+    "st pauls college",
   ],
 
   "UM Budget Meeting": [
@@ -271,7 +269,7 @@ const eventKeywords = {
     "100 st. paul's college",
     "100 st pauls college",
     "st. paul's college",
-    "st pauls college"
+    "st pauls college",
   ],
 
   "SSA Winter General Meeting": [
@@ -288,42 +286,51 @@ const eventKeywords = {
     "science lounge in armes",
     "science lounge",
     "armes",
-    "armes building"
-  ]
+    "armes building",
+  ],
 };
 
-
-//elements
+// DOM lookups & shared DOM
 const search = document.getElementById("search_input");
 const filterBtn = document.querySelectorAll(".filter_list li");
 const resetBtn = document.getElementById("btn-reset");
 const pageTitle = document.querySelector(".section_title");
 const eventItems = document.querySelectorAll(".event_item");
+const resultsMeta = document.getElementById("events_count");
+const eventsEmpty = document.getElementById("events_empty");
 
-//active tag
+// Current active filter chips ("social", "science", etc.)
 let activeTags = new Set();
 
+/**
+ * Returns true if an event card matches the text query.
+ * We search title + description + org + time as one big string.
+ */
 function matchesSearch(item, searchText) {
   const q = searchText.trim().toLowerCase();
-  if (!q)  
-    return true;
+  if (!q) return true;
 
-  const title= item.querySelector("h2")?.textContent.toLowerCase() || "";
-  const description= item.querySelector(".event_description")?.textContent.toLowerCase() || "";
-  const org= item.querySelector(".organization")?.textContent.toLowerCase() || "";
-  const time=item.querySelector(".event_time")?.textContent.toLowerCase() || "";
+  const title = item.querySelector("h2")?.textContent.toLowerCase() || "";
+  const description =
+    item.querySelector(".event_description")?.textContent.toLowerCase() || "";
+  const org =
+    item.querySelector(".organization")?.textContent.toLowerCase() || "";
+  const time =
+    item.querySelector(".event_time")?.textContent.toLowerCase() || "";
 
   const possible = `${title} ${description} ${org} ${time}`;
   return possible.includes(q);
 }
 
-
+/**
+ * Returns true if an event card matches at least one
+ * of the active tag chips (social/science/etc.).
+ */
 function matchesTags(item) {
-  if (activeTags.size===0) 
-    return true;
+  if (activeTags.size === 0) return true;
 
-  const title= item.querySelector("h2").textContent.trim();
-  const tagsForEvent= eventTags[title] || [];
+  const title = item.querySelector("h2").textContent.trim();
+  const tagsForEvent = eventTags[title] || [];
 
   for (const t of activeTags) {
     if (tagsForEvent.includes(t)) return true;
@@ -331,101 +338,189 @@ function matchesTags(item) {
   return false;
 }
 
+// Helper function for filterEvents. Updates the state when there is not event to display
+function updateEmptyState(visibleCount, hasSearch, hasTags) {
+  if (!eventsEmpty) return;
 
-function filterEvents(searchText = "") {
-  eventItems.forEach(item => {
-    const okSearch = matchesSearch(item, searchText);
-    const okTags = matchesTags(item);
+  if (visibleCount === 0) {
+    let message = "";
 
-    if (okSearch && okTags) {
-      item.style.display = "flex";
+    if (hasSearch && hasTags) {
+      message =
+        "No events match your search and filters. Try a different term or clear filters.";
+    } else if (hasSearch) {
+      message =
+        "No events match your search. Try a different term or clear filters.";
+    } else if (hasTags) {
+      // only filters, no text search
+      if (activeTags.size === 1) {
+        const tag = [...activeTags][0];
+        const label = tag.charAt(0).toUpperCase() + tag.slice(1);
+        message = `No ${label} events are currently listed. Try another filter or check back later.`;
+      } else {
+        message =
+          "No events match your selected filters. Try removing one or more filters.";
+      }
     } else {
-      item.style.display = "none";
+      // no search, no filters, but zero events in the system
+      message =
+        "No upcoming events are currently listed. Please check back later.";
     }
-  });
+
+    eventsEmpty.textContent = message;
+    eventsEmpty.hidden = false;
+  } else {
+    eventsEmpty.hidden = true;
+  }
 }
 
+/**
+ * Core filter function: applies text search + tag filters,
+ * then updates the "X events match" and empty state.
+ */
+function filterEvents(searchText = "") {
+  const q = searchText.trim().toLowerCase();
+  const hasSearch = q.length > 0;
+  const hasTags = activeTags.size > 0;
 
+  let visibleCount = 0;
+
+  eventItems.forEach((item) => {
+    const okSearch = matchesSearch(item, q);
+    const okTags = matchesTags(item);
+
+    const show = okSearch && okTags;
+    item.style.display = show ? "flex" : "none";
+    if (show) visibleCount++;
+  });
+
+  if (resultsMeta) {
+    const word = visibleCount === 1 ? "event" : "events";
+    const label =
+      hasSearch || hasTags
+        ? `${word} match your search & filters`
+        : `${word} available`;
+
+    resultsMeta.innerHTML = `
+      <span class="results-meta-dot" aria-hidden="true"></span>
+      <span class="results-meta-count">${visibleCount}</span>
+      <span class="results-meta-label">${label}</span>
+    `;
+  }
+
+  // empty state handled below…
+  updateEmptyState(visibleCount, hasSearch, hasTags);
+}
+
+/**
+ * Updates the big page heading based on active tags.
+ * - No tags selected → "Popular" with a generic icon.
+ * - One or more tags → Show each tag label + its icon.
+ */
 function updateTrendingTitle() {
-if (activeTags.size === 0) {
+  if (activeTags.size === 0) {
     pageTitle.innerHTML = `
         <span class="tag-title-icon">${tagIcons.popular}</span>
         Popular
     `;
     return;
-}
-    const htmlChunks= [...activeTags].map(tag => {
-    const icon= tagIcons[tag] || "";
-    const capialLetter= tag.charAt(0).toUpperCase();
-    const label= capialLetter + tag.slice(1);
+  }
+
+  // Build one chunk of HTML for each active tag
+  const htmlChunks = [...activeTags].map((tag) => {
+    const icon = tagIcons[tag] || "";
+    const capialLetter = tag.charAt(0).toUpperCase();
+    const label = capialLetter + tag.slice(1);
     return `<span class="tag-title-icon">${icon}</span> ${label}`;
   });
 
-  pageTitle.innerHTML = htmlChunks.join(" "); 
+  // If multiple tags are active, just join them with spaces
+  pageTitle.innerHTML = htmlChunks.join(" ");
 }
 
+// Initial setup on page load
+document.addEventListener("DOMContentLoaded", () => {
+  updateTrendingTitle(); // sets "Popular" by default
+  filterEvents(""); // ensures all events are visible on first load
+});
 
+/**
+ * Handles clicking a filter chip (Social, Science, Food, etc).
+ * - Toggles the tag in `activeTags`
+ * - Updates chip styling
+ * - Re-runs filtering based on current search text
+ */
 function filterClick(btn) {
   const tag = btn.dataset.tag;
   if (!tag) return;
 
   if (activeTags.has(tag)) {
+    // Tag is already active → turn it off
     activeTags.delete(tag);
     btn.classList.remove("active-filter");
   } else {
+    // Tag is not active → turn it on
     activeTags.add(tag);
     btn.classList.add("active-filter");
   }
 
+  // Update heading and re-filter with current search text
   updateTrendingTitle();
   const query = search.value.trim().toLowerCase();
   filterEvents(query);
 }
 
-
-
-// filter chip clicks
-filterBtn.forEach(btn => {
+// Attach click handler to each filter chip
+filterBtn.forEach((btn) => {
   btn.addEventListener("click", () => filterClick(btn));
 });
 
-// search bar input
+// Live search: filter as the user types in the search bar
 search.addEventListener("input", () => {
   const query = search.value.trim().toLowerCase();
   filterEvents(query);
 });
 
-// reset button
+// Reset button: clear search + clear all filters
 resetBtn.addEventListener("click", () => {
   search.value = "";
   activeTags.clear();
   updateTrendingTitle();
   filterEvents("");
 
-  filterBtn.forEach(b => b.classList.remove("active-filter"));
+  // Remove the visual active state from all chips
+  filterBtn.forEach((b) => b.classList.remove("active-filter"));
 });
 
-// event modals
-document.querySelectorAll(".Register").forEach(button => {
-  button.addEventListener("click", function(e) {
+// -----------------
+// Event modal logic
+// -----------------
+
+// Handle "Register / Unregister" button inside each event modal
+document.querySelectorAll(".Register").forEach((button) => {
+  button.addEventListener("click", function (e) {
     const modal = button.closest(".modal");
     const countSpan = modal.querySelector(".participants");
     let text = countSpan.textContent.trim();
 
-    if(this.classList.contains("unregister")){ //if unregister button
+    if (this.classList.contains("unregister")) {
+      //if unregister button
       this.classList.remove("unregister");
       this.textContent = "Register"; // change it back to register if clicked
       e.preventDefault(); // dont go to the ics file linked
-      if (!text.includes("No participants yet")) { // if there are no participants
+      if (!text.includes("No participants yet")) {
+        // if there are no participants
         let current = parseInt(text);
         current = Math.max(0, current - 1); // subtract 1 from current number. dont allow negative num
-        countSpan.textContent = current === 0  // if 0 participants
-          ? "No participants yet"  // change text to no participants
-          : current === 1 
+        countSpan.textContent =
+          current === 0 // if 0 participants
+            ? "No participants yet" // change text to no participants
+            : current === 1
             ? "1 participant" // if only 1 participant left
             : `${current} participants`; // multiple participants left
       }
-    } else { // if register button
+    } else {
+      // if register button
       this.classList.add("unregister");
       this.textContent = "Unregister"; // make it an unregister button
       if (text.includes("No participants yet")) {
@@ -434,204 +529,219 @@ document.querySelectorAll(".Register").forEach(button => {
       }
       let current = parseInt(text);
       let updated = current + 1; // if there are participants increment
-      countSpan.textContent = updated === 1 
-        ? "1 participant"  // if only 1 participant
-        : `${updated} participants`; // if multiple
+      countSpan.textContent =
+        updated === 1
+          ? "1 participant" // if only 1 participant
+          : `${updated} participants`; // if multiple
     }
   });
 });
 
 const carousels = document.querySelectorAll(".carousel-images");
 
-carousels.forEach(carousel => {
+carousels.forEach((carousel) => {
   const images = carousel.querySelectorAll("img"); // list of images
   let currentIndex = 0; // first image
-  
-  const showImage = index => {
+
+  const showImage = (index) => {
     images.forEach((img, i) => {
-      img.classList.toggle("active", i === index); // toggles the ith image to be active 
+      img.classList.toggle("active", i === index); // toggles the ith image to be active
     });
   };
-  
+
   document.querySelector(".prev").addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + images.length) % images.length; // if previous button is clicked the index subtracts 1 and mod length so it loops back
     showImage(currentIndex); // make that image active
   });
-  
-  document.querySelector(".next").addEventListener("click", () => { // if next buttom is clicked the index adds 1
+
+  document.querySelector(".next").addEventListener("click", () => {
+    // if next buttom is clicked the index adds 1
     currentIndex = (currentIndex + 1) % images.length;
     showImage(currentIndex);
   });
-})
-
-// exit out of modal if outside is clicked
-document.addEventListener('click', (e) => {
-  const modal = e.target.closest('.modal');
-  if (!modal) return;
-
-  const inside = e.target.closest('.modal-inner');
-  if (inside) return;
-
-  modal.classList.remove('open');
-  document.body.style.overflow = 'auto';
 });
 
+// exit out of modal if outside is clicked
+document.addEventListener("click", (e) => {
+  const modal = e.target.closest(".modal");
+  if (!modal) return;
 
-document.querySelectorAll(".interests").forEach(button => {
+  const inside = e.target.closest(".modal-inner");
+  if (inside) return;
+
+  modal.classList.remove("open");
+  document.body.style.overflow = "auto";
+});
+
+document.querySelectorAll(".interests").forEach((button) => {
   button.addEventListener("click", function () {
     this.classList.add("disabled");
     this.textContent = "Added to Interests";
   });
 });
 
-document.addEventListener('click', (e) => {
-  const closeButton = e.target.closest('#close-event'); // check if the clicked event is a close button
+document.addEventListener("click", (e) => {
+  const closeButton = e.target.closest("#close-event"); // check if the clicked event is a close button
   if (!closeButton) return; // if not get out
 
   e.stopPropagation(); // prevent affecting parent elements (bubble)
   e.preventDefault();
 
-  const modal = closeButton.closest('.modal');
+  const modal = closeButton.closest(".modal");
   if (modal) {
-    modal.classList.remove('open');
-    document.body.style.overflow = 'auto';
+    modal.classList.remove("open");
+    document.body.style.overflow = "auto";
   }
 });
 
 // Both arrows under Trending page and in friends pop-up will open the same event description card START
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.arrow[data-target]');
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".arrow[data-target]");
   if (!btn) return;
 
-  const sel = (btn.dataset.target || '').trim();
+  const sel = (btn.dataset.target || "").trim();
   if (!sel) return;
   const modal = document.querySelector(sel);
-  if (modal) modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  if (modal) modal.classList.add("open");
+  document.body.style.overflow = "hidden";
 });
 
 // Make entire event cards open the same modal as their arrow
-document.querySelectorAll('.event_item').forEach(item => {
-  item.addEventListener('click', (e) => {
+document.querySelectorAll(".event_item").forEach((item) => {
+  item.addEventListener("click", (e) => {
     // if they actually clicked the arrow, let the arrow handler deal with it
-    if (e.target.closest('.arrow')) return;
+    if (e.target.closest(".arrow")) return;
 
-    const arrow = item.querySelector('.arrow[data-target]');
+    const arrow = item.querySelector(".arrow[data-target]");
     if (!arrow) return;
 
-    const sel = (arrow.dataset.target || '').trim();
+    const sel = (arrow.dataset.target || "").trim();
     if (!sel) return;
 
     const modal = document.querySelector(sel);
     if (modal) {
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
     }
   });
 });
 
-// Fresh reload will show no of friends as well
-document.addEventListener("DOMContentLoaded", () => {
-  filter("");
-  updateTrendingTitle();
-});
+// --------------
+// Friends drawer
+// --------------
 
-// friends code START
+const btn = document.getElementById("friends_button");
+const panel = document.getElementById("friends_panel");
+const close = document.getElementById("friends_close");
 
-const btn = document.getElementById('friends_button');
-const panel = document.getElementById('friends_panel');
-const close = document.getElementById('friends_close')
+// Toggle drawer open/close via button in top-right
+btn.addEventListener("click", () => {
+  panel.classList.toggle("open");
+  document.body.classList.toggle(
+    "drawer-open",
+    panel.classList.contains("open")
+  );
 
-// open/close via button
-btn.addEventListener('click', () => {
-  panel.classList.toggle('open');
-  document.body.classList.toggle('drawer-open', panel.classList.contains('open'));
-
-  if (panel.classList.contains('open')) {
-    const searchField = document.getElementById('friend_search');
+  // Autofocus the "friend search" field when opening
+  if (panel.classList.contains("open")) {
+    const searchField = document.getElementById("friend_search");
     if (searchField) searchField.focus();
   }
 });
 
-// close via X
-close.addEventListener('click', () => {
-  panel.classList.remove('open');
-  document.body.classList.remove('drawer-open');
+// Close drawer via the X button
+close.addEventListener("click", () => {
+  panel.classList.remove("open");
+  document.body.classList.remove("drawer-open");
 });
 
-// click outside to close (but not if an event modal is open)
-document.addEventListener('click', (e) => {
-  if (e.target.closest(`.modal`)) return;
+// Click outside the drawer (but not on a modal) → close drawer)
+document.addEventListener("click", (e) => {
+  if (e.target.closest(`.modal`)) return; // don't close drawer if a modal is open/on top
 
   const clickedInsidePanel = panel.contains(e.target);
   const clickedButton = btn.contains(e.target);
 
-  if (panel.classList.contains('open') && !clickedInsidePanel && !clickedButton) {
-    panel.classList.remove('open');
-    document.body.classList.remove('drawer-open');
+  if (
+    panel.classList.contains("open") &&
+    !clickedInsidePanel &&
+    !clickedButton
+  ) {
+    panel.classList.remove("open");
+    document.body.classList.remove("drawer-open");
   }
 });
 
-document.addEventListener('keydown', (e) => {
-  if (e.key !== 'Escape') return;
-  const openModal = document.querySelector('.modal.open');
+// Escape key closes either an open modal or the drawer (or both)
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  const openModal = document.querySelector(".modal.open");
 
-  if (openModal)
-    openModal.classList.remove('open');
+  if (openModal) openModal.classList.remove("open");
 
-  if (panel.classList.contains('open')) {
-    panel.classList.remove('open');
-    document.body.classList.remove('drawer-open');
+  if (panel.classList.contains("open")) {
+    panel.classList.remove("open");
+    document.body.classList.remove("drawer-open");
   }
-})
+});
 
-// help button on Popular page
-const helpBtn = document.getElementById('help_button');
-const helpPanel = document.getElementById('help_panel');
+// -------------------------
+// Help button on Popular page
+// -------------------------
+const helpBtn = document.getElementById("help_button");
+const helpPanel = document.getElementById("help_panel");
 
 if (helpBtn && helpPanel) {
-  helpBtn.addEventListener('click', () => {
-    const isHidden = helpPanel.hasAttribute('hidden');
+  helpBtn.addEventListener("click", () => {
+    const isHidden = helpPanel.hasAttribute("hidden");
 
+    // toggle [hidden] attribute on the help panel
     if (isHidden) {
-      helpPanel.removeAttribute('hidden');
+      helpPanel.removeAttribute("hidden");
     } else {
-      helpPanel.setAttribute('hidden', '');
+      helpPanel.setAttribute("hidden", "");
     }
 
-    helpBtn.setAttribute('aria-expanded', String(isHidden));
+    // keep aria-expanded in sync for accessibility
+    helpBtn.setAttribute("aria-expanded", String(isHidden));
   });
 }
 
-// friends search START
-const friendsSearch = document.getElementById('friend_search');
-const friendsCards = document.querySelectorAll('.friends-feed .friend-card');
+// ---------------
+// Friends search
+// ---------------
+const friendsSearch = document.getElementById("friend_search");
+const friendsCards = document.querySelectorAll(".friends-feed .friend-card");
 
-// Make each friend-event row open its event modal when clicked
-document.querySelectorAll('.friend-event').forEach(row => {
-  row.addEventListener('click', (e) => {
-    // don't double-handle the arrow itself
-    if (e.target.closest('.arrow')) return;
+// Clicking a friend-event row also opens the related event modal
+document.querySelectorAll(".friend-event").forEach((row) => {
+  row.addEventListener("click", (e) => {
+    // if they clicked the arrow explicitly, arrow handler will handle it
+    if (e.target.closest(".arrow")) return;
 
-    const arrow = row.querySelector('.arrow[data-target]');
+    const arrow = row.querySelector(".arrow[data-target]");
     if (!arrow) return;
 
-    const sel = (arrow.dataset.target || '').trim();
+    const sel = (arrow.dataset.target || "").trim();
     if (!sel) return;
 
     const modal = document.querySelector(sel);
     if (modal) {
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
     }
   });
 });
 
-
+// Small normalizer for strings: lowercase, trimmed, handles null/undefined
 function norm(s) {
-  return (s || '').toLowerCase().trim();
+  return (s || "").toLowerCase().trim();
 }
 
+/**
+ * Checks whether a haystack string contains ALL individual terms
+ * from the query (space-separated).
+ */
 function matchesAllTerms(haystack, query) {
   const q = norm(query);
   if (!q) return true; // empty query = match everything
@@ -639,78 +749,93 @@ function matchesAllTerms(haystack, query) {
   const terms = q.split(/\s+/).filter(Boolean);
   if (!terms.length) return true;
 
-  return terms.every(t => haystack.includes(t));
+  return terms.every((t) => haystack.includes(t));
 }
 
-// build the searchable text for ONE card
+/**
+ * Builds a big searchable text blob for a friend card:
+ *   - date (both "Oct 30" and "October 30")
+ *   - friend name
+ *   - event titles
+ *   - keyword aliases for the events (from eventKeywords)
+ */
 function getCardSearchText(card) {
-  const dateRaw = card.querySelector('.friend-meta .date')?.textContent || '';
-  const friend = card.querySelector('.friend-meta .user')?.textContent || '';
+  const dateRaw = card.querySelector(".friend-meta .date")?.textContent || "";
+  const friend = card.querySelector(".friend-meta .user")?.textContent || "";
 
-  // get all events
-  const eventNodes = card.querySelectorAll('.friend-event .event-title');
-  const events = Array.from(eventNodes).map(n => n.textContent.trim());
-  const eventsText = events.join(' ');
+  // Collect all event titles on this card
+  const eventNodes = card.querySelectorAll(".friend-event .event-title");
+  const events = Array.from(eventNodes).map((n) => n.textContent.trim());
+  const eventsText = events.join(" ");
 
   // Expland dates eg. "Oct 30" -> "October 30"
   let dateExpanded = dateRaw;
   const monthAbbr = dateRaw.split(/\s+/)[0]?.toLowerCase();
   const monthFull = monthMap[monthAbbr];
   if (monthFull) {
-    dateExpanded += ' ' + monthFull;
+    dateExpanded += " " + monthFull;
   }
 
   // Add keyword aliases for each event
   const keywordBag = [];
-  events.forEach(title => {
+  events.forEach((title) => {
     const extras = eventKeywords[title] || [];
     keywordBag.push(...extras);
   });
 
   return norm(
-    `${dateExpanded} ${friend} ${eventsText} ${keywordBag.join(' ')}`
+    `${dateExpanded} ${friend} ${eventsText} ${keywordBag.join(" ")}`
   );
 }
 
+/**
+ * Filter the friend cards based on the search box in the drawer.
+ * Supports name, date text, event names, and keyword aliases.
+ */
 function filterFriends(q) {
-  const emptyState = document.getElementById('friends_empty');
+  const emptyState = document.getElementById("friends_empty");
   let visibleCount = 0;
 
-  friendsCards.forEach(card => {
+  friendsCards.forEach((card) => {
     const haystack = getCardSearchText(card);
     const matches = matchesAllTerms(haystack, q);
 
-    card.style.display = matches ? '' : 'none';
+    card.style.display = matches ? "" : "none";
     if (matches) visibleCount++;
   });
 
   if (emptyState) {
+    // Show empty state only when there are no visible cards
     emptyState.hidden = visibleCount !== 0;
   }
 }
 
 // live filter
 if (friendsSearch) {
-  friendsSearch.addEventListener('input', (e) => filterFriends(e.target.value));
+  friendsSearch.addEventListener("input", (e) => filterFriends(e.target.value));
 }
 
-// This is make the scroll bar fix within the My Friends window
+// This computes the scrollbar width and stores it in a CSS variable (--sbw)
+// so the drawer's content doesn't "jump" when the scrollbar appears.
 (function setScrollbarVar() {
   function calc() {
-    const t = document.createElement('div');
-    t.style.cssText = 'width:100px;height:100px;overflow:scroll;position:absolute;top:-9999px;';
+    const t = document.createElement("div");
+    t.style.cssText =
+      "width:100px;height:100px;overflow:scroll;position:absolute;top:-9999px;";
     document.body.appendChild(t);
-    const sbw = t.offsetWidth - t.clientWidth;     // scrollbar width in px
-    document.documentElement.style.setProperty('--sbw', sbw + 'px');
+    const sbw = t.offsetWidth - t.clientWidth; // scrollbar width in px
+    document.documentElement.style.setProperty("--sbw", sbw + "px");
     document.body.removeChild(t);
   }
   calc();
-  window.addEventListener('resize', calc);
+  window.addEventListener("resize", calc);
 })();
 
 // friends search END
 
-// add friends START
+// ---------------
+// Add friends
+// ---------------
 
 document.addEventListener("DOMContentLoaded", () => {
   const addFriendSearchInput = document.getElementById("add_friend_search");
@@ -719,6 +844,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!addFriendSearchInput) return;
 
+  // Simple name-based filter for the "Add Friends" suggestion list
   addFriendSearchInput.addEventListener("input", () => {
     const query = addFriendSearchInput.value.trim().toLowerCase();
     let visibleCount = 0;
@@ -742,9 +868,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // add friends END
-
 // friends code END
-
-window.addEventListener("DOMContentLoaded", () => {
-    updateTrendingTitle();
-});
