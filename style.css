@@ -2,6 +2,8 @@ html,
 body {
     margin: 0;
     font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* Fixes the margins *'/
@@ -329,10 +331,11 @@ body {
 
 .event_item {
     display: flex;
+    align-items: flex-start;
+    gap: 16px;
     background: white;
     padding: 1%;
     border-bottom: 1px solid #ddd;
-    margin-left: calc(23% + 2px);
     cursor: pointer;
     position: relative;
 }
@@ -410,11 +413,36 @@ body {
 }
 
 .event_pic img {
-    display: flex;
-    width: 16rem;
-    height: 12rem;
+    display: block;
+    width: 260px;
+    height: 180px;      
+    object-fit: cover;
     padding-right: 2rem;
     padding-top: 1.4rem;
+}
+
+@media (max-width: 900px) {
+
+  /* stack card vertically: picture, then text */
+  .event_item {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .event_pic img {
+      width: 100%; 
+      max-width: 100%;
+      height: auto;
+      padding-right: 0;
+      padding-top: 0.75rem;
+  }
+
+  /* move the “+3 more friends” cluster under the text instead of bottom-right */
+  .friends_preview {
+      position: static;
+      margin-top: 0.5rem;
+      align-self: flex-start;
+  }
 }
 
 .ai_hide {
@@ -436,12 +464,22 @@ body {
     color: white;
 }
 
-.friends_preview {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
+.event_ai {
     display: flex;
     align-items: center;
+    gap: 0.5rem;   
+}
+
+.event_time {
+    flex: 1;       
+}
+
+.friends_preview {
+    position: static;          
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-left: 0.5rem;       
 }
 
 .friends_preview .friend-avatar {
@@ -494,8 +532,45 @@ body {
     margin-left: 0;
 }
 
+/* page behind drawer doesn’t scroll */
+body.drawer-open {
+  overflow-y: hidden;  
+}
+
+/* dim background when drawer is open */
+body.drawer-open::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.25);
+  z-index: 998;          
+}
+
 body.drawer-open #trending_list {
     margin-right: clamp(300px, 25vw, 400px);
+}
+
+@media (max-width: 900px) {
+  /* hide the left sidebar so everything fits */
+  #left_col {
+    display: none;
+  }
+
+  /* main list uses full width again */
+  #trending_list {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* drawer takes the whole screen width */
+  .drawer {
+    width: 100vw;
+  }
+
+  /* don’t push the content when drawer is open on mobile */
+  body.drawer-open #trending_list {
+    margin-right: 0;
+  }
 }
 
 .help-text {
@@ -509,8 +584,8 @@ body.drawer-open #trending_list {
 .page_tagline {
     margin: 0.25rem 0 0.75rem;
     font-size: 0.95rem;
-    color: #4b5563;          /* soft gray */
-    max-width: 60rem;        /* keeps it from stretching super wide */
+    color: #4b5563;         
+    max-width: 60rem;       
 }
 
 @media (max-width: 900px) {
@@ -521,8 +596,8 @@ body.drawer-open #trending_list {
 
 /* override JUST for the My Friends drawer */
 .friend-search .help-text {
-    margin-top: 4px;      /* a bit tighter under the box */
-    padding-left: 8px;   /* scootch right so it aligns with friend cards */
+    margin-top: 4px;      
+    padding-left: 8px;  
 }
 
 #friends_button {
@@ -604,6 +679,7 @@ body.drawer-open #friends_button {
     border-left: 1px solid #ddd;
     display: flex;
     flex-direction: column;
+    z-index: 998;
 }
 
 .drawer.open {
@@ -1046,8 +1122,9 @@ body.drawer-open #friends_button {
     border-radius: 5px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     padding: 25px;
-    width: 750px;
-    height: 600px;
+    width: min(750px, 95vw);
+    max-height: 90vh;
+    box-sizing: border-box;
 }
 
 .modal-inner h2 {
