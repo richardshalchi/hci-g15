@@ -607,66 +607,67 @@ carousels.forEach((carousel) => {
 });
 
 // exit out of modal if outside is clicked
-document.addEventListener("click", (e) => {
-  const modal = e.target.closest(".modal");
+document.addEventListener('click', (e) => {
+  const modal = e.target.closest('.modal');
   if (!modal) return;
 
-  const inside = e.target.closest(".modal-inner");
+  const inside = e.target.closest('.modal-inner');
   if (inside) return;
 
-  modal.classList.remove("open");
-  document.body.style.overflow = "auto";
+  modal.classList.remove('open');
+  document.body.style.overflow = 'auto';
 });
 
-document.querySelectorAll(".interests").forEach((button) => {
+
+document.querySelectorAll(".interests").forEach(button => {
   button.addEventListener("click", function () {
     this.classList.add("disabled");
     this.textContent = "Added to Interests";
   });
 });
 
-document.addEventListener("click", (e) => {
-  const closeButton = e.target.closest("#close-event"); // check if the clicked event is a close button
+document.addEventListener('click', (e) => {
+  const closeButton = e.target.closest('#close-event'); // check if the clicked event is a close button
   if (!closeButton) return; // if not get out
 
   e.stopPropagation(); // prevent affecting parent elements (bubble)
   e.preventDefault();
 
-  const modal = closeButton.closest(".modal");
+  const modal = closeButton.closest('.modal');
   if (modal) {
-    modal.classList.remove("open");
-    document.body.style.overflow = "auto";
+    modal.classList.remove('open');
+    document.body.style.overflow = 'auto';
   }
 });
 
 // Both arrows under Trending page and in friends pop-up will open the same event description card START
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest(".arrow[data-target]");
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.arrow[data-target]');
   if (!btn) return;
 
-  const sel = (btn.dataset.target || "").trim();
+  const sel = (btn.dataset.target || '').trim();
   if (!sel) return;
   const modal = document.querySelector(sel);
-  if (modal) modal.classList.add("open");
-  document.body.style.overflow = "hidden";
+  if (modal) modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
 });
 
 // Make entire event cards open the same modal as their arrow
-document.querySelectorAll(".event_item").forEach((item) => {
-  item.addEventListener("click", (e) => {
+document.querySelectorAll('.event_item').forEach(item => {
+  item.addEventListener('click', (e) => {
     // if they actually clicked the arrow, let the arrow handler deal with it
-    if (e.target.closest(".arrow")) return;
+    if (e.target.closest('.arrow')) return;
 
-    const arrow = item.querySelector(".arrow[data-target]");
+    const arrow = item.querySelector('.arrow[data-target]');
     if (!arrow) return;
 
-    const sel = (arrow.dataset.target || "").trim();
+    const sel = (arrow.dataset.target || '').trim();
     if (!sel) return;
 
     const modal = document.querySelector(sel);
     if (modal) {
-      modal.classList.add("open");
-      document.body.style.overflow = "hidden";
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
   });
 });

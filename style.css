@@ -1192,6 +1192,11 @@ body.drawer-open #friends_button {
   width: 100%;
 }
 
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+}
+
 .modal.open {
   opacity: 1;
   z-index: 999;
@@ -1204,6 +1209,7 @@ body.drawer-open #friends_button {
   align-items: flex-start;
 
   overflow-y: auto;
+  max-height: calc(600px - 150px);
 }
 
 .modal-left {
@@ -1252,9 +1258,8 @@ body.drawer-open #friends_button {
   border-radius: 5px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   padding: 25px;
-  width: min(750px, 95vw);
-  max-height: 90vh;
-  box-sizing: border-box;
+  width: 750px;
+  height: 600px
 }
 
 .modal-inner h2 {
@@ -1400,7 +1405,7 @@ body.drawer-open #friends_button {
 }
 
 .tag[data-tag="career"] {
-  background-color: #bdbdbd;
+  background-color: #e8e8e8;
   color: #6c6c6c;
 }
 
