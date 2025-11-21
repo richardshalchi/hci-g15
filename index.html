@@ -15,26 +15,50 @@
 <body>
         <!-- left col START-->
         <div id="left_col">
-            <div id="top_left">
-        <div class="logo-row">
-        <h3 class="site-title">
-            <a href="index.html">
-            <img id="logo" src="logo.png" alt="UMEvents logo">
-            </a>
-        </h3>
 
-            <button id="help_button" class="help-icon" type="button"
-                    aria-expanded="false" aria-controls="help_panel"
-                    title="How this page works">
-                ?
-            </button>
-            </div>
-            <button id="profile" class="top_left_option" type="button">Sweet Long Nametime
-                (Logged In)</button>
-            <button id="calendar_button" class="top_left_option" type="button"
-                onclick="window.open('https://outlook.office.com/calendar/view/month', '_blank')">My Calendar <span
-                    id="new_tab_icon">↗️</span></button>
-        </div>
+            <div id="top_left">
+                <div class="logo-row">
+                    <h3 class="site-title">
+                        <a href="index.html">
+                        <img id="logo" src="logo.png" alt="UMEvents logo">
+                        </a>
+                    </h3>
+
+                    <button id="help_button" class="help-icon" type="button"
+                            aria-expanded="false" aria-controls="help_panel"
+                            title="How this page works">?
+                    </button>
+                </div>
+                <div class="user-row">
+
+                    <button id="calendar_button" class="calendar-button"
+                            onclick="window.open('https://outlook.office.com/calendar/view/month', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 2v4"/>
+                            <path d="M16 2v4"/>
+                            <rect width="18" height="18" x="3" y="4" rx="2"/>
+                            <path d="M3 10h18"/>
+                            <path d="M8 14h.01"/>
+                            <path d="M12 14h.01"/>
+                            <path d="M16 14h.01"/>
+                            <path d="M8 18h.01"/>
+                            <path d="M12 18h.01"/>
+                            <path d="M16 18h.01"/>
+                        </svg>
+                    </button>
+
+                    <button id="profile" class="profile-button"
+                            onclick="window.open('https://myaccount.microsoft.com/', '_blank')">
+                        <img src="Sage.png" alt="Profile">
+                    </button>
+
+                    <p class="user-label-inline">Sweet L</p>
+
+                </div>
+
+             </div>
 
         <!-- search bar stuff -->
         <div id="search_area">
@@ -52,6 +76,24 @@
         
                 <!-- All icons sourced from lucide: https://lucide.dev/icons/party-popper  -->
                 <ul class="filter_list">
+                    <li data-tag="trending">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up-icon lucide-trending-up">
+                                <path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/>
+                            </svg>
+                        </span>
+                        Trending
+                    </li>
+                    <li data-tag="new">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-newspaper-icon lucide-newspaper">
+                                <path d="M15 18h-5"/>
+                                <path d="M18 14h-8"/>
+                                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/>
+                                <rect width="8" height="4" x="10" y="6" rx="1"/></svg>
+                        </span>
+                        New
+                    </li>
                     <li data-tag="social">
                         <span class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-party-popper-icon lucide-party-popper">
@@ -129,17 +171,15 @@
                         </span>
                         Arts
                     </li>
-                    <li data-tag="new">
+                        <li data-tag="nature">
                         <span class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-newspaper-icon lucide-newspaper">
-                                <path d="M15 18h-5"/>
-                                <path d="M18 14h-8"/>
-                                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/>
-                                <rect width="8" height="4" x="10" y="6" rx="1"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-leaf-icon lucide-leaf">
+                                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                            </svg>
                         </span>
-                        New
+                        Nature
                     </li>
-
                 </ul>
 
                 
@@ -191,7 +231,7 @@
                         <div class="friend-meta">
                             <span class="date">Oct 30</span>
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="Jim Young.png" alt="profile pic">
                                 Jim Young
                             </span>
                         </div>
@@ -214,7 +254,7 @@
                         <div class="friend-meta">
                             <span class="date">Oct 30</span>
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="Bob.png" alt="profile pic">
                                 Bob
                             </span>
                         </div>
@@ -231,7 +271,7 @@
                         <div class="friend-meta">
                             <span class="date">Oct 30</span>
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="Robert G.png" alt="profile pic">
                                 Robert G
                             </span>
                         </div>
@@ -248,7 +288,7 @@
                         <div class="friend-meta">
                             <span class="date">Oct 30</span>
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="David G.png" alt="profile pic">
                                 David G
                             </span>
                         </div>
@@ -265,7 +305,7 @@
                         <div class="friend-meta">
                             <span class="date">Oct 30</span>
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="John Braico.png" alt="profile pic">
                                 John Braico
                             </span>
                         </div>
@@ -281,7 +321,7 @@
                         <div class="friend-meta">
                             <span class="date">Oct 30</span>
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="Franklin Bristow.png" alt="profile pic">
                                 Franklin Bristow
                             </span>
                         </div>
@@ -313,7 +353,7 @@
                         <div class="friend-meta">
                             <span class="date">Oct 31</span>
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="Stephane D.png" alt="profile pic">
                                 Stephane D
                             </span>
                         </div>
@@ -329,7 +369,7 @@
                         <div class="friend-meta">
                             <span class="date">Oct 31</span>
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="Lauren Himbeault.png" alt="profile pic">
                                 Lauren Himbeault
                             </span>
                         </div>
@@ -355,7 +395,7 @@
                         <div class="friend-meta">
                             <span class="date">Oct 30</span>
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="Ben Li.png" alt="profile pic">
                                 Ben Li
                             </span>
                         </div>
@@ -371,7 +411,7 @@
                         <div class="friend-meta">
                             <span class="date">Nov 4</span>
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="Christina Penner.png" alt="profile pic">
                                 Christina Penner
                             </span>
                         </div>
@@ -386,7 +426,7 @@
                     <article class="friend-card no-event" data-status="none" aria-label="Not registered for any event">
                         <div class="friend-meta">
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="Sara Rouhani.png" alt="profile pic">
                                 Sara Rouhani
                             </span>
                         </div>
@@ -401,7 +441,7 @@
                     <article class="friend-card no-event" data-status="none" aria-label="Not registered for any event">
                         <div class="friend-meta">
                             <span class="user">
-                                <img class="avatar" src="profile-pic.png" alt="profile pic">
+                                <img class="avatar" src="Dr. Chengzhou.png" alt="profile pic">
                                 Dr. Chengzhou
                             </span>
                         </div>
@@ -453,7 +493,7 @@
                             <article class="friend-card friend-suggestion">
                                 <div class="friend-meta">
                                     <span class="user">
-                                        <img class="avatar" src="profile-pic.png" alt="Profile picture">
+                                        <img class="avatar" src="Ilia.png" alt="Profile picture">
                                         Ilia Mazor
                                     </span>
                                 </div>
@@ -467,7 +507,7 @@
                             <article class="friend-card friend-suggestion">
                                 <div class="friend-meta">
                                     <span class="user">
-                                        <img class="avatar" src="profile-pic.png" alt="Profile picture">
+                                        <img class="avatar" src="Bhavik.png" alt="Profile picture">
                                         Bhavik Jain
                                     </span>
                                 </div>
@@ -481,7 +521,7 @@
                             <article class="friend-card friend-suggestion">
                                 <div class="friend-meta">
                                     <span class="user">
-                                        <img class="avatar" src="profile-pic.png" alt="Profile picture">
+                                        <img class="avatar" src="Iya.png" alt="Profile picture">
                                         Iya Monterola
                                     </span>
                                 </div>
@@ -495,7 +535,7 @@
                             <article class="friend-card friend-suggestion">
                                 <div class="friend-meta">
                                     <span class="user">
-                                        <img class="avatar" src="profile-pic.png" alt="Profile picture">
+                                        <img class="avatar" src="Richard.png" alt="Profile picture">
                                         Richard Shalchi
                                     </span>
                                 </div>
@@ -509,7 +549,7 @@
                             <article class="friend-card friend-suggestion">
                                 <div class="friend-meta">
                                     <span class="user">
-                                        <img class="avatar" src="profile-pic.png" alt="Profile picture">
+                                        <img class="avatar" src="Sage.png" alt="Profile picture">
                                         Sage Stoddart
                                     </span>
                                 </div>
@@ -536,15 +576,23 @@
             <h1 class="section_title"></h1>
         </div>
 
-        <p class="page_tagline">
-            Use this website to find and register for events at the University of Manitoba!
-        </p>
-
         <div id="help_panel" class="help-panel" hidden>
-            <p>• Use the search bar and tags on the left to filter events.</p>
-            <p>• Click an event card (or the arrow) to see full details and register.</p>
-            <p>• Use “My Friends” to see what events your friends are attending.</p>
-            <p>• Use Reset to clear all filters if you get stuck.</p>
+            <div class="help-panel-header">
+                <h2 class="help-title">UMEvents</h2>
+                <p class="help-tagline">
+                Discover and register for events happening at the University of Manitoba.
+                </p>
+            </div>
+
+            <div class="help-panel-body">
+                <p class="help-section-label">How to use this page</p>
+                <ul class="help-list">
+                <li>Use the search bar and tags on the left to filter events.</li>
+                <li>Click an event card (or the arrow) to see full details and register.</li>
+                <li>Use “My Friends” to see what events your friends are attending.</li>
+                <li>Use Reset to clear all filters if you get stuck.</li>
+                </ul>
+            </div>
         </div>
 
         <p id="events_count" class="results-meta" aria-live="polite"></p>
@@ -576,9 +624,9 @@
             </div>
             <button class="arrow" id="ase-button" data-target="#career-fair">→</button>
                                 <div class="friends_preview">
-                    <img src="profile-pic.png" alt="Jim Young" class="friend-avatar">
-                    <img src="profile-pic.png" alt="Bob" class="friend-avatar">
-                    <img src="profile-pic.png" alt="Robert G" class="friend-avatar">
+                    <img src="Jim Young.png" alt="Jim Young" class="friend-avatar">
+                    <img src="Bob.png" alt="Bob" class="friend-avatar">
+                    <img src="Robert G.png" alt="Robert G" class="friend-avatar">
                     <span class="more-friends">+3 more friends</span>
                 </div>
         </div>
@@ -607,9 +655,9 @@
             </div>
             <button class="arrow" id="halloween-button" data-target="#halloween">→</button>
                                                         <div class="friends_preview">
-                    <img src="profile-pic.png" alt="Franklin Bristow" class="friend-avatar">
-                    <img src="profile-pic.png" alt="Stephane D" class="friend-avatar">
-                    <img src="profile-pic.png" alt="Lauren Himbeault" class="friend-avatar">
+                    <img src="Franklin Bristow.png" alt="Franklin Bristow" class="friend-avatar">
+                    <img src="Stephane D.png" alt="Stephane D" class="friend-avatar">
+                    <img src="Lauren Himbeault.png" alt="Lauren Himbeault" class="friend-avatar">
                 </div>
         </div>
 
@@ -637,9 +685,9 @@
             </div>
             <button id="goosies-button" class="arrow" data-target="#goosies">→</button>
                                                        <div class="friends_preview">
-                    <img src="profile-pic.png" alt="Franklin Bristow" class="friend-avatar">
-                    <img src="profile-pic.png" alt="Lauren Himbeault" class="friend-avatar">
-                    <img src="profile-pic.png" alt="Ben Li" class="friend-avatar">
+                    <img src="Franklin Bristow.png" alt="Franklin Bristow" class="friend-avatar">
+                    <img src="Lauren Himbeault.png" alt="Lauren Himbeault" class="friend-avatar">
+                    <img src="Ben Li.png" alt="Ben Li" class="friend-avatar">
                 </div>
         </div>
 
@@ -665,9 +713,9 @@
             </div>
             <button id="opus-button" class="arrow" data-target="#opus">→</button>
                                                        <div class="friends_preview">
-                    <img src="profile-pic.png" alt="Jim Young" class="friend-avatar">
-                    <img src="profile-pic.png" alt="Franklin Bristow" class="friend-avatar">
-                    <img src="profile-pic.png" alt="Lauren Himbeault" class="friend-avatar">
+                    <img src="Jim Young.png" alt="Jim Young" class="friend-avatar">
+                    <img src="Franklin Bristow.png" alt="Franklin Bristow" class="friend-avatar">
+                    <img src="Lauren Himbeault.png" alt="Lauren Himbeault" class="friend-avatar">
                     <span class="more-friends">+1 more friend</span>
                 </div>
         </div>
