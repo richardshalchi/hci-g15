@@ -16,10 +16,17 @@ body {
   border-right: 1px solid #e5e7eb;
   padding: 20px;
   padding-bottom: 40px;
-  width: 15%;
+  width: 18%;
   height: 100vh;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+
 }
+
+/* @media(max-width: 900px){
+  #left_col{
+    width: 20%;
+  }
+} */
 
 #logo {
   max-width: 100%;
@@ -46,10 +53,10 @@ body {
 .user-row{
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: flex-start;
   gap: 10px;
   margin: 12px 0 20px 0;
-
+  flex-wrap: nowrap;
 }
 
 .user-col{
@@ -60,17 +67,36 @@ body {
 }
 
 .user-label-inline {
+  max-width: 90;
+  text-align: center;
   font-size: 1.2rem;
   font-weight: 600;
   white-space: nowrap;
+  text-overflow: ellipsis;
   color: #374151;
-  margin-left: 8px;   
+  overflow: hidden;
+  flex-wrap:wrap;
+}
+
+@media (max-width: 1200px){
+  .user-row{
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .user-label-inline{
+    width:100%;
+    margin-top:6px;
+    text-align:center;
+  }
 }
 
 .profile-button, .calendar-button {
   width: 64px;
   height: 64px;
   border-radius: 50%;
+  flex-shrink:0;
   border: none;
   background: white;
   padding:0%;
@@ -141,6 +167,16 @@ body {
   box-sizing: border-box;
 }
 
+/* @media(max-width: 900px){
+  .search_wrapper{
+
+
+  }
+
+
+} */
+
+
 #search_input {
   flex: 1;
   min-width: 0;
@@ -201,6 +237,41 @@ body {
 
 .filters-reset-btn:active {
   transform: scale(0.96);
+}
+
+#filter-scroll{
+  max-height: calc(100vh - 380px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+  min-height: 200px;
+  scroll-behavior: smooth;
+
+}
+
+
+#filter-scroll::-webkit-scrollbar{
+  width:6px;
+
+}
+
+#filter-scroll::-webkit-scrollbar-thumb{
+ border-radius: 10px;
+ background: #d1d5db;
+  
+}
+
+@media (max-width: 900px){
+      #search_mobile_target {
+        /* margin-top: 10px; */
+        width: 100%;
+        padding: 0 20px 10px 20px;
+    }
+
+    #search_container {
+        width: 100%;
+        margin-bottom: 12px;
+    }
 }
 
 .filter_list {
@@ -522,6 +593,11 @@ body {
 
     @media (max-width: 900px) {
         /* stack card vertically: picture, then text */
+        .search_wrapper{
+
+
+        }
+
         .event_item {
             flex-direction: column;
             align-items: flex-start;
@@ -658,7 +734,7 @@ body {
 
 /* Friends pop set up START */
 #trending_list {
-  margin-left: calc(15% + 10px);
+  margin-left: calc(18% + 10px);
   padding-right: 24px;
   transition: margin-right 0.75s ease;
 }

@@ -346,6 +346,28 @@ function matchesTags(item) {
   return false;
 }
 
+function moveSearchBar() {
+  const searchBox = document.getElementById("search_container");
+  const searchBoxWrapper = document.querySelector("#search_area .search_box");
+  const mobileTarget = document.getElementById("search_mobile_target");
+
+  if (!searchBox || !searchBoxWrapper || !mobileTarget) return;
+
+  if (window.innerWidth < 900) {
+    if (!mobileTarget.contains(searchBox)) {
+      mobileTarget.appendChild(searchBox);
+    }
+  } else {
+    if (!searchBoxWrapper.contains(searchBox)) {
+      searchBoxWrapper.appendChild(searchBox);
+    }
+  }
+}
+
+window.addEventListener("resize", moveSearchBar);
+window.addEventListener("DOMContentLoaded", moveSearchBar);
+
+
 // Helper function for filterEvents. Updates the state when there is not event to display
 function updateEmptyState(visibleCount, hasSearch, hasTags) {
   if (!eventsEmpty) return;

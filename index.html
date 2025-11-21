@@ -63,11 +63,16 @@
         <!-- search bar stuff -->
         <div id="search_area">
             <p class="side-section-title">Search</p>
-            <div class="search_box">
-                <div class="search_wrapper">
-                    <input type="text" id="search_input" placeholder="CSSA, Social, Mixer,...">
-                    <span class="search_icon" aria-hidden="true">🔍</span>
+            
+            <div id="search_anchor"></div>
+            <div class="search_box" class="search_box">
+                <div id="search_container">
+                    <div class="search_wrapper">
+                        <input type="text" id="search_input" placeholder="Search">
+                        <span class="search_icon" aria-hidden="true">🔍</span>
+                    </div>
                 </div>
+
 
                 <div class="filters-header">
                     <p class="side-section-title">Filters</p>
@@ -75,6 +80,7 @@
                 </div>
         
                 <!-- All icons sourced from lucide: https://lucide.dev/icons/party-popper  -->
+            <div id="filter-scroll">
                 <ul class="filter_list">
                     <li data-tag="trending">
                         <span class="icon">
@@ -181,7 +187,7 @@
                         Nature
                     </li>
                 </ul>
-
+            </div>
                 
             </div>
         </div>
@@ -575,7 +581,7 @@
         <div id="trending_heading">
             <h1 class="section_title"></h1>
         </div>
-
+        <div id="search_mobile_target"></div>
         <div id="help_panel" class="help-panel" hidden>
             <div class="help-panel-header">
                 <h2 class="help-title">UMEvents</h2>
@@ -594,7 +600,7 @@
                 </ul>
             </div>
         </div>
-
+        
         <p id="events_count" class="results-meta" aria-live="polite"></p>
 
         <div id="events_empty" class="empty-state" aria-live="polite" hidden>
