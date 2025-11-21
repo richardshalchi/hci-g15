@@ -454,8 +454,6 @@ function newEvents(){
 
 }
 
-
-
 /**
  * Updates the big page heading based on active tags.
  * - No tags selected → "Popular" with a generic icon.
@@ -662,7 +660,7 @@ document.querySelectorAll('.event_item').forEach(item => {
         const modal = document.querySelector(sel);
         if (modal) {
             modal.classList.add('open');
-            document.body.classList.add('modal-open'); // Add this line
+            document.body.classList.add('modal-open');
         }
     });
 });
