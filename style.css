@@ -1192,11 +1192,12 @@ body.drawer-open #friends_button {
   width: 100%;
 }
 
+html.modal-open,
 body.modal-open {
     overflow: hidden;
-    position: fixed;
-    width: 100%;
-    height: 100%;
+    /* position: fixed; */
+    /* width: 100%;
+    height: 100%; */
 }
 
 .modal.open {
@@ -1212,7 +1213,6 @@ body.modal-open {
 
   overflow-y: auto;
   max-height: calc(600px - 150px);
-  overflow-x: hidden;
 }
 
 .modal-left {
@@ -1616,10 +1616,6 @@ body.modal-open {
 
 .modal-inner {
   position: relative;
-}
-
-body.modal-open {
-  overflow: hidden;
 }
 
 /* END OF EVENT MODAL*/
