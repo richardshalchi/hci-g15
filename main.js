@@ -313,6 +313,17 @@ const eventsEmpty = document.getElementById("events_empty");
 // Current active filter chips ("social", "science", etc.)
 let activeTags = new Set();
 
+// Helper methods
+function lockScroll() {
+  document.body.classList.add('modal-open');
+  document.documentElement.classList.add('modal-open');
+}
+
+function unlockScroll() {
+  document.body.classList.remove('modal-open');
+  document.documentElement.classList.remove('modal-open');
+}
+
 /**
  * Returns true if an event card matches the text query.
  * We search title + description + org + time as one big string.
@@ -627,7 +638,6 @@ carousels.forEach((carousel) => {
   });
 });
 
-// Exit out of the modal if the user clicked outside of the pop up card
 document.addEventListener('click', (e) => {
   const modal = e.target.closest('.modal');
   if (!modal) return; // if anything else is clicked other than the modal do nothing
@@ -636,7 +646,7 @@ document.addEventListener('click', (e) => {
   if (inside) return;
 
   modal.classList.remove('open'); // exit out
-  document.body.classList.remove('modal-open'); // turn the scrolling back on for the home page
+  unlockScroll(); // turn the scrolling back on for the home page
 });
 
 /* Check if the user clicked X. If they did, close the modal and allow scrolling for the home page.*/
@@ -650,7 +660,7 @@ document.addEventListener('click', (e) => {
   const modal = closeButton.closest('.modal');
   if (modal) {
     modal.classList.remove('open');
-    document.body.classList.remove('modal-open');
+    unlockScroll();
   }
 });
 
@@ -664,7 +674,7 @@ document.addEventListener('click', (e) => {
     const modal = document.querySelector(sel);
     if (modal) {
         modal.classList.add('open');
-        document.body.classList.remove('modal-open');
+        lockScroll();
     }
 });
 
@@ -682,7 +692,7 @@ document.querySelectorAll('.event_item').forEach(item => {
         const modal = document.querySelector(sel);
         if (modal) {
             modal.classList.add('open');
-            document.body.classList.add('modal-open');
+            lockScroll();
         }
     });
 });

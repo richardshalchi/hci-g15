@@ -1268,11 +1268,12 @@ body.drawer-open #friends_button {
   width: 100%;
 }
 
+html.modal-open,
 body.modal-open {
     overflow: hidden;
-    position: fixed;
-    width: 100%;
-    height: 100%;
+    /* position: fixed; */
+    /* width: 100%;
+    height: 100%; */
 }
 
 .modal.open {
