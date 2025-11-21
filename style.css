@@ -1212,6 +1212,7 @@ body.modal-open {
 
   overflow-y: auto;
   max-height: calc(600px - 150px);
+  overflow-x: hidden;
 }
 
 .modal-left {
