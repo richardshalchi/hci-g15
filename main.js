@@ -359,24 +359,30 @@ function matchesTags(item) {
 
 function moveSearchBar() {
   const searchBox = document.getElementById("search_container");
-  const searchBoxWrapper = document.querySelector("#search_area .search_box");
+  const desktopAnchor = document.getElementById("search_anchor");
   const mobileTarget = document.getElementById("search_mobile_target");
 
-  if (!searchBox || !searchBoxWrapper || !mobileTarget) return;
+  if (!searchBox || !desktopAnchor || !mobileTarget) {
+    console.warn("Missing one of the required search anchors.");
+    return;
+  }
 
   if (window.innerWidth < 900) {
+    // move to mobile
     if (!mobileTarget.contains(searchBox)) {
       mobileTarget.appendChild(searchBox);
     }
   } else {
-    if (!searchBoxWrapper.contains(searchBox)) {
-      searchBoxWrapper.appendChild(searchBox);
+    // move back to sidebar
+    if (!desktopAnchor.contains(searchBox)) {
+      desktopAnchor.appendChild(searchBox);
     }
   }
 }
 
 window.addEventListener("resize", moveSearchBar);
 window.addEventListener("DOMContentLoaded", moveSearchBar);
+
 
 
 // Helper function for filterEvents. Updates the state when there is not event to display
