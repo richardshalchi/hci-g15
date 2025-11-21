@@ -1615,4 +1615,8 @@ body.modal-open {
   position: relative;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 /* END OF EVENT MODAL*/
