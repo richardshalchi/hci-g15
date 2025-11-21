@@ -616,7 +616,7 @@ document.addEventListener('click', (e) => {
   if (inside) return;
 
   modal.classList.remove('open'); // exit out
-  document.body.style.overflow = 'auto'; // turn the scrolling back on for the home page
+  document.body.classList.remove('modal-open'); // turn the scrolling back on for the home page
 });
 
 /* Check if the user clicked X. If they did, close the modal and allow scrolling for the home page.*/
@@ -630,40 +630,41 @@ document.addEventListener('click', (e) => {
   const modal = closeButton.closest('.modal');
   if (modal) {
     modal.classList.remove('open');
-    document.body.style.overflow = 'auto';
+    document.body.classList.remove('modal-open');
   }
 });
 
 // Both arrows under Trending page and in friends pop-up will open the same event description card START
 document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.arrow[data-target]');
-  if (!btn) return;
+    const btn = e.target.closest('.arrow[data-target]');
+    if (!btn) return;
 
-  const sel = (btn.dataset.target || '').trim();
-  if (!sel) return;
-  const modal = document.querySelector(sel);
-  if (modal) modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
+    const sel = (btn.dataset.target || '').trim();
+    if (!sel) return;
+    const modal = document.querySelector(sel);
+    if (modal) {
+        modal.classList.add('open');
+        document.body.classList.remove('modal-open');
+    }
 });
 
 // Make entire event cards open the same modal as their arrow
 document.querySelectorAll('.event_item').forEach(item => {
-  item.addEventListener('click', (e) => {
-    // if they actually clicked the arrow, let the arrow handler deal with it
-    if (e.target.closest('.arrow')) return;
+    item.addEventListener('click', (e) => {
+        if (e.target.closest('.arrow')) return;
 
-    const arrow = item.querySelector('.arrow[data-target]');
-    if (!arrow) return;
+        const arrow = item.querySelector('.arrow[data-target]');
+        if (!arrow) return;
 
-    const sel = (arrow.dataset.target || '').trim();
-    if (!sel) return;
+        const sel = (arrow.dataset.target || '').trim();
+        if (!sel) return;
 
-    const modal = document.querySelector(sel);
-    if (modal) {
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-  });
+        const modal = document.querySelector(sel);
+        if (modal) {
+            modal.classList.add('open');
+            document.body.classList.add('modal-open'); // Add this line
+        }
+    });
 });
 
 // --------------

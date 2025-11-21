@@ -1195,6 +1195,8 @@ body.drawer-open #friends_button {
 body.modal-open {
     overflow: hidden;
     position: fixed;
+    width: 100%;
+    height: 100%;
 }
 
 .modal.open {
