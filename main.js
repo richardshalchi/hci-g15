@@ -1,10 +1,10 @@
 // Config data for tags, keywords & icons
 const eventTags = {
-  "ASE Career Fair": ["social","career", "trending", "science"],
+  "ASE Career Fair": ["social", "career", "trending", "science"],
   "CSA Halloween Social": ["social", "culture", "Food"],
   "The Goosies": ["social", "science", "culture"],
   "OPUS Study Night": ["science", "trending", "food"],
-  "Welcome Day": ["social", "trending","food"],
+  "Welcome Day": ["social", "trending", "food"],
   "Aurora Walk": ["nature", "trending"],
   "UM Sustainability Annual Nature Walk": ["nature"],
   "UM Budget Meeting": ["finance"],
@@ -94,17 +94,15 @@ const tagIcons = {
     <path d="M18 14h-8"/>
     <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/>
     <rect width="8" height="4" x="10" y="6" rx="1"/></svg>  `,
-  nature:`
+  nature: `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-leaf-icon lucide-leaf">
     <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
     <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>`,
-  trending:`
+  trending: `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up-icon lucide-trending-up">
     <path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/>
     </svg>
-  `
-
-
+  `,
 };
 
 const monthMap = {
@@ -315,13 +313,13 @@ let activeTags = new Set();
 
 // Helper methods
 function lockScroll() {
-  document.body.classList.add('modal-open');
-  document.documentElement.classList.add('modal-open');
+  document.body.classList.add("modal-open");
+  document.documentElement.classList.add("modal-open");
 }
 
 function unlockScroll() {
-  document.body.classList.remove('modal-open');
-  document.documentElement.classList.remove('modal-open');
+  document.body.classList.remove("modal-open");
+  document.documentElement.classList.remove("modal-open");
 }
 
 /**
@@ -333,9 +331,12 @@ function matchesSearch(item, searchText) {
   if (!q) return true;
 
   const title = item.querySelector("h2")?.textContent.toLowerCase() || "";
-  const description =item.querySelector(".event_description")?.textContent.toLowerCase() || "";
-  const org =item.querySelector(".organization")?.textContent.toLowerCase() || "";
-  const time =item.querySelector(".event_time")?.textContent.toLowerCase() || "";
+  const description =
+    item.querySelector(".event_description")?.textContent.toLowerCase() || "";
+  const org =
+    item.querySelector(".organization")?.textContent.toLowerCase() || "";
+  const time =
+    item.querySelector(".event_time")?.textContent.toLowerCase() || "";
 
   const possible = `${title} ${description} ${org} ${time}`;
   return possible.includes(q);
@@ -377,7 +378,6 @@ function moveSearchBar() {
 
 window.addEventListener("resize", moveSearchBar);
 window.addEventListener("DOMContentLoaded", moveSearchBar);
-
 
 // Helper function for filterEvents. Updates the state when there is not event to display
 function updateEmptyState(visibleCount, hasSearch, hasTags) {
@@ -453,38 +453,35 @@ function filterEvents(searchText = "") {
   updateEmptyState(visibleCount, hasSearch, hasTags);
 }
 
-function newEvents(){
-  const now= new Date();
-  const currentMonth= now.toLocaleString("defualt", {month: "long"}).toLowerCase();
+function newEvents() {
+  const now = new Date();
+  const currentMonth = now
+    .toLocaleString("defualt", { month: "long" })
+    .toLowerCase();
 
-  eventItems.forEach(item =>{
-      const timeText = item.querySelector(".event_time")?.textContent.toLowerCase() || "";
-      const title = item.querySelector("h2")?.textContent.trim();
+  eventItems.forEach((item) => {
+    const timeText =
+      item.querySelector(".event_time")?.textContent.toLowerCase() || "";
+    const title = item.querySelector("h2")?.textContent.trim();
 
-      if(!title)
-        return;
+    if (!title) return;
 
-      if(!eventTags[title])
-        eventTags[title]= [];
+    if (!eventTags[title]) eventTags[title] = [];
 
-      const shortMonth= Object.keys(monthMap).find(short =>
-        timeText.includes(short)
-      );
+    const shortMonth = Object.keys(monthMap).find((short) =>
+      timeText.includes(short)
+    );
 
-      if(!shortMonth)
-        return;
+    if (!shortMonth) return;
 
-      const eventMonth = monthMap[shortMonth];
+    const eventMonth = monthMap[shortMonth];
 
-      if(eventMonth == currentMonth){
-        if(!eventTags[title].includes("new")){
-          eventTags[title].push("new");
-        }
+    if (eventMonth == currentMonth) {
+      if (!eventTags[title].includes("new")) {
+        eventTags[title].push("new");
       }
-
-
+    }
   });
-
 }
 
 /**
@@ -638,63 +635,63 @@ carousels.forEach((carousel) => {
   });
 });
 
-document.addEventListener('click', (e) => {
-  const modal = e.target.closest('.modal');
+document.addEventListener("click", (e) => {
+  const modal = e.target.closest(".modal");
   if (!modal) return; // if anything else is clicked other than the modal do nothing
 
-  const inside = e.target.closest('.modal-inner'); // if the pop up is clicked do nothing
+  const inside = e.target.closest(".modal-inner"); // if the pop up is clicked do nothing
   if (inside) return;
 
-  modal.classList.remove('open'); // exit out
+  modal.classList.remove("open"); // exit out
   unlockScroll(); // turn the scrolling back on for the home page
 });
 
 /* Check if the user clicked X. If they did, close the modal and allow scrolling for the home page.*/
-document.addEventListener('click', (e) => {
-  const closeButton = e.target.closest('#close-event'); // check if the clicked event is a close button
+document.addEventListener("click", (e) => {
+  const closeButton = e.target.closest("#close-event"); // check if the clicked event is a close button
   if (!closeButton) return; // if not get out
 
   e.stopPropagation(); // prevent affecting parent elements (bubble)
   e.preventDefault();
 
-  const modal = closeButton.closest('.modal');
+  const modal = closeButton.closest(".modal");
   if (modal) {
-    modal.classList.remove('open');
+    modal.classList.remove("open");
     unlockScroll();
   }
 });
 
 // Both arrows under Trending page and in friends pop-up will open the same event description card START
-document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.arrow[data-target]');
-    if (!btn) return;
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".arrow[data-target]");
+  if (!btn) return;
 
-    const sel = (btn.dataset.target || '').trim();
-    if (!sel) return;
-    const modal = document.querySelector(sel);
-    if (modal) {
-        modal.classList.add('open');
-        lockScroll();
-    }
+  const sel = (btn.dataset.target || "").trim();
+  if (!sel) return;
+  const modal = document.querySelector(sel);
+  if (modal) {
+    modal.classList.add("open");
+    lockScroll();
+  }
 });
 
 // Make entire event cards open the same modal as their arrow
-document.querySelectorAll('.event_item').forEach(item => {
-    item.addEventListener('click', (e) => {
-        if (e.target.closest('.arrow')) return;
+document.querySelectorAll(".event_item").forEach((item) => {
+  item.addEventListener("click", (e) => {
+    if (e.target.closest(".arrow")) return;
 
-        const arrow = item.querySelector('.arrow[data-target]');
-        if (!arrow) return;
+    const arrow = item.querySelector(".arrow[data-target]");
+    if (!arrow) return;
 
-        const sel = (arrow.dataset.target || '').trim();
-        if (!sel) return;
+    const sel = (arrow.dataset.target || "").trim();
+    if (!sel) return;
 
-        const modal = document.querySelector(sel);
-        if (modal) {
-            modal.classList.add('open');
-            lockScroll();
-        }
-    });
+    const modal = document.querySelector(sel);
+    if (modal) {
+      modal.classList.add("open");
+      lockScroll();
+    }
+  });
 });
 
 // --------------
