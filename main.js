@@ -582,6 +582,7 @@ document.querySelectorAll(".Register").forEach((button) => {
   });
 });
 
+/* Allow the user to flip through the images */
 const carousels = document.querySelectorAll(".carousel-images");
 
 carousels.forEach((carousel) => {
@@ -590,7 +591,7 @@ carousels.forEach((carousel) => {
 
   const showImage = (index) => {
     images.forEach((img, i) => {
-      img.classList.toggle("active", i === index); // toggles the ith image to be active
+      img.classList.toggle("active", i === index); // loop until we find ith msg, toggles the ith image to be active
     });
   };
 
@@ -606,26 +607,19 @@ carousels.forEach((carousel) => {
   });
 });
 
-// exit out of modal if outside is clicked
+// Exit out of the modal if the user clicked outside of the pop up card
 document.addEventListener('click', (e) => {
   const modal = e.target.closest('.modal');
-  if (!modal) return;
+  if (!modal) return; // if anything else is clicked other than the modal do nothing
 
-  const inside = e.target.closest('.modal-inner');
+  const inside = e.target.closest('.modal-inner'); // if the pop up is clicked do nothing
   if (inside) return;
 
-  modal.classList.remove('open');
-  document.body.style.overflow = 'auto';
+  modal.classList.remove('open'); // exit out
+  document.body.style.overflow = 'auto'; // turn the scrolling back on for the home page
 });
 
-
-document.querySelectorAll(".interests").forEach(button => {
-  button.addEventListener("click", function () {
-    this.classList.add("disabled");
-    this.textContent = "Added to Interests";
-  });
-});
-
+/* Check if the user clicked X. If they did, close the modal and allow scrolling for the home page.*/
 document.addEventListener('click', (e) => {
   const closeButton = e.target.closest('#close-event'); // check if the clicked event is a close button
   if (!closeButton) return; // if not get out
