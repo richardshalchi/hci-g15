@@ -1687,4 +1687,45 @@ body.modal-open {
   position: relative;
 }
 
+/* Modal layout ONLY on narrow screens */
+@media (max-width: 900px) {
+  .modal-inner {
+    width: calc(100vw - 24px);
+    max-width: 100%;
+    height: auto;
+    max-height: calc(100vh - 24px);
+    padding: 16px;
+    margin: 8px;
+    overflow-y: auto;
+  }
+
+  .modal-content {
+    flex-direction: column;
+    max-height: none;
+  }
+
+  .modal-left {
+    margin-right: 0;
+    padding-right: 0;
+    border-right: none;
+  }
+
+  .modal-right {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 16px;
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+
+    position: static;
+    top: auto;
+  }
+
+  .carousel img {
+    width: 100%;
+    height: auto;
+  }
+}
+
 /* END OF EVENT MODAL*/
