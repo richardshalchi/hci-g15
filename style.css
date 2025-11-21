@@ -593,10 +593,6 @@ body {
 
     @media (max-width: 900px) {
         /* stack card vertically: picture, then text */
-        .search_wrapper{
-
-
-        }
 
         .event_item {
             flex-direction: column;
